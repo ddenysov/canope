@@ -54,6 +54,11 @@ class SymfonyHttpKernel extends BaseKernel
         return $this->config->getBaseDir().'/var/cache';
     }
 
+    public function getProjectDir(): string
+    {
+        return $this->config->getBaseDir();
+    }
+
     #[\Override] protected function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new CommandHandlerDecoratorPass());

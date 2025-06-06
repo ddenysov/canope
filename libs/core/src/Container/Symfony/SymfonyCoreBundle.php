@@ -75,6 +75,14 @@ class SymfonyCoreBundle extends AbstractBundle
                         'rr' => 'rr://...',
                     ],
                 ],
+                'validation' => [
+                    'enabled' => true,
+                    'mapping' => [
+                        'paths' => [
+                            '%kernel.project_dir%/config/validation',
+                        ],
+                    ],
+                ],
         ]);
     }
 

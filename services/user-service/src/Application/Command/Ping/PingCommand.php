@@ -8,6 +8,8 @@ use Zinc\Core\Command\CommandInterface;
 
 class PingCommand implements CommandInterface
 {
+    public string $firstName = '';
+
     #[Override] public function toArray(): array
     {
         // TODO: Implement toArray() method.
