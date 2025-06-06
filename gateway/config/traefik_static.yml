@@ -1,0 +1,6 @@
+entryPoints:
+  web:
+    address: ":8000"            # Traefik слушает порт 8000 внутри контейнера :contentReference[oaicite:0]{index=0}
+
+api:
+  dashboard: true               # смотрим UI на /dashboard
