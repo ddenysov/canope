@@ -28,6 +28,6 @@ class ValidationResult implements AsArray
 
     public function valid(): bool
     {
-        return count($this->errors) > 0;
+        return count($this->errors) === 0;
     }
 }
