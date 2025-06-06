@@ -23,11 +23,8 @@ class IndexController
         $errors = [];
 
         foreach ($violations as $violation) {
-            $errors[] = sprintf(
-                '%s: %s',
-                $violation->getPropertyPath(),
-                $violation->getMessage()
-            );
+            $field = $violation->getPropertyPath();
+            $errors[$field][] = $violation->getMessage();
         }
         $bus->dispatch($command);
 
