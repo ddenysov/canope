@@ -60,7 +60,7 @@ class JobsWorker
                     'payload' => $payload,
                 ]);
                 $class    = $payload->getType();
-                $envelope = new Envelope(new $class(PingId::create()));
+                $envelope = new Envelope(new $class());
                 $eventBus = $this->kernel->getContainer()->get('messenger.default_bus');
 
                 Logger::debug('ENVELOPE', [

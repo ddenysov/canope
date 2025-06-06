@@ -3,15 +3,10 @@ declare(strict_types=1);
 
 namespace Denysov\UserService\Application\Command\Ping;
 
-use Override;
+use Zinc\Core\Command\AbstractCommand;
 use Zinc\Core\Command\CommandInterface;
 
-class PingCommand implements CommandInterface
+class PingCommand extends AbstractCommand implements CommandInterface
 {
     public string $firstName = '';
-
-    #[Override] public function toArray(): array
-    {
-        // TODO: Implement toArray() method.
-    }
 }

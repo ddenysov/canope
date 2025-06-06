@@ -18,6 +18,8 @@ use Zinc\Core\Event\EventHandlerInterface;
 use Zinc\Core\Integration\Bridge\InMemory\InMemoryMessagePublisher;
 use Zinc\Core\Integration\MessagePublisherInterface;
 use Zinc\Core\Messaging\Symfony\RoadRunner\RoadRunnerFactory;
+use Zinc\Core\Validator\CommandValidatorInterface;
+use Zinc\Core\Validator\Symfony\CommandValidator;
 
 class SymfonyCoreBundle extends AbstractBundle
 {
@@ -49,6 +51,9 @@ class SymfonyCoreBundle extends AbstractBundle
         )->autowire()->public();
         $container->services()->set(
             MessagePublisherInterface::class, InMemoryMessagePublisher::class
+        )->autowire()->public();
+        $container->services()->set(
+            CommandValidatorInterface::class, CommandValidator::class
         )->autowire()->public();
 
         $container->services()->alias('Psr\Log\LoggerInterface', 'monolog.logger')->public();
