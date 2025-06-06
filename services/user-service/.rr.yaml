@@ -1,0 +1,53 @@
+version: '3'
+
+rpc:
+  listen: tcp://127.0.0.1:6001
+
+server:
+  command: "php workers/worker.php"
+  relay: pipes
+
+http:
+  address: "0.0.0.0:8080"
+  pool:
+    allocate_timeout: 1000s
+    num_workers: 1
+    debug: true
+  # middlewares:
+  #  logger: true
+
+service:
+  outbox:
+    command: "php workers/outbox.php"
+    process_num: 1
+    timeout_stop_sec: 10
+    exec_timeout: 0s
+    remain_after_exit: true
+    service_name_in_log: false
+    env:
+      - foo: "BAR"
+    restart_sec: 1
+
+#logs:
+#  mode: development
+#  level: debug
+#  channels:
+#    http:
+#      level: debug
+#      output: http.log
+watcher:
+  enabled: true
+  patterns: [".php"]
+
+jobs:
+  consume: [ "demo-queue" ]
+  pool:
+    debug: true
+    num_workers: 1
+    supervisor:
+      max_worker_memory: 100
+  pipelines:
+    demo-queue:
+      driver: memory
+      config:
+        priority: 10

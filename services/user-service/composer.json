@@ -1,0 +1,44 @@
+{
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../core"
+    }
+  ],
+  "require": {
+    "services/core": "dev-main",
+    "spiral/roadrunner": "^2025.1",
+    "spiral/roadrunner-http": "^3.5",
+    "nyholm/psr7": "^1.8",
+    "spiral/roadrunner-cli": "^2.7",
+    "symfony/dependency-injection": "^7.2",
+    "symfony/config": "^7.2",
+    "symfony/yaml": "^7.2",
+    "symfony/http-foundation": "^7.2",
+    "symfony/routing": "^7.2",
+    "symfony/http-kernel": "^7.2",
+    "symfony/event-dispatcher": "^7.2",
+    "symfony/psr-http-message-bridge": "^7.2",
+    "nyholm/psr7-server": "^1.1",
+    "symfony/framework-bundle": "^7.2",
+    "symfony/monolog-bundle": "^3.10",
+    "symfony/runtime": "^7.2",
+    "spiral/roadrunner-jobs": "^4.6",
+    "cloudevents/sdk-php": "^1.2",
+    "doctrine/migrations": "^3.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Denysov\\UserService\\": "src/"
+    }
+  },
+  "scripts": {
+    "cs:diff": "php-cs-fixer fix --dry-run -v --diff",
+    "cs:fix": "php-cs-fixer fix -v"
+  },
+  "config": {
+    "allow-plugins": {
+      "symfony/runtime": true
+    }
+  }
+}

@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Denysov\UserService\Delivery\Http\:
+    resource: '../src/Delivery/Http/'
+    tags: [ 'controller.service_arguments' ]
+
+  Denysov\UserService\Application\:
+    resource: '../src/Application/'

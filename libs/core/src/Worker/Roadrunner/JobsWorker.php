@@ -4,8 +4,7 @@ declare(strict_types=1);
 namespace Zinc\Core\Worker\Roadrunner;
 
 use CloudEvents\Serializers\JsonDeserializer;
-use Denysov\Demo\Domain\Model\Ping\PingId;
-use Denysov\Demo\Infrastructure\Container\Symfony\SymfonyHttpKernel;
+use Denysov\UserService\Domain\Model\Ping\PingId;
 use Spiral\RoadRunner\Environment\Mode;
 use Spiral\RoadRunner\EnvironmentInterface;
 use Spiral\RoadRunner\Jobs\Consumer;
