@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Zinc\Core\Query;
 
-final class CollectionQuery
+final class ListQuery
 {
     public function __construct(
         public readonly string  $collection,
