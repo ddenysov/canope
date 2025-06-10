@@ -18,6 +18,9 @@ use Zinc\Core\Event\EventHandlerInterface;
 use Zinc\Core\Integration\Bridge\InMemory\InMemoryMessagePublisher;
 use Zinc\Core\Integration\MessagePublisherInterface;
 use Zinc\Core\Messaging\Symfony\RoadRunner\RoadRunnerFactory;
+use Zinc\Core\Query\Bridge\Symfony\MessengerQueryBus;
+use Zinc\Core\Query\QueryBusInterface;
+use Zinc\Core\Query\QueryHandlerInterface;
 use Zinc\Core\Validator\CommandValidatorInterface;
 use Zinc\Core\Validator\Symfony\CommandValidator;
 
@@ -28,6 +31,8 @@ class SymfonyCoreBundle extends AbstractBundle
         $container->registerForAutoconfiguration(CommandHandlerInterface::class)
             ->addTag('messenger.message_handler');
         $container->registerForAutoconfiguration(EventHandlerInterface::class)
+            ->addTag('messenger.message_handler');
+        $container->registerForAutoconfiguration(QueryHandlerInterface::class)
             ->addTag('messenger.message_handler');
 
         $definition = (new Definition(RoadRunnerFactory::class))
@@ -40,6 +45,9 @@ class SymfonyCoreBundle extends AbstractBundle
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
+        $container->services()->set(
+            QueryBusInterface::class, MessengerQueryBus::class
+        )->autowire();
         $container->services()->set(
             CommandBusInterface::class, MessengerCommandBus::class
         )->autowire();

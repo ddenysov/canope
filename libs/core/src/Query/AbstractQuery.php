@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Zinc\Core\Command;
+namespace Zinc\Core\Query;
 
-abstract class AbstractCommand implements CommandInterface
+use Zinc\Core\Query\QueryInterface;
+
+abstract class AbstractQuery implements QueryInterface
 {
     public string $id;
 

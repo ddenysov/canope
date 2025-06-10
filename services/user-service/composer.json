@@ -26,7 +26,10 @@
     "spiral/roadrunner-jobs": "^4.6",
     "cloudevents/sdk-php": "^1.2",
     "doctrine/migrations": "^3.9",
-    "symfony/validator": "^7.3"
+    "symfony/validator": "^7.3",
+    "willdurand/hateoas": "^3.12",
+    "symfony/serializer": "^7.3",
+    "symfony/property-info": "^7.3"
   },
   "autoload": {
     "psr-4": {
