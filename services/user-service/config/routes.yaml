@@ -5,3 +5,7 @@ hello:
 view:
   path: /view
   controller: Denysov\UserService\Delivery\Http\ViewController
+
+list:
+  path: /list
+  controller: Denysov\UserService\Delivery\Http\ListController
