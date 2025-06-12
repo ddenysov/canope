@@ -4,5 +4,5 @@ namespace Zinc\Core\Query;
 
 interface QueryBusInterface
 {
-    public function dispatch(QueryInterface $query): array;
+    public function dispatch(QueryInterface $query): mixed;
 }

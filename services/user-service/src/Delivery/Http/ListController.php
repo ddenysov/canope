@@ -3,21 +3,24 @@ declare(strict_types=1);
 
 namespace Denysov\UserService\Delivery\Http;
 
+use Denysov\UserService\Application\Query\PingListQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Zinc\Core\Http\Response\JsonApiCollectionResponse;
 use Zinc\Core\Query\MapQueryString;
 use Zinc\Core\Query\ListQuery;
+use Zinc\Core\Query\QueryBusInterface;
 
 class ListController
 {
-    public function __invoke(#[MapQueryString] ListQuery $query): JsonResponse
-    {
-        $page = $query->page;
-        //$sort = $query->sort;
-        // ....
 
-        return new JsonResponse([
-            'page' => $query->pageNumber,
-            'size' => $query->pageSize,
-        ]);
+    public function __construct(private QueryBusInterface $bus)
+    {
+    }
+
+    public function __invoke(#[MapQueryString] PingListQuery $query): JsonResponse
+    {
+        $result = $this->bus->dispatch($query);
+
+        return new JsonApiCollectionResponse($query, $result);
     }
 }

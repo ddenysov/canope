@@ -25,7 +25,7 @@ final readonly class MessengerQueryBus implements QueryBusInterface
     /**
      * @throws ExceptionInterface
      */
-    public function dispatch(QueryInterface $query): array
+    public function dispatch(QueryInterface $query): mixed
     {
         $envelope = $this->bus->dispatch($query);
 
@@ -35,14 +35,6 @@ final readonly class MessengerQueryBus implements QueryBusInterface
             throw new \RuntimeException('Query was not handled');
         }
 
-        $result = $handledStamp->getResult();
-
-        if (!is_array($result)) {
-            throw new \InvalidArgumentException(
-                sprintf('Handler must return array, got %s', gettype($result))
-            );
-        }
-
-        return $result;
+        return $handledStamp->getResult();;
     }
 }

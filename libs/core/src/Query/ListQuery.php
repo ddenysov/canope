@@ -6,7 +6,7 @@ namespace Zinc\Core\Query;
 
 use Zinc\Core\Support\JsonApi\JsonApiListQueryFactoryInterface;
 
-final class ListQuery implements JsonApiListQueryFactoryInterface
+class ListQuery implements JsonApiListQueryFactoryInterface, QueryInterface
 {
     /**
      * @var int|null page[number] — номер страницы (начиная с 1)
@@ -38,10 +38,15 @@ final class ListQuery implements JsonApiListQueryFactoryInterface
 
     #[\Override] public static function fromJsonApiArray(array $array): static
     {
-        $instance             = new self();
+        $instance             = new static();
         $instance->pageNumber = isset($array['page']['number']) ? (int) $array['page']['number'] : 1;
         $instance->pageSize   = isset($array['page']['size']) ? (int) $array['page']['size'] : 10;
 
         return $instance;
+    }
+
+    #[\Override] public function toArray(): array
+    {
+        // TODO: Implement toArray() method.
     }
 }
