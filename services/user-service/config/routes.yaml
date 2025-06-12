@@ -3,7 +3,7 @@ hello:
   controller: Denysov\UserService\Delivery\Http\Controller\IndexController
 
 view:
-  path: /view
+  path: /view/{id}
   controller: Denysov\UserService\Delivery\Http\Controller\ViewController
 
 list:

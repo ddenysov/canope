@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Denysov\UserService\Delivery\Http\Controller;
 
 use Denysov\UserService\Application\Query\PingListQuery;
+use Denysov\UserService\Delivery\Http\Response\PingCollection;
 use Denysov\UserService\Delivery\Http\Response\PingCollectionResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Zinc\Core\Http\Response\JsonApiCollectionResponse;
@@ -22,6 +23,6 @@ class ListController
     {
         $result = $this->bus->dispatch($query);
 
-        return new PingCollectionResponse($query, $result);
+        return new PingCollection($query, $result);
     }
 }

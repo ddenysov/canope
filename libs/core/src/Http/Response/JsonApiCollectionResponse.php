@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zinc\Core\Http\Response;
 
+use Denysov\UserService\Delivery\Http\Response\Resource\PingResource;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Zinc\Core\Query\ListQuery;
 use Zinc\Core\Query\PaginatedResult;
@@ -30,12 +31,10 @@ abstract class JsonApiCollectionResponse extends JsonResponse
             return $baseUrl . '?' . http_build_query($params);
         };
 
+        $resource = $this->getResource();
+
         $items = array_map(
-            fn ($item) => [
-                'type'       => $this->getType(),
-                'id'         => (string) $item['id'],
-                'attributes' => $this->mapAttributes($item),
-            ],
+            fn ($item) => (new $resource($item))(),
             $result->items,
         );
 
@@ -59,7 +58,5 @@ abstract class JsonApiCollectionResponse extends JsonResponse
         ]);
     }
 
-    abstract protected function mapAttributes(array $item): array;
-
-    abstract protected function getType(): string;
+    abstract protected function getResource(): string;
 }

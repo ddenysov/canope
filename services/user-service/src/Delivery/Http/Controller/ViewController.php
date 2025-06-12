@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Denysov\UserService\Delivery\Http\Controller;
 
 use Denysov\UserService\Application\Query\FindPingQuery;
+use Denysov\UserService\Delivery\Http\Response\Resource\PingResource;
 use Hateoas\HateoasBuilder;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,22 +18,17 @@ class ViewController
 {
     public function __construct(
         private DataStoreInterface $store,
-        private QueryBusInterface $bus,
+        private QueryBusInterface  $bus,
     )
     {
     }
 
-    public function __invoke(Request $request, CommandBusInterface $bus, LoggerInterface $logger)
+    public function __invoke(string $id)
     {
-        $query  = RequestToQueryTransformer::transform($request, FindPingQuery::class);
+        $query  = new FindPingQuery();
+        $query->id = $id;
         $result = $this->bus->dispatch($query);
 
-        $hateoas = HateoasBuilder::create()->build();
-        $json    = $hateoas->serialize($result, 'json');
-
-        return new JsonResponse([
-            'data' => $result,
-            'json' => json_decode($json, true),
-        ]);
+        return new JsonResponse((new PingResource($result))());
     }
 }

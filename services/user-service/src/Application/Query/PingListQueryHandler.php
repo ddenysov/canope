@@ -5,6 +5,7 @@ namespace Denysov\UserService\Application\Query;
 
 use Zinc\Core\DataStore\Criteria;
 use Zinc\Core\DataStore\DataStoreInterface;
+use Zinc\Core\DataStore\QueryOptions;
 use Zinc\Core\Query\PaginatedResult;
 use Zinc\Core\Query\QueryHandlerInterface;
 
@@ -19,6 +20,8 @@ class PingListQueryHandler implements QueryHandlerInterface
     {
         $items = $this->store->find(
             'read_model_users',
+            null,
+            new QueryOptions([], $query->pageSize)
         );
 
         return new PaginatedResult($items, 123);
