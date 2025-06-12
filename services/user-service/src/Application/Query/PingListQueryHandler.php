@@ -11,7 +11,9 @@ use Zinc\Core\Query\QueryHandlerInterface;
 
 class PingListQueryHandler implements QueryHandlerInterface
 {
-
+    /**
+     * @param DataStoreInterface $store
+     */
     public function __construct(private DataStoreInterface $store)
     {
     }
