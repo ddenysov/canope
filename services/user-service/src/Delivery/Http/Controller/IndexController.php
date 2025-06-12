@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Denysov\UserService\Delivery\Http;
+namespace Denysov\UserService\Delivery\Http\Controller;
 
 use Denysov\UserService\Application\Command\Ping\PingCommand;
 use Psr\Log\LoggerInterface;

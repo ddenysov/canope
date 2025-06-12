@@ -7,11 +7,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Zinc\Core\Query\ListQuery;
 use Zinc\Core\Query\PaginatedResult;
 
-class JsonApiCollectionResponse extends JsonResponse
+abstract class JsonApiCollectionResponse extends JsonResponse
 {
     public function __construct(ListQuery $query, PaginatedResult $result)
     {
-        $totalPages  = 100;
+        $totalPages  = $result->total;
         $baseUrl     = 'http://localhost:8280/list';
         $queryParams = [];
         if ($query->sort !== null) {
@@ -31,18 +31,16 @@ class JsonApiCollectionResponse extends JsonResponse
         };
 
         $items = array_map(
-            fn($item) => [
-                'type' => 'user',
-                'id' => (string) $item['id'],
-                'attributes' => [
-                    'email' => $item['email'],
-                ],
+            fn ($item) => [
+                'type'       => $this->getType(),
+                'id'         => (string) $item['id'],
+                'attributes' => $this->mapAttributes($item),
             ],
             $result->items,
         );
 
         parent::__construct([
-            'data' => $items,
+            'data'  => $items,
             'meta'  => [
                 'page' => [
                     'number'     => $query->pageNumber,
@@ -60,4 +58,8 @@ class JsonApiCollectionResponse extends JsonResponse
             ],
         ]);
     }
+
+    abstract protected function mapAttributes(array $item): array;
+
+    abstract protected function getType(): string;
 }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Denysov\UserService\Delivery\Http;
+namespace Denysov\UserService\Delivery\Http\Controller;
 
 use Denysov\UserService\Application\Query\FindPingQuery;
 use Hateoas\HateoasBuilder;
@@ -9,7 +9,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Zinc\Core\Command\CommandBusInterface;
-use Zinc\Core\DataStore\Criteria;
 use Zinc\Core\DataStore\DataStoreInterface;
 use Zinc\Core\Query\Bridge\Symfony\RequestToQueryTransformer;
 use Zinc\Core\Query\QueryBusInterface;

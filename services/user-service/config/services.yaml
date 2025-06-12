@@ -4,8 +4,8 @@ services:
     autoconfigure: true
     public: false
 
-  Denysov\UserService\Delivery\Http\:
-    resource: '../src/Delivery/Http/'
+  Denysov\UserService\Delivery\Http\Controller\:
+    resource: '../src/Delivery/Http/Controller'
     tags: [ 'controller.service_arguments' ]
 
   Denysov\UserService\Application\:
