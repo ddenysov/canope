@@ -14,7 +14,6 @@ abstract class JsonApiCollectionResponse extends JsonResponse
     public function __construct(ListQuery $query, PaginatedResult $result)
     {
         $totalPages  = $result->total;
-        $baseUrl     = 'http://localhost:8280/list';
         $queryParams = [];
         if ($query->sort !== null) {
             $queryParams['sort'] = $query->sort;
@@ -24,7 +23,7 @@ abstract class JsonApiCollectionResponse extends JsonResponse
         }
 
 
-        $buildLink = function (int $page) use ($baseUrl, $query, $queryParams): string {
+        $buildLink = function (int $page) use ($query, $queryParams): string {
             $params = array_merge($queryParams, [
                 'page[number]' => (string) $page,
                 'page[size]'   => (string) $query->pageSize,

@@ -23,9 +23,12 @@ class PingListQueryHandler implements QueryHandlerInterface
         $items = $this->store->find(
             'read_model_users',
             null,
-            new QueryOptions([], $query->pageSize)
+            new QueryOptions([], $query->pageSize, $query->getOffset())
+        );
+        $count = $this->store->count(
+            'read_model_users',
         );
 
-        return new PaginatedResult($items, 123);
+        return new PaginatedResult($items, $count);
     }
 }

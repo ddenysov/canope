@@ -22,6 +22,8 @@ interface DataStoreInterface
      */
     public function find(string $collection, ?Criteria $criteria = null, ?QueryOptions $options = null): iterable;
 
+    public function count(string $collection, ?Criteria $criteria = null, ?QueryOptions $options = null): int;
+
     public function findOne(string $collection, Criteria $criteria, ?QueryOptions $options = null): ?array;
 
     public function transactional(callable $fn): mixed;

@@ -30,4 +30,24 @@ class Url
 
         return $baseUrl;
     }
+
+    public static function path(array $params = []): string
+    {
+        $queryString = '';
+        if (!empty($params)) {
+            $queryString = '?' . http_build_query($params);
+        }
+        $url = $_SERVER['REQUEST_URI'];
+        $parts = parse_url($url);
+
+        if (isset($parts['port'])) {
+            $parts['host'] = $parts['host'] . ':' . $parts['port'];
+        }
+
+        return implode('', [
+            self::host(),
+            $parts['path'],
+            $queryString
+        ]);
+    }
 }

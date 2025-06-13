@@ -77,7 +77,12 @@ final class PdoDataStore implements DataStoreInterface
     public function find(string $collection, ?Criteria $criteria = null, ?QueryOptions $options = null): iterable
     {
         $sql = 'SELECT ';
-        $sql .= $options?->select ? \implode(',', \array_map([$this, 'q'], $options->select)) : '*';
+        if (isset($options->select[0]) && substr_count( $options->select[0], 'COUNT') > 0) {
+            $sql .= 'COUNT(*) as total_count';
+        } else {
+            $sql .= $options?->select ? \implode(',', \array_map([$this, 'q'], $options->select)) : '*';
+        }
+
 
         if (is_null($criteria)) {
             $p   = [];
@@ -103,6 +108,18 @@ final class PdoDataStore implements DataStoreInterface
         }
 
         return $this->exec($sql, $p)->fetchAll();
+    }
+
+    #[\Override] public function count(string $collection, ?Criteria $criteria = null, ?QueryOptions $options = null): int
+    {
+        if (is_null($options)) {
+            $options = new QueryOptions();
+        }
+        $options = $options->withSelect(['COUNT(*)']);
+
+        $result = $this->find($collection, $criteria, $options);
+
+        return $result[0]['total_count'];
     }
 
     public function findOne(string $collection, Criteria $criteria, ?QueryOptions $options = null): ?array

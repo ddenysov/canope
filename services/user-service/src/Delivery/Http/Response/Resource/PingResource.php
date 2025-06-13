@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace Denysov\UserService\Delivery\Http\Response\Resource;
 
 
-use JsonSerializable;
 use Zinc\Core\Http\Resource\AbstractResource;
+use Zinc\Core\Support\Url\Url;
 
 class PingResource extends AbstractResource
 {
-    #[\Override] function getType(): string
+    #[\Override] public function getType(): string
     {
         return 'ping';
     }
@@ -20,5 +20,10 @@ class PingResource extends AbstractResource
         return [
             'email' => $item['email'],
         ];
+    }
+
+    #[\Override] public function getUrl(): string
+    {
+        return Url::to('view');
     }
 }

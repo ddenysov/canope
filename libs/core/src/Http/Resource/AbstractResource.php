@@ -5,6 +5,8 @@ namespace Zinc\Core\Http\Resource;
 
 use JsonSerializable;
 use Zinc\Core\Logging\Logger;
+use Zinc\Core\Query\ListQuery;
+use Zinc\Core\Query\PaginatedResult;
 use Zinc\Core\Support\Url\Url;
 
 abstract class AbstractResource implements JsonSerializable
@@ -26,19 +28,21 @@ abstract class AbstractResource implements JsonSerializable
 
     public function __invoke(): array
     {
-        Logger::debug(json_encode($_SERVER, JSON_PRETTY_PRINT));
-
         return [
             'type'       => $this->getType(),
             'id'         => (string) $this->data['id'],
             'attributes' => $this->mapAttributes($this->data),
             'links'      => [
-                'self'   => Url::to('view/' . $this->data['id']),
+                'self'   => $this->getUrl() . '/' . $this->data['id'],
             ],
         ];
     }
 
-    abstract function getType(): string;
+    public static function collection(ListQuery $query, PaginatedResult $result): ResourceCollection
+    {
+        return new ResourceCollection(static::class, $query, $result);
+    }
 
-    //abstract function getUrl(): string;
+    abstract public function getType(): string;
+    abstract public function getUrl(): string;
 }

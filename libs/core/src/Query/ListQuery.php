@@ -49,4 +49,9 @@ class ListQuery implements JsonApiListQueryFactoryInterface, QueryInterface
     {
         // TODO: Implement toArray() method.
     }
+
+    public function getOffset(): int
+    {
+        return ($this->pageSize * ($this->pageNumber - 1));
+    }
 }
