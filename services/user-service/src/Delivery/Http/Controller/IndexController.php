@@ -14,12 +14,13 @@ use Zinc\Core\Command\CommandBusInterface;
 class IndexController
 {
     public function __construct(
-        private CommandValidatorInterface $validator
+        private CommandValidatorInterface $validator,
+        private CommandBusInterface $bus
     )
     {
     }
 
-    public function __invoke(Request $request, CommandBusInterface $bus, LoggerInterface $logger)
+    public function __invoke(Request $request)
     {
         $command = new PingCommand([
             'id'        => Uuid::create()->toString(),
@@ -29,7 +30,7 @@ class IndexController
         $result = $this->validator->validate($command);
 
         if ($result->valid()) {
-            $bus->dispatch($command);
+            $this->bus->dispatch($command);
         }
 
         return new JsonResponse([

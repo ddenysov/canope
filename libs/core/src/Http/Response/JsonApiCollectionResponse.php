@@ -7,6 +7,7 @@ use Denysov\UserService\Delivery\Http\Response\Resource\PingResource;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Zinc\Core\Query\ListQuery;
 use Zinc\Core\Query\PaginatedResult;
+use Zinc\Core\Support\Url\Url;
 
 abstract class JsonApiCollectionResponse extends JsonResponse
 {
@@ -28,7 +29,7 @@ abstract class JsonApiCollectionResponse extends JsonResponse
                 'page[number]' => (string) $page,
                 'page[size]'   => (string) $query->pageSize,
             ]);
-            return $baseUrl . '?' . http_build_query($params);
+            return Url::to('list', $params);
         };
 
         $resource = $this->getResource();

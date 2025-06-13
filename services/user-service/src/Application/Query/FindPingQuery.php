@@ -8,5 +8,5 @@ use Zinc\Core\Query\QueryInterface;
 
 class FindPingQuery extends AbstractQuery implements QueryInterface
 {
-    public string $id;
+
 }
