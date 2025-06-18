@@ -4,6 +4,9 @@ start-infra: start-gateway
 
 stop-infra: stop-gateway
 
+create-static-volume:
+	docker volume create static-data
+
 create-network:
 	docker network create intranet || true
 

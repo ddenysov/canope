@@ -8,6 +8,12 @@ services:
     working_dir: /app
     volumes:
       - .:/app
+      - static-data:/static
     environment:
       - NODE_ENV=development
     command: ["npm", "run", "serve"]
+
+
+volumes:
+  static-data:
+    external: true

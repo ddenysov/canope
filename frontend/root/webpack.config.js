@@ -1,3 +1,4 @@
+const path = require("path");
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-ts");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -13,7 +14,12 @@ module.exports = (webpackConfigEnv, argv) => {
   });
 
   return merge(defaultConfig, {
-    // modify the webpack config however you'd like to by adding to this object
+    output: {
+      // Папка, в которую Webpack положит сборку
+      path: path.resolve(__dirname, "build"),
+      // По умолчанию Webpack очищает папку перед сборкой
+      clean: true,
+    },
     plugins: [
       new HtmlWebpackPlugin({
         inject: false,
