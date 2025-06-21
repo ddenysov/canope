@@ -1,55 +1,58 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const { ModuleFederationPlugin } = require("webpack").container;
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
+const path = require("path");
 
 module.exports = {
-  mode: 'development',
-  entry: {
-    index: './src/index.js',
-    print: './src/print.js',
+  entry: "./src/main.js",
+  mode: "development",
+  devServer: {
+    port: 3001,
+    historyApiFallback: true,
   },
-  devtool: 'inline-source-map',
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'), // куда положить
+    publicPath: "auto",
     clean: true,
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Output Management',
-    }),
-  ],
-  devServer: {
-    static: './dist',
-  },
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-    },
+  resolve: {
+    extensions: [".vue", ".js", ".json"],
   },
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        loader: "vue-loader",
+      },
+      {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.(csv|tsv)$/i,
-        use: ['csv-loader'],
-      },
-      {
-        test: /\.xml$/i,
-        use: ['xml-loader'],
-      }
     ],
   },
+  plugins: [
+    /**
+    new ModuleFederationPlugin({
+      name: "host",
+      remotes: {
+        remote: "remote@http://localhost:3001/remoteEntry.js", // 👈 подключаем удалённый remote
+      },
+      shared: {
+        vue: {
+          singleton: true,
+          requiredVersion: "^3.0.0",
+        },
+      },
+    }),
+    */
+    new HtmlWebpackPlugin({
+      templateContent: `
+        <!DOCTYPE html>
+        <html lang="en">
+          <head><meta charset="UTF-8"><title>Vue 3</title></head>
+          <body><div id="app"></div></body>
+        </html>
+      `
+    }),
+    new VueLoaderPlugin()
+  ],
 };
