@@ -13,7 +13,7 @@ import { ref } from 'vue'
 const remoteComponent = ref(null)
 
 const load = async () => {
-  const module = await import("remote/App")
+  const module = await import('sign_up/App')
   remoteComponent.value = module.default
 }
 

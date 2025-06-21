@@ -6,7 +6,7 @@ const { ModuleFederationPlugin } = require("webpack").container;
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, '..', 'static', 'dist', 'sign-up'),
+    path: path.resolve(__dirname, '..', 'static', 'dist', 'sign_up'),
     filename: 'bundle.js',
     clean: true,
   },
@@ -27,7 +27,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      excludeChunks: ['remote'],
+      excludeChunks: ['sign_up'],
       templateContent: `
         <!DOCTYPE html>
         <html lang="en">
@@ -38,7 +38,7 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new ModuleFederationPlugin({
-      name: "remote",
+      name: "sign_up",
       filename: "remoteEntry.js",
       exposes: {
         "./App": "./src/App.vue",

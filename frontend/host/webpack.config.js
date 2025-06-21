@@ -34,7 +34,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "host",
       remotes: {
-        remote: "remote@http://localhost:8100/sign-up/remoteEntry.js", // 👈 подключаем удалённый remote
+        'sign_up' : "sign_up@http://localhost:8100/sign_up/remoteEntry.js",
       },
     }),
 

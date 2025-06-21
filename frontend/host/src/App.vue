@@ -1,13 +1,11 @@
 <template>
-  <h1>{{ message }}</h1>
-  <RemoteWrapper />
+  <NavHeader />
+  <RouterView />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import RemoteWrapper from './components/RemoteWrapper.vue'
-
-const message = ref('Host')
+import NavHeader from "./components/NavHeader.vue";
 </script>
 
 <style>
