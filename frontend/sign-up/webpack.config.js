@@ -2,12 +2,11 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const { ModuleFederationPlugin } = require("webpack").container;
-const isRemoteDev = process.env.REMOTE_DEV === '1';
 
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '..', 'static', 'dist', 'sign-up'),
     filename: 'bundle.js',
     clean: true,
   },

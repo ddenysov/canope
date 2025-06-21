@@ -11,6 +11,7 @@ module.exports = {
     historyApiFallback: true,
   },
   output: {
+    path: path.resolve(__dirname, '..', 'static', 'dist', 'host'),
     publicPath: "auto",
     clean: true,
   },
@@ -33,7 +34,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "host",
       remotes: {
-        remote: "remote@http://localhost:3000/remoteEntry.js", // 👈 подключаем удалённый remote
+        remote: "remote@http://localhost:8100/sign-up/remoteEntry.js", // 👈 подключаем удалённый remote
       },
     }),
 
