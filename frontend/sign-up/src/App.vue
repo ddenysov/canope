@@ -5,7 +5,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const message = ref('Remote')
+const message = ref('Remote OLOLO')
 </script>
 
 <style>
