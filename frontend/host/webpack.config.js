@@ -30,20 +30,13 @@ module.exports = {
     ],
   },
   plugins: [
-    /**
     new ModuleFederationPlugin({
       name: "host",
       remotes: {
-        remote: "remote@http://localhost:3001/remoteEntry.js", // 👈 подключаем удалённый remote
-      },
-      shared: {
-        vue: {
-          singleton: true,
-          requiredVersion: "^3.0.0",
-        },
+        remote: "remote@http://localhost:3000/remoteEntry.js", // 👈 подключаем удалённый remote
       },
     }),
-    */
+
     new HtmlWebpackPlugin({
       templateContent: `
         <!DOCTYPE html>

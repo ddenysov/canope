@@ -1,13 +1,15 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const { ModuleFederationPlugin } = require("webpack").container;
+const isRemoteDev = process.env.REMOTE_DEV === '1';
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    clean: true
+    clean: true,
   },
   resolve: {
     extensions: ['.js', '.vue']
@@ -26,6 +28,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      excludeChunks: ['remote'],
       templateContent: `
         <!DOCTYPE html>
         <html lang="en">
@@ -34,7 +37,14 @@ module.exports = {
         </html>
       `
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new ModuleFederationPlugin({
+      name: "remote",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./App": "./src/App.vue",
+      },
+    }),
   ],
   devServer: {
     static: {

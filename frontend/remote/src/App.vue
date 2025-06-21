@@ -5,11 +5,11 @@
 <script setup>
 import { ref } from 'vue'
 
-const message = ref('Hello Vue 3 + Webpack!')
+const message = ref('Remote')
 </script>
 
 <style>
 h1 {
-  color: #42b983;
+  color: #b94246;
 }
 </style>
