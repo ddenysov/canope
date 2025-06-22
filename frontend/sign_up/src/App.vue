@@ -1,6 +1,6 @@
 <template>
   <div class="register-form surface-card p-4 shadow-2 border-round-xl w-full sm:w-26rem m-auto">
-    ololo
+    ololo trololo
     <UiButton />
   </div>
 </template>
