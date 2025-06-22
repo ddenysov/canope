@@ -1,6 +1,5 @@
 <template>
-  <NavHeader />
-  <RouterView />
+
 </template>
 
 <script setup>
