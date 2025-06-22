@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Велопокатушки — Найди или создай поездку</title>
+
+    <!-- Google Font (optional, можно заменить на локальную)  -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- 🎨 Base design‑tokens  (в проде уйдут в отдельный bundle) -->
+    <style>
+        :root {
+            /* Brand */
+            --accent-1: #6fff55;   /* активный лайм */
+            --accent-2: #3aa3ff;   /* небесно‑синий */
+            /* Neutral */
+            --neutral-100: #ffffff;
+            --neutral-200: #f7f9fc;
+            --neutral-400: #9ca3af;
+            --neutral-800: #1f2937;
+            /* Semantic */
+            --success: #16a34a;
+            --danger:  #dc2626;
+            /* Typography */
+            --font-sans: "Inter", system-ui, sans-serif;
+            --fs-h1: clamp(2.25rem, 4vw + 1rem, 3.5rem);
+            --fs-h2: clamp(1.5rem, 2.5vw + 1rem, 2.25rem);
+            --fs-base: 1rem;
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 2rem;
+            --space-xl: 4rem;
+            /* Radius & Shadow */
+            --radius-sm: 0.5rem;
+            --radius-lg: 1rem;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* RESET / BASE ------------------------------------------------------ */
+        *,*::before,*::after{box-sizing:border-box;}
+        body{
+            margin:0;
+            font-family:var(--font-sans);
+            line-height:1.5;
+            color:var(--neutral-800);
+            background:var(--neutral-200);
+            -webkit-font-smoothing:antialiased;
+        }
+        h1,h2,h3{margin:0 0 var(--space-md);font-weight:700;line-height:1.2;color:var(--neutral-800);}
+        h1{font-size:var(--fs-h1);} h2{font-size:var(--fs-h2);}
+        p{margin:0 0 var(--space-md);font-size:var(--fs-base);}
+        a{color:inherit;text-decoration:none;}
+        img{max-width:100%;display:block;border-radius:var(--radius-sm);}
+        ul{margin:0;padding:0;list-style:none;}
+        .container{width:100%;max-width:1280px;padding:0 var(--space-lg);margin-inline:auto;}
+
+        /* UTILS ------------------------------------------------------------- */
+        .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);}
+        .btn{
+            display:inline-flex;align-items:center;justify-content:center;gap:var(--space-sm);
+            padding:var(--space-sm) var(--space-lg);
+            font-weight:600;border:none;border-radius:var(--radius-sm);cursor:pointer;
+            transition:transform .15s ease,box-shadow .15s ease;
+        }
+        .btn:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px;}
+        .btn-primary{background:var(--accent-2);color:var(--neutral-100);}
+        .btn-primary:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);}
+        .btn-secondary{background:transparent;color:var(--accent-2);border:2px solid var(--accent-2);}
+        .btn-secondary:hover{background:var(--accent-2);color:var(--neutral-100);}
+        .btn-icon{background:transparent;border:none;padding:var(--space-sm);cursor:pointer;}
+
+        /* HEADER ------------------------------------------------------------ */
+        .site-header{background:var(--neutral-100);box-shadow:var(--shadow-sm);position:sticky;top:0;z-index:1000;}
+        .site-header .container{display:flex;align-items:center;justify-content:space-between;height:4rem;}
+        .logo{font-weight:700;font-size:1.25rem;color:var(--accent-2);}
+        .main-nav ul{display:flex;gap:var(--space-lg);}
+        .main-nav a{padding:var(--space-xs) var(--space-sm);border-radius:var(--radius-sm);}
+        .main-nav a:hover,.main-nav a:focus-visible{background:var(--accent-1);color:var(--neutral-800);}
+
+        /* HERO -------------------------------------------------------------- */
+        .hero{display:flex;align-items:center;justify-content:center;text-align:center;min-height:70vh;padding:var(--space-xl) 0;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--accent-1) 0%,var(--accent-2) 100%);}
+        .hero::after{content:"";position:absolute;inset:0;opacity:.15;background:url('/assets/img/hero_bikes.jpg') center/cover no-repeat;}
+        .hero .container{position:relative;color:var(--neutral-100);}
+        .hero .subtitle{font-size:1.25rem;margin-bottom:var(--space-lg);}
+        .cta-group{display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;}
+
+        /* SEARCH ------------------------------------------------------------ */
+        .search-section{background:var(--neutral-100);padding:var(--space-xl) 0;box-shadow:inset 0 -1px 0 var(--neutral-200);}
+        .search-form{display:grid;gap:var(--space-md);grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:var(--space-lg);}
+        .search-form input[type="text"],
+        .search-form input[type="number"],
+        .search-form input[type="date"]{
+            width:100%;padding:var(--space-sm) var(--space-md);border:1px solid var(--neutral-400);border-radius:var(--radius-sm);font:inherit;}
+        .difficulty-group{display:flex;gap:var(--space-sm);align-items:center;}
+        .difficulty-group label{display:flex;gap:var(--space-xs);font-size:.875rem;}
+        .search-map{height:22rem;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);}
+
+        /* RIDE CARDS --------------------------------------------------------- */
+        .rides-section{padding:var(--space-xl) 0;background:var(--neutral-200);}
+        .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-md);}
+        .ride-cards{display:grid;gap:var(--space-lg);grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+        .card{background:var(--neutral-100);padding:var(--space-lg);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);transition:box-shadow .2s,transform .2s;}
+        .card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px);}
+        .ride-title{font-size:1.25rem;margin-bottom:var(--space-sm);}
+        .ride-meta{display:flex;gap:var(--space-sm);flex-wrap:wrap;font-size:.875rem;margin-bottom:var(--space-sm);}
+        .tag-intermediate{background:var(--accent-2);color:var(--neutral-100);padding:0 var(--space-sm);border-radius:var(--radius-sm);}
+        .avatars{display:flex;align-items:center;gap:-8px;}
+        .avatar{width:32px;height:32px;border-radius:50%;border:2px solid var(--neutral-100);object-fit:cover;}
+        .more-avatars{margin-left:calc(-8px);background:var(--neutral-800);color:var(--neutral-100);display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-size:.75rem;border:2px solid var(--neutral-100);}
+
+        /* ROUTES CAROUSEL ---------------------------------------------------- */
+        .routes-section{padding:var(--space-xl) 0;background:var(--neutral-100);}
+        .routes-carousel{display:flex;gap:var(--space-lg);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--space-md);}
+        .route-card{flex:0 0 260px;scroll-snap-align:center;}
+        .route-map{height:140px;margin-bottom:var(--space-sm);}
+        .route-title{font-size:1.125rem;margin-bottom:var(--space-sm);}
+        .route-stats{display:flex;gap:var(--space-sm);font-size:.875rem;color:var(--neutral-800);}
+        .route-stats div{display:flex;gap:var(--space-xs);}
+
+        /* COMMUNITY ---------------------------------------------------------- */
+        .community-section{padding:var(--space-xl) 0;background:var(--accent-1);color:var(--neutral-800);}
+        .community-stats{display:flex;gap:var(--space-lg);justify-content:center;font-weight:700;font-size:1.25rem;margin-bottom:var(--space-md);}
+        .stat-number{display:block;font-size:2rem;}
+        .testimonials{display:flex;gap:var(--space-lg);justify-content:center;font-style:italic;font-size:.9rem;}
+
+        /* HOW IT WORKS ------------------------------------------------------- */
+        .how-section{padding:var(--space-xl) 0;background:var(--neutral-100);}
+        .how-steps{display:grid;gap:var(--space-lg);grid-template-columns:repeat(auto-fit,minmax(200px,1fr));counter-reset:step;}
+        .how-steps li{background:var(--neutral-200);padding:var(--space-lg);border-radius:var(--radius-lg);text-align:center;position:relative;}
+        .how-steps li::before{counter-increment:step;content:counter(step);position:absolute;top:-1rem;left:50%;transform:translateX(-50%);background:var(--accent-2);color:var(--neutral-100);width:2.5rem;height:2.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+        /* FOOTER ------------------------------------------------------------- */
+        .site-footer{background:var(--neutral-800);color:var(--neutral-100);padding:var(--space-xl) 0;}
+        .site-footer .container{display:grid;gap:var(--space-lg);grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:start;}
+        .footer-nav ul{display:grid;gap:var(--space-sm);}
+        .subscribe-form{display:flex;gap:var(--space-sm);}
+        .subscribe-form input{flex:1;padding:var(--space-sm) var(--space-md);border:none;border-radius:var(--radius-sm);}
+        .social-links{display:flex;gap:var(--space-sm);}
+        .social-links a{width:2rem;height:2rem;background:var(--accent-1);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;}
+
+        /* MEDIA QUERIES ------------------------------------------------------ */
+        @media (max-width: 768px){
+            .hero{min-height:60vh;padding:var(--space-lg) 0;}
+            .cta-group{flex-direction:column;gap:var(--space-sm);}
+            .search-form{grid-template-columns:1fr;}
+            .community-stats{flex-direction:column;gap:var(--space-sm);align-items:center;}
+            .site-header .container{height:auto;flex-direction:column;gap:var(--space-sm);padding:var(--space-sm) var(--space-lg);}
+        }
+    </style>
+
+</head>
+<body>
+<!-- Header / Navigation -->
+<header class="site-header">
+    <div class="container">
+        <a href="/" class="logo" aria-label="Главная страница">RideTogether</a>
+        <nav class="main-nav" aria-label="Главная навигация">
+            <ul>
+                <li><a href="#search">Найти покатушку</a></li>
+                <li><a href="#create">Создать покатушку</a></li>
+                <li><a href="#routes">Маршруты</a></li>
+                <li><a href="#community">Сообщество</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Hero -->
+    <section class="hero" role="banner">
+        <div class="container">
+            <h1>Катайся вместе</h1>
+            <p class="subtitle">Создай свою покатушку или найди компанию уже сегодня</p>
+            <div class="cta-group">
+                <a href="#search" class="btn btn-primary">Найти покатушку</a>
+                <a href="#create" class="btn btn-secondary">Создать покатушку</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Search -->
+    <section id="search" class="search-section">
+        <div class="container">
+            <h2 class="visually-hidden">Поиск покатушек</h2>
+            <form class="search-form" aria-label="Форма поиска покатушек">
+                <label>
+                    <span class="sr-only">Город или локация</span>
+                    <input type="text" name="location" placeholder="Город или локация" autocomplete="off" />
+                </label>
+
+                <label>
+                    <span class="sr-only">Радиус (км)</span>
+                    <input type="number" name="radius" min="1" max="200" placeholder="Радиус (км)" />
+                </label>
+
+                <fieldset class="difficulty-group">
+                    <legend class="sr-only">Сложность</legend>
+                    <label><input type="checkbox" name="difficulty" value="novice" /> Novice</label>
+                    <label><input type="checkbox" name="difficulty" value="intermediate" /> Intermediate</label>
+                    <label><input type="checkbox" name="difficulty" value="pro" /> Pro</label>
+                </fieldset>
+
+                <label>
+                    <span class="sr-only">Дата</span>
+                    <input type="date" name="date" />
+                </label>
+
+                <button type="submit" class="btn btn-primary">Искать</button>
+            </form>
+
+            <div id="map" class="search-map" role="application" aria-label="Карта ближайших покатушек"></div>
+        </div>
+    </section>
+
+    <!-- Nearest rides -->
+    <section id="nearest-rides" class="rides-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ближайшие покатушки</h2>
+                <a href="/rides" class="link-all">Все покатушки</a>
+            </div>
+
+            <ul class="ride-cards">
+                <!-- Ride card template (будет рендериться динамически Vue) -->
+                <li class="card ride-card" tabindex="0">
+                    <h3 class="ride-title">Sunrise Gravel 60 км</h3>
+                    <div class="ride-meta">
+                        <span class="ride-date" aria-label="Дата">23 июня, 06:30</span>
+                        <span class="ride-difficulty tag-intermediate" aria-label="Сложность: Intermediate">Intermediate</span>
+                    </div>
+                    <div class="avatars" aria-label="Участники: 5">
+                        <img src="/assets/img/avatar1.jpg" alt="Иван" class="avatar" />
+                        <img src="/assets/img/avatar2.jpg" alt="Оля" class="avatar" />
+                        <img src="/assets/img/avatar3.jpg" alt="Дмитро" class="avatar" />
+                        <span class="more-avatars" aria-hidden="true">+2</span>
+                    </div>
+                </li>
+                <!-- /Ride card template -->
+            </ul>
+        </div>
+    </section>
+
+    <!-- Featured Routes -->
+    <section id="routes" class="routes-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Избранные маршруты</h2>
+                <a href="/routes" class="link-all">Посмотреть все</a>
+            </div>
+
+            <div class="routes-carousel" role="region" aria-label="Карусель маршрутов">
+                <!-- Route card -->
+                <article class="card route-card">
+                    <figure class="route-map">
+                        <img src="/assets/img/route1.png" alt="Маршрут 40 км вокруг озера" />
+                    </figure>
+                    <header>
+                        <h3 class="route-title">Озёрный круг 40 км</h3>
+                    </header>
+                    <dl class="route-stats">
+                        <div><dt>Дистанция</dt><dd>40 км</dd></div>
+                        <div><dt>Набор</dt><dd>320 м</dd></div>
+                    </dl>
+                    <button class="btn btn-icon like" aria-label="Поставить лайк маршруту">❤️</button>
+                </article>
+                <!-- /Route card -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Community stats -->
+    <section id="community" class="community-section">
+        <div class="container">
+            <h2 class="visually-hidden">Наше сообщество</h2>
+            <ul class="community-stats">
+                <li><span class="stat-number">1 532</span> райдеров</li>
+                <li><span class="stat-number">293 047</span> км вместе</li>
+                <li><span class="stat-number">412</span> маршрутов</li>
+            </ul>
+            <div class="testimonials">
+                <blockquote>«Лучший способ найти компанию для утреннего гравела!» — <cite>Олександр</cite></blockquote>
+                <blockquote>«Публикую маршруты — и через час уже есть желающие.» — <cite>Марія</cite></blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works" class="how-section">
+        <div class="container">
+            <h2>Как это работает</h2>
+            <ol class="how-steps">
+                <li>
+                    <figure>
+                        <figcaption>Найди</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <figcaption>Катайся</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <figcaption>Поделись</figcaption>
+                    </figure>
+                </li>
+            </ol>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container">
+        <a href="/" class="logo">RideTogether</a>
+
+        <nav class="footer-nav" aria-label="Дополнительная навигация">
+            <ul>
+                <li></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+</body>
+</html>

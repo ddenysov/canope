@@ -12,8 +12,9 @@ module.exports = {
     chunkFilename: '[name].[contenthash].js', // для динамически загружаемых чанков
   },
   resolve: {
-    extensions: ['.js', '.vue']
+    extensions: ['.js', '.vue', '.json'],
   },
+
   module: {
     rules: [
       {
