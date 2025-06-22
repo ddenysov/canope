@@ -1,9 +1,6 @@
 <template>
   <Suspense>
     <component :is="remoteComponent" />
-    <template #fallback>
-      <div>Загрузка...</div>
-    </template>
   </Suspense>
 </template>
 

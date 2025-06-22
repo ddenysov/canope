@@ -6,7 +6,7 @@ const {ModuleFederationPlugin} = require("webpack").container;
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, '..', 'static', 'dist', 'sign_up'),
+    path: path.resolve(__dirname, '..', 'static', 'dist', 'ui'),
     clean: true,
     filename: '[name].[contenthash].js', // добавляем хеш
     chunkFilename: '[name].[contenthash].js', // для динамически загружаемых чанков
@@ -28,7 +28,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      excludeChunks: ['sign_up'],
+      excludeChunks: ['ui'],
       templateContent: `
         <!DOCTYPE html>
         <html lang="en">
@@ -41,13 +41,11 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new ModuleFederationPlugin({
-      name: "sign_up",
+      name: "ui",
       filename: "remoteEntry.js",
-      remotes: {
-        'ui': "ui@http://localhost:8100/ui/remoteEntry.js",
-      },
       exposes: {
-        "./App": "./src/App.vue",
+        './install': './src/install.js',
+        './UiButton': './src/components/button/UiButton.vue',
       },
       shared: {
         vue: {

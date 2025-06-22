@@ -10,10 +10,13 @@ module.exports = {
     port: 3001,
     historyApiFallback: true,
   },
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '..', 'static', 'dist', 'host'),
     publicPath: "auto",
     clean: true,
+    filename: '[name].[contenthash].js', // добавляем хеш
+    chunkFilename: '[name].[contenthash].js', // для динамически загружаемых чанков
   },
   resolve: {
     extensions: [".vue", ".js", ".json"],
@@ -34,7 +37,15 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "host",
       remotes: {
-        'sign_up' : "sign_up@http://localhost:8100/sign_up/remoteEntry.js",
+        'ui' : "ui@http://localhost:8100/ui/remoteEntry.js",
+        'sign_up' : "sign_up@http://localhost:8100/sign_up/remoteEntry.js"
+        //'sign_up' : "sign_up@http://localhost:3000/remoteEntry.js"
+      },
+      shared: {
+        vue: {
+          singleton: true,
+          eager: true,
+        },
       },
     }),
 
@@ -42,7 +53,8 @@ module.exports = {
       templateContent: `
         <!DOCTYPE html>
         <html lang="en">
-          <head><meta charset="UTF-8"><title>Vue 3</title></head>
+          <head>
+          <meta charset="UTF-8"><title>Vue 3</title></head>
           <body><div id="app"></div></body>
         </html>
       `
