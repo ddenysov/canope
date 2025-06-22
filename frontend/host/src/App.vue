@@ -8,7 +8,7 @@ import {ref, defineAsyncComponent} from 'vue'
 
 const remoteComponent = ref(null)
 import NavHeader from "./components/NavHeader.vue";
-const UiButton = defineAsyncComponent(() => import('ui/UiButton'))
+//const UiButton = defineAsyncComponent(() => import('ui/UiButton'))
 
 </script>
 

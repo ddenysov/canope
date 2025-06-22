@@ -7,7 +7,6 @@
 
 <script setup>
 import {ref, defineAsyncComponent} from 'vue'
-const UiButton = defineAsyncComponent(() => import('ui/UiButton'))
 </script>
 
 <style scoped>

@@ -1,5 +1,6 @@
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
+import UiButton from "./components/button/UiButton.vue";
 
 export function install(app) {
   console.log('ololo');
@@ -8,4 +9,5 @@ export function install(app) {
       preset: Aura
     }
   });
+  app.component('UiButton', UiButton);
 }
