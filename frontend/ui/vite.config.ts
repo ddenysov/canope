@@ -19,6 +19,12 @@ export default defineConfig({
       // Modules to expose
       exposes: {
         './App': './src/App.vue',
+        './install': './src/install.ts',
+      },
+      shared: {
+        vue: {
+          singleton: true,
+        },
       },
     })
   ],

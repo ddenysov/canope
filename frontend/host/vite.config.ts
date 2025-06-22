@@ -25,7 +25,11 @@ export default defineConfig({
         },
       },
       exposes: {},
-      shared: {},
+      shared: {
+        vue: {
+          singleton: true,
+        },
+      },
     }),
   ],
   resolve: {

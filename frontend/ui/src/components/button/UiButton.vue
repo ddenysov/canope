@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import Button from 'primevue/button';
 </script>
 
 <template>
-  <h1>Button</h1>
-  <UiButton />
+  <Button label="ololo" />
 </template>
 
 <style scoped>
