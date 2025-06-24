@@ -39,6 +39,7 @@ export default defineConfig({
     target: ["chrome89", "edge89", "firefox89", "safari15"],
     outDir: '../static/dist/navbar',
     emptyOutDir: true
-  }
+  },
+  define: { __VUE_PROD_DEVTOOLS__: true }
 })
 

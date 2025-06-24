@@ -3,7 +3,7 @@
 
 <template>
   <h1>Button</h1>
-  <UiButton />
+  <UiButton label="test" />
 </template>
 
 <style scoped>

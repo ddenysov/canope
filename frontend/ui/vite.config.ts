@@ -46,6 +46,7 @@ export default defineConfig({
   build:{
     minify:false,
     target: ["chrome89", "edge89", "firefox89", "safari15"]
-  }
+  },
+  define: { __VUE_PROD_DEVTOOLS__: true }
 })
 

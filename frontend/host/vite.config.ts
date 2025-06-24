@@ -39,6 +39,7 @@ export default defineConfig({
         vue: {
           singleton: true,
         },
+        'vue-router': { singleton: true },
       },
     }),
     copy({

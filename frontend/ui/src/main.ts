@@ -8,6 +8,6 @@ import {install} from './install.ts';
 const app = createApp(App)
 
 app.use(createPinia())
-
+app.config.devtools = true
 install(app);
 app.mount('#app')
