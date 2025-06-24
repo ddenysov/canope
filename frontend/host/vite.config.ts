@@ -5,11 +5,14 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { federation } from '@module-federation/vite';
 import copy from 'rollup-plugin-copy';
+import del from 'rollup-plugin-delete'
 
 // https://vite.dev/config/
 export default defineConfig({
   server: {
     port: 3000,
+    cors: true,
+    headers: { 'Access-Control-Allow-Origin': '*' }
   },
   plugins: [
     vue(),
@@ -22,7 +25,12 @@ export default defineConfig({
         ui: {
           type: "module",
           name: "ui",
-          entry: "http://localhost:3001/remoteEntry.js",
+          entry: "http://localhost:8100/ui/remoteEntry.js",
+        },
+        navbar: {
+          type: "module",
+          name: "navbar",
+          entry: "http://localhost:8100/navbar/remoteEntry.js",
         },
       },
       exposes: {},
@@ -31,6 +39,18 @@ export default defineConfig({
           singleton: true,
         },
       },
+    }),
+    copy({
+      targets: [
+        { src: 'dist/**/*', dest: '../static/dist/host' }
+      ],
+      hook: 'writeBundle',
+      copyOnce: true,
+    }),
+    del({
+      targets: ['../static/dist/host/*'],
+      hook: 'buildStart',
+      force: true,
     }),
   ],
   resolve: {

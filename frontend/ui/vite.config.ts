@@ -4,6 +4,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { federation } from '@module-federation/vite';
+import copy from 'rollup-plugin-copy';
+import del from 'rollup-plugin-delete'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -26,7 +28,19 @@ export default defineConfig({
           singleton: true,
         },
       },
-    })
+    }),
+    copy({
+      targets: [
+        { src: 'dist/**/*', dest: '../static/dist/ui' }
+      ],
+      hook: 'writeBundle',
+      copyOnce: true,
+    }),
+    del({
+      targets: ['../static/dist/ui/*'],
+      hook: 'buildStart',
+      force: true,
+    }),
   ],
   build:{
     minify:false,

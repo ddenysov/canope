@@ -3,13 +3,11 @@ import {defineAsyncComponent} from "vue";
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 
- const App = defineAsyncComponent(() => import('ui/App'))
+ const WidgetNavbar = defineAsyncComponent(() => import('navbar/WidgetNavbar'))
 </script>
 
 <template>
-  <h1>ololo</h1>
-
-  <UiButton />
+  <WidgetNavbar />
 
   <RouterView />
 </template>
