@@ -9,6 +9,7 @@ import del from 'rollup-plugin-delete'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './',
   server: {
     port: 3001,
   },

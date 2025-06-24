@@ -6,13 +6,15 @@
     <div class="container">
       <a href="#" class="logo">MyRide</a>
       <ul class="nav-menu">
-        <li><a href="#">Главная</a></li>
+        <li><a href="#">
+          <RouterLink to="/about" class="menu-item" active-class="active">About</RouterLink>
+        </a></li>
         <li><a href="#">Маршруты</a></li>
         <li><a href="#">Сообщество</a></li>
         <li><a href="#">О нас</a></li>
       </ul>
       <div class="auth-buttons">
-        <a href="#" class="btn btn-login">Войти</a>
+        <a href="#" class="btn btn-login">Увійти</a>
         <a href="#" class="btn btn-signup">Реєстрація</a>
       </div>
     </div>

@@ -8,7 +8,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <WidgetNavbar />
-
+  <RouterLink to="/about" class="menu-item" active-class="active">About</RouterLink>
   <RouterView />
 </template>
 
