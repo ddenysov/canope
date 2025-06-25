@@ -12,6 +12,10 @@ app.use(createPinia())
 app.use(router)
 
 import('ui/install').then(({ install }) => {
-  install(app);
+  if (install) {
+    install(app)
+  } else {
+    console.error('ui/install is not a function')
+  }
   app.mount('#app');
 });

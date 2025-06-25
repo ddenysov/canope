@@ -17,11 +17,11 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     federation({
-      name: 'navbar',
+      name: 'sign_up',
       filename: 'remoteEntry.js',
       // Modules to expose
       exposes: {
-        './WidgetNavbar': './src/WidgetNavbar.vue',
+        './SignUp': './src/SignUp.vue',
       },
       shared: {
         vue: {
@@ -37,7 +37,7 @@ export default defineConfig({
   build:{
     minify:false,
     target: ["esnext"],
-    outDir: '../static/dist/navbar',
+    outDir: '../static/dist/sign_up',
     emptyOutDir: true,
     rollupOptions: {
       output: {

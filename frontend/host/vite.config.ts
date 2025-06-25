@@ -23,7 +23,7 @@ export default defineConfig({
       manifest: true,
 
       remotes: {
-        ui: {
+         ui: {
           type: "module",
           name: "ui",
           entry: "http://localhost:8100/ui/remoteEntry.js",
@@ -33,6 +33,11 @@ export default defineConfig({
           name: "navbar",
           entry: "http://localhost:8100/navbar/remoteEntry.js",
         },
+        sign_up: {
+          type: "module",
+          name: "sign_up",
+          entry: "http://localhost:8100/sign_up/remoteEntry.js",
+         },
       },
       exposes: {},
       shared: {

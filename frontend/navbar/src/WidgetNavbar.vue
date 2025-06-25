@@ -7,9 +7,8 @@
       <a href="#" class="logo">MyRide</a>
       <ul class="nav-menu">
         <li><a href="#">
-          <RouterLink to="/about" class="menu-item" active-class="active">About</RouterLink>
         </a></li>
-        <li><a href="#">Маршруты</a></li>
+        <li><a href="#">Маршруты123</a></li>
         <li><a href="#">Сообщество</a></li>
         <li><a href="#">О нас</a></li>
       </ul>

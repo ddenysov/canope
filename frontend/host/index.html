@@ -9,5 +9,23 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+    <script>
+      window.global = window;
+      /*
+        This "fix" is needed to avoid the __VUE_HMR_RUNTIME__  error
+        It brings you back to the days of autoreload browser extensions 👨‍🦳
+        TODO: Remove when this issue is fixed https://github.com/storybookjs/storybook/issues/31010
+      */
+      window.__VUE_HMR_RUNTIME__ = {
+        createRecord: () => {},
+        reload: () => {
+          window.location.reload()
+        },
+        rerender: () => {
+          console.log('Rerendering due to HMR update...')
+          window.location.reload()
+        },
+      }
+    </script>
   </body>
 </html>
