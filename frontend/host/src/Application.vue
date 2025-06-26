@@ -8,9 +8,8 @@ const WidgetNavbar = defineAsyncComponent(() => import('navbar/WidgetNavbar'))
 
 <template>
   <WidgetNavbar />
-  ssssssssffffdfdfdfdsddsdfdfdfdffdfdfdf
-  <RouterLink to="/sign_up" class="menu-item" active-class="active">111ddsdыыSign dsssssdsd</RouterLink>
   <RouterView />
+  <UiTextField />
 </template>
 
 <style scoped>

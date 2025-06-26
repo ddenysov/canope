@@ -8,13 +8,13 @@
       <ul class="nav-menu">
         <li><a href="#">
         </a></li>
-        <li><a href="#">Маршруты123</a></li>
+        <li><a href="#">Маршруты</a></li>
         <li><a href="#">Сообщество</a></li>
         <li><a href="#">О нас</a></li>
       </ul>
       <div class="auth-buttons">
         <a href="#" class="btn btn-login">Увійти</a>
-        <a href="#" class="btn btn-signup">Реєстрація</a>
+        <RouterLink to="/sign_up" class="btn btn-signup" active-class="active">Реєстрація</RouterLink>
       </div>
     </div>
   </nav>

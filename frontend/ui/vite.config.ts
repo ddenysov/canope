@@ -1,11 +1,8 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { federation } from '@module-federation/vite';
-import copy from 'rollup-plugin-copy';
-import del from 'rollup-plugin-delete'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -24,29 +21,30 @@ export default defineConfig({
         './App': './src/App.vue',
         './install': './src/install.ts',
       },
+      remotes: {},
       shared: {
         vue: {
           singleton: true,
         },
       },
     }),
-    copy({
-      targets: [
-        { src: 'dist/**/*', dest: '../static/dist/ui' }
-      ],
-      hook: 'writeBundle',
-      copyOnce: true,
-    }),
-    del({
-      targets: ['../static/dist/ui/*'],
-      hook: 'buildStart',
-      force: true,
-    }),
   ],
   build:{
     minify:false,
-    target: ["chrome89", "edge89", "firefox89", "safari15"]
+    target: ["esnext"],
+    outDir: '../static/dist/ui',
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        format: 'esm',
+      },
+    },
   },
-  define: { __VUE_PROD_DEVTOOLS__: true }
+  define: { __VUE_PROD_DEVTOOLS__: true },
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    },
+  },
 })
 
