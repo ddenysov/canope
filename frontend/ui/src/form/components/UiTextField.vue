@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {defineProps, ref, watch} from 'vue'
-import {useFormStore} from "@/stores/form";
+import {useFormStore} from "../store d/form.ts";
 import InputText from 'primevue/inputtext';
 
-//const store = useFormStore();
+const store = useFormStore();
 
 const value = ref('asd');
 

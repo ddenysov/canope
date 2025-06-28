@@ -12,7 +12,7 @@
 
     <!-- Form side -->
     <div class="form-wrapper">
-      <UiTextField />
+      <UiTextField label="Імейл" form="sign_up" name="email" />
       <h2 class="form-title">Create your account</h2>
       <form class="register-form" @submit.prevent="onSubmit">
         <label class="field">
@@ -80,6 +80,7 @@
 // Register page logic
 // -----------------------------
 import { ref, computed } from 'vue'
+import { UiTextField } from "@local/ui";
 
 /** Form fields */
 const name = ref<string>('')

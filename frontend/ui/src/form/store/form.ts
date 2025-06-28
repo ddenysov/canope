@@ -1,8 +1,8 @@
-// stores/counter.js
+// stores/form.js
 import {defineStore} from 'pinia'
 import {bool, ValidationError} from 'yup'
-import {useCreateYupSchema} from '@/composables/validation/schema'
-import type {FormState, Value} from "@/components/form/types.ts";
+import {useCreateYupSchema} from '../composables/schema'
+import type {FormState, Value} from "../types/types.ts";
 
 export const useFormStore = defineStore('form', {
   /**

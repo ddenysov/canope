@@ -47,18 +47,6 @@ export default defineConfig({
         'vue-router': { singleton: true },
       },
     }),
-    copy({
-      targets: [
-        { src: 'dist/**/*', dest: '../static/dist/host' }
-      ],
-      hook: 'writeBundle',
-      copyOnce: true,
-    }),
-    del({
-      targets: ['../static/dist/host/*'],
-      hook: 'buildStart',
-      force: true,
-    }),
   ],
   resolve: {
     alias: {
