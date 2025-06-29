@@ -8,5 +8,6 @@ use Zinc\Core\Command\CommandInterface;
 
 class PingCommand extends AbstractCommand implements CommandInterface
 {
-    public string $firstName = '';
+    public string $full_name = '';
+    public string $email = '';
 }

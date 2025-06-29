@@ -10,6 +10,7 @@ use Symfony\Component\Messenger\Stamp\TransportNamesStamp;
 use Zinc\Core\Command\CommandBusInterface;
 use Zinc\Core\Command\CommandInterface;
 use Symfony\Component\DependencyInjection\Attribute\Service;
+use Zinc\Core\Logging\Logger;
 
 /**
  * CommandBus adapter backed by Symfony Messenger.
@@ -26,6 +27,9 @@ final readonly class MessengerCommandBus implements CommandBusInterface
      */
     public function dispatch(CommandInterface $command): void
     {
+        Logger::debug('Dispatching command command', [
+            'class' => $command::class,
+        ]);
         $this->bus->dispatch(
             $command,
             [new TransportNamesStamp(['rr'])]

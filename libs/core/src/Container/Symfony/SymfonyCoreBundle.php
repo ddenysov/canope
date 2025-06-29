@@ -78,9 +78,17 @@ class SymfonyCoreBundle extends AbstractBundle
         $container->extension('monolog', [
             'handlers' => [
                 'file_log'       => [
-                    'type'  => 'stream',
-                    'path'  => '%kernel.logs_dir%/%kernel.environment%.log',
-                    'level' => 'debug',
+                    'type'     => 'stream',
+                    'path'     => '%kernel.logs_dir%/%kernel.environment%.log',
+                    'level'    => 'debug',
+                    'channels' => [
+                        '!event',              # — событий EventDispatcher
+                        '!doctrine',           # — логов Doctrine
+                        '!php',                # — ошибок PHP (фата-Ошибки и т. п.)
+                        '!console',            # — сообщения консоли
+                        '!security',            # — события безопасности
+                        '!messenger',            # — события безопасности
+                    ],
                 ],
                 'syslog_handler' => [
                     'type'  => 'syslog',
