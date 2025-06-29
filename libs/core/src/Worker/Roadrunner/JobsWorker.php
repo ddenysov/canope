@@ -59,9 +59,9 @@ class JobsWorker
                     'id'      => $task->getId(),
                     'payload' => $payload,
                 ]);
-                $class    = $payload->getType();
-                $envelope = new Envelope(new $class());
-                $eventBus = $this->kernel->getContainer()->get('messenger.default_bus');
+                $object    = unserialize($payload->getData());
+                $envelope = new Envelope($object);
+                $symfonyBus = $this->kernel->getContainer()->get('messenger.default_bus');
 
                 Logger::debug('ENVELOPE', [
                     'envelope' => $envelope,
@@ -73,7 +73,7 @@ class JobsWorker
                     $this->acks[] = ['rr', $envelope, $e];
                 };
 
-                $eventBus->dispatch(
+                $symfonyBus->dispatch(
                     $envelope->with(
                         new ReceivedStamp('rr'),
                         new ConsumedByWorkerStamp(),

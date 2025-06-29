@@ -33,7 +33,7 @@ final class CloudEventSerializer implements MessengerSerializer
             id: Uuid::uuid4()->toString(),
             source: 'TBD',
             type: $messageClass,
-            data: json_decode(json_encode($message), true),
+            data: serialize($message),
             time: (new DateTimeImmutable()),
             extensions: []
         );
