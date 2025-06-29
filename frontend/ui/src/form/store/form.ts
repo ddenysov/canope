@@ -141,7 +141,9 @@ export const useFormStore = defineStore('form', {
      * @param action
      */
     async submit(form: string, action: any): Promise<any> {
-      await this.validate(form);
+      console.log('Validate submit')
+      const resClient =  await this.validate(form);
+      console.log(resClient);
 
       try {
         const values = this.getValues(form);

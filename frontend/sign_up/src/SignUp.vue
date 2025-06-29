@@ -126,7 +126,13 @@ import {UiTextField, UiSubmitButton, UiFlex} from "@local/ui";
       <h2 class="form-title">Create your account</h2>
       <ui-flex gap="4" grow="1" direction="column">
         <UiTextField form="sign_up" name="full_name" label="Імя" />
-        <UiTextField form="sign_up" name="email" label="Електронна пошта" />
+        <UiTextField
+          form="sign_up"
+          name="email"
+          label="Електронна пошта"
+          :validation1="{ required: true, email: true }"
+        />
+
         <UiTextField form="sign_up" name="password" label="Пароль" />
         <UiTextField form="sign_up" name="password_confirm" label="Підтвердження паролю" />
         <UiSubmitButton form="sign_up" label="Реєстрація" action="users.sign_up" />

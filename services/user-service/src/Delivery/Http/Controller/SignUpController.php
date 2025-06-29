@@ -6,6 +6,7 @@ namespace Denysov\UserService\Delivery\Http\Controller;
 use Denysov\UserService\Application\Command\Ping\PingCommand;
 use Psr\Log\LoggerInterface;
 use Zinc\Core\Domain\Value\Uuid;
+use Zinc\Core\Logging\Logger;
 use Zinc\Core\Validator\CommandValidatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,9 @@ class SignUpController
 
     public function __invoke(Request $request)
     {
+        Logger::debug('Payload:' , [
+            'payload' => $request->getPayload()
+        ]);;
         $command = new PingCommand([
             'id'        => Uuid::create()->toString(),
             'firstName' => $request->get('firstName'),

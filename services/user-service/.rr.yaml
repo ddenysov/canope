@@ -1,5 +1,6 @@
 version: '3'
 
+
 rpc:
   listen: tcp://127.0.0.1:6001
 
@@ -13,8 +14,23 @@ http:
     allocate_timeout: 1000s
     num_workers: 1
     debug: true
-  # middlewares:
-  #  logger: true
+  middleware: ["headers"]
+  headers:
+    cors:
+      # разрешить все источники
+      allowed_origin: "*"
+
+      # стандартный набор методов
+      allowed_methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+
+      # все заголовки
+      allowed_headers: "*"
+
+      # отключить поддержку куки (для wildcard разрешено только без credentials)
+      allow_credentials: false
+
+      max_age: 3600
+      options_success_status: 200
 
 service:
   outbox:
