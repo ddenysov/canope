@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {defineProps, ref, watch} from 'vue'
-import {useFormStore} from "../store d/form.ts";
+import {useFormStore} from "../store/form.ts";
 import InputText from 'primevue/inputtext';
+import FieldError from './Common/FieldError.vue';
 
 const store = useFormStore();
 
@@ -17,7 +18,6 @@ export interface Props {
 }
 
 const props = defineProps<Props>();
-/**
 store.$patch({
   values: {
     [props.form]: {
@@ -38,12 +38,10 @@ store.$patch({
     [props.form]: false,
   },
 });
-*/
 watch(
   () => props.original,
   (newValue: any, oldValue: any) => {
     console.log(`Count changed from ${oldValue} to ${newValue}`);
-    /**
     store.$patch({
       values: {
         [props.form]: {
@@ -51,10 +49,8 @@ watch(
         },
       },
     })
-      */
   }
 );
-/**
 store.$patch({
   values: {
     [props.form]: {
@@ -62,12 +58,14 @@ store.$patch({
     },
   },
 })
- */
 </script>
 
 <template>
+  <label class="p-error" :for="name">{{ label }}</label>
   <InputText
     type="text"
-    v-model="value"
+    v-model="store.values[form][name]"
+    :disabled="store.isLoading(form) || disabled"
   />
+  <field-error :form="form" :name="name" />
 </template>

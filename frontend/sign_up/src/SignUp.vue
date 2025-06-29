@@ -12,7 +12,13 @@
 
     <!-- Form side -->
     <div class="form-wrapper">
-      <UiTextField label="Імейл" form="sign_up" name="email" />
+      <UiTextField
+        original="ddd@gmail.com"
+        label="Імейл"
+        form="sign_up"
+        name="email"
+        :validation="{ required: true, email: true }"
+      />
       <h2 class="form-title">Create your account</h2>
       <form class="register-form" @submit.prevent="onSubmit">
         <label class="field">
@@ -65,6 +71,7 @@
         </label>
 
         <button class="submit-btn" :disabled="!isValid">Register</button>
+        <ui-submit-button form="sign_up" label="Реєстрація" />
       </form>
 
       <p class="login-hint">
@@ -80,7 +87,7 @@
 // Register page logic
 // -----------------------------
 import { ref, computed } from 'vue'
-import { UiTextField } from "@local/ui";
+import { UiTextField, UiSubmitButton } from "@local/ui";
 
 /** Form fields */
 const name = ref<string>('')

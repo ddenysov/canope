@@ -1,7 +1,6 @@
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
-import UiButton from "./components/button/UiButton.vue";
-import UiTextField from "./components/form/UiTextField.vue";
+import {UiButton, UiTextField, UiSubmitButton} from "./index.ts";
 
 export function install(app: any) {
   console.log('UI Components registered');
@@ -10,6 +9,4 @@ export function install(app: any) {
       preset: Aura
     }
   });
-  app.component('UiButton', UiButton);
-  app.component('UiTextField', UiTextField);
 }

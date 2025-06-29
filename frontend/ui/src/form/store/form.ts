@@ -103,8 +103,8 @@ export const useFormStore = defineStore('form', {
      * Is field loading
      * @param form
      */
-    isLoading(form: string): boolean {
-      return this.loading[form];
+    isLoading(form: string): any {
+      return !!this.loading[form];
     },
 
     /**
@@ -112,9 +112,11 @@ export const useFormStore = defineStore('form', {
      * @param form
      */
     clearAllErrors(form: string) {
-      //Object.entries(this.errors[form]).forEach(({0: field}) => {
-      //  this.clearFieldError(form, field);
-      //})
+      console.log('OLOLO');
+      Object.entries(this.errors[form]).forEach((entry: any) => {
+        console.log(entry);
+        this.clearFieldError(form, entry[0]);
+      })
     },
 
     async validate(form: string) {
@@ -136,7 +138,7 @@ export const useFormStore = defineStore('form', {
      * @param form
      * @param action
      */
-    async submit(form: string, action: string): Promise<any> {
+    async submit(form: string, action: any): Promise<any> {
       await this.validate(form);
 
       try {

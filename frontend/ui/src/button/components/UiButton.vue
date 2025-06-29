@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
-import type {ThemeProps} from "@/types/props/ThemeProps.ts";
-import type {LabelProps} from "@/types/props/LabelProps.ts";
-interface UiButtonProps extends ThemeProps, LabelProps {}
+import type {UiButtonProps} from "@/button/types/button.type.ts";
 
 const props = defineProps<UiButtonProps>()
 </script>
