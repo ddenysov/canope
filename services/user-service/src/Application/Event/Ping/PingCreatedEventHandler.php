@@ -21,7 +21,7 @@ class PingCreatedEventHandler implements EventHandlerInterface
 
         $this->store->insert('read_model_users', [
             'id' => $event->getAggregateId()->toString(),
-            'email' => md5((string) rand(1, 999999)) . '@gmail.com'
+            'email' => $event->getEmail()->toString(),
         ]);
 
         Logger::info('####### PROCESSING EVENT #######: ' . $event::class, [

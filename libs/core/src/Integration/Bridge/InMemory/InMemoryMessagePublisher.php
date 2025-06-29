@@ -21,24 +21,27 @@ final class InMemoryMessagePublisher implements MessagePublisherInterface
 
     /**
      * {@inheritdoc}
+     * @throws \Throwable
      */
     public function publish(
         MessageInterface $message,
-        MessageChannelInterface $channel,
         \Closure $onSuccess = null,
         \Closure $onFail = null,
     ): void {
         try {
             // Store the message in memory
             $this->buffer[] = [
-                'message' => $message,
-                'channel' => $channel,
+                'message' => $message->getPayload()->toArray(),
+                'channel' => $message->getChannel()->getName(),
             ];
 
-            Logger::debug('Publishing message to Event Broker');
+            Logger::debug('Publishing message to Event Broker', [
+                'message' => $message->getPayload()->toArray(),
+                'channel' => $message->getChannel()->getName(),
+            ]);
 
             // Invoke success hook if provided
-            $onSuccess?->call($this, $message, $channel);
+            $onSuccess?->call($this, $message);
         } catch (\Throwable $e) {
             // Invoke failure hook if provided
             $onFail?->call($this, $e);

@@ -6,6 +6,7 @@ namespace Denysov\UserService\Application\Command\Ping;
 use Denysov\UserService\Domain\Model\Ping\Ping;
 use Denysov\UserService\Domain\Model\Ping\PingId;
 use Zinc\Core\Command\CommandHandlerInterface;
+use Zinc\Core\Domain\Value\StringValue;
 use Zinc\Core\Logging\Logger;
 
 class PingCommandHandler implements CommandHandlerInterface
@@ -13,7 +14,12 @@ class PingCommandHandler implements CommandHandlerInterface
     public function __invoke(PingCommand $command)
     {
         Logger::info('PING HANDLER STARTED');
-        $ping = Ping::create(PingId::create());
+
+        $ping = Ping::create(
+            PingId::create(),
+            new StringValue($command->email)
+        );
+
         $events = $ping->releaseEvents();
         Logger::info('PING HANDLER FINISHED', [
             'pingId' => $ping->getId()->toString(),

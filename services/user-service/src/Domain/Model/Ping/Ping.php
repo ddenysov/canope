@@ -7,25 +7,32 @@ use Denysov\UserService\Domain\Model\Ping\Event\PingCreated;
 use Tests\Stub\StubDomainEvent;
 use Zinc\Core\Domain\Aggregate\AbstractAggregateRoot;
 use Zinc\Core\Domain\Aggregate\AggregateRootInterface;
+use Zinc\Core\Domain\Value\StringValue;
 use Zinc\Core\Domain\Value\Uuid;
+use Zinc\Core\Event\EventId;
 
 class Ping extends AbstractAggregateRoot implements AggregateRootInterface
 {
-    public function getId(): PingId
-    {
-        return $this->id;
-    }
+    private StringValue $email;
 
-    public static function create(PingId $id): self
+    public static function create(
+        PingId      $id,
+        StringValue $email,
+    ): self
     {
         $instance = new self();
-        $instance->recordThat(new PingCreated(aggregateId: $id));
+        $instance->recordThat(new PingCreated(
+            id: EventId::create(),
+            aggregateId: $id,
+            email: $email
+        ));
 
         return $instance;
     }
 
     public function onPingCreated(PingCreated $event)
     {
-        $this->id = $event->getAggregateId();
+        $this->id    = $event->getAggregateId();
+        $this->email = $event->getEmail();
     }
 }

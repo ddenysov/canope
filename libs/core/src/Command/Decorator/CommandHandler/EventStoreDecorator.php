@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Zinc\Core\Command\Decorator\CommandHandler;
 
+use Denysov\UserService\Domain\Model\Ping\Event\PingCreated;
 use Zinc\Core\Command\CommandHandlerInterface;
 use Zinc\Core\Command\CommandInterface;
 use Zinc\Core\DataStore\DataStoreInterface;
+use Zinc\Core\Domain\Event\EventInterface;
+use Zinc\Core\Domain\Event\EventStream;
 use Zinc\Core\Domain\Value\Uuid;
 use Zinc\Core\Logging\Logger;
 
@@ -20,29 +23,38 @@ class EventStoreDecorator implements CommandHandlerInterface
 
     public function __invoke(CommandInterface $command)
     {
+        /**
+         * @var EventStream $result
+         */
         $result = $this->inner->__invoke($command);
 
-        $this->store->transactional(function () {
-            $this->store->insert('event_store', [
-                'id' => Uuid::create()->toString(),
-                'aggregate_id' => Uuid::create()->toString(),
-                'aggregate_type' => 'aaaaa',
-                'playhead' => '1',
-                'event_type' => 'qwqwqw',
-                'payload' => 'qwqwqw',
-                'metadata' => 'wewewe',
-            ]);
+        $this->store->transactional(function () use ($result) {
+            foreach ($result as $event) {
+                /**
+                 * @var EventInterface $event
+                 */
+                $this->store->insert('event_store', [
+                    'id'             => $event->getId()->toString(),
+                    'aggregate_id'   => $event->getAggregateId()->toString(),
+                    'aggregate_type' => $event->getAggregateType(),
+                    'playhead'       => '1',
+                    'event_type'     => $event::class,
+                    'payload'        => json_encode($event->toArray()),
+                    'metadata'       => '[]',
+                ]);
 
-            $this->store->insert('outbox', [
-                'id' => Uuid::create()->toString(),
-                'aggregate_id' => Uuid::create()->toString(),
-                'aggregate_type' => 'aaaaa',
-                'message_type' => 'asas',
-                'payload' => '[]',
-                'metadata' => '[]',
-                'created_at' => date('Y-m-d H:i:s'),
-                'attempts' => '0',
-            ]);
+                $this->store->insert('outbox', [
+                    'id'             => $event->getId()->toString(),
+                    'aggregate_id'   => $event->getAggregateId()->toString(),
+                    'aggregate_type' => $event->getAggregateType(),
+                    'message_type'   => $event::class,
+                    'payload'        => json_encode($event->toArray()),
+                    'metadata'       => '[]',
+                    'created_at'     => date('Y-m-d H:i:s'),
+                    'attempts'       => '0',
+                ]);
+            }
+
 
             Logger::info('Saving events to Event Store');
             self::$x++;

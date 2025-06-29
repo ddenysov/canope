@@ -2,8 +2,9 @@
 
 use Zinc\Core\DataStore\Criteria;
 use Zinc\Core\DataStore\DataStoreInterface;
-use Zinc\Core\Integration\Channel;
 use Zinc\Core\Integration\Message;
+use Zinc\Core\Integration\MessageChannel;
+use Zinc\Core\Integration\MessagePayload;
 use Zinc\Core\Integration\MessagePublisherInterface;
 use Zinc\Core\Kernel\Kernel;
 use Zinc\Core\Kernel\KernelConfig;
@@ -43,8 +44,10 @@ while (true) {
             ]);
 
             $messagePublisher->publish(
-                new Message(),
-                new Channel(),
+                new Message\CloudEventMessage(
+                    new MessagePayload($row),
+                    new MessageChannel('users-events')
+                ),
                 fn () => $store->update(
                     'outbox',
                     new Criteria('id', '=', $row['id']),
