@@ -25,5 +25,6 @@ const onClick = async () => {
   <ui-button
     @click="onClick"
     :label="label"
+    :disabled="store.isLoading(props.form) || disabled"
   />
 </template>

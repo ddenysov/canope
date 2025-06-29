@@ -129,7 +129,7 @@ import {UiTextField, UiSubmitButton, UiFlex} from "@local/ui";
         <UiTextField form="sign_up" name="email" label="Електронна пошта" />
         <UiTextField form="sign_up" name="password" label="Пароль" />
         <UiTextField form="sign_up" name="password_confirm" label="Підтвердження паролю" />
-        <UiSubmitButton form="sign_up" label="Реєстрація" action="sign_up" />
+        <UiSubmitButton form="sign_up" label="Реєстрація" action="users.sign_up" />
         <p class="login-hint">
           Already have an account?
           <a href="/login">Sign in</a>

@@ -6,7 +6,10 @@ const props = defineProps<UiButtonProps>()
 </script>
 
 <template>
-  <Button :label="label" />
+  <Button
+    :label="label"
+    :disabled="disabled"
+  />
 </template>
 
 <style scoped>

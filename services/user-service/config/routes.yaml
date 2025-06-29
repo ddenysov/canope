@@ -9,3 +9,7 @@ view:
 list:
   path: /list
   controller: Denysov\UserService\Delivery\Http\Controller\ListController
+
+sign_up:
+  path: /sign_up
+  controller: Denysov\UserService\Delivery\Http\Controller\SignUpController

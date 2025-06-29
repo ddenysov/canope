@@ -3,6 +3,8 @@ import {defineStore} from 'pinia'
 import {bool, ValidationError} from 'yup'
 import {useCreateYupSchema} from '../composables/schema'
 import type {FormState, Value} from "../types/types.ts";
+import {useClient} from "../../core/composables/client.ts";
+const client = useClient();
 
 export const useFormStore = defineStore('form', {
   /**
@@ -142,11 +144,10 @@ export const useFormStore = defineStore('form', {
       await this.validate(form);
 
       try {
-        //const {post} = useApi();
         const values = this.getValues(form);
         this.setLoading(form, true);
 
-        //const res = await post(action, values);
+        const res = await client.post(action, values);
         this.setLoading(form, false);
 
         return new Promise(fn => {});
