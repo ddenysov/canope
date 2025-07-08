@@ -1,0 +1,41 @@
+- HTTP Worker
+  - Controller
+  - Abstract Controller
+    - Validation
+    - Dispatch command 
+      - Command Bus Interface
+      - Symfony Messenger Bus Impl
+      - Transport - rr
+      - RoadRunnerTransport::send
+        - Connect to 'demo-queue'
+        - Serialize Envelope (Symfony)
+        - Php serializer
+        - Create RR task and dispatch
+
+- Jobs Worker
+  - Received dispatched task
+  - Deserialize Cloud Event object
+  - Deserialize COMMAND Class
+  - Wrap into Envelope
+  - Send trough Symfony Messenger
+    - Command Handler receives
+      - Retry
+      - Save to Event store & Outbox
+      - Publish to Event Bus
+        - Transport - rr
+        - Same as with command but event
+
+- Jobs Worker
+  - Received dispatched task
+  - Deserialize Cloud Event object
+  - Deserialize EVENT Class
+  - Wrap into Envelope
+  - Send trough Symfony Messenger
+    - Event Handler receives
+      - Saves Read Model
+
+---------------------
+- Outbox publisher - todo move to core
+  - user-service/workers/outbox.php - publisher
+    - read from outbox table
+  
