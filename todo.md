@@ -1,2 +1,2 @@
-- mess with ValueObject interfaces
-  - Make all mixed in base class and interfaces
+- need to create serializer to event/command class, create interface serializable
+- make unified serialization / deserealization, create class
