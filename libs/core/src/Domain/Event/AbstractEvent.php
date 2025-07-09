@@ -15,12 +15,12 @@ abstract class AbstractEvent implements EventInterface
      * - tracing
      * - uniq in event store
      */
-    public UuidInterface $id;
+    protected EventId $id;
 
     /**
      * Aggregate produced this event
      */
-    public UuidInterface $aggregateId;
+    protected UuidInterface $aggregateId;
 
     public function __construct(EventId $id, UuidInterface $aggregateId)
     {
@@ -41,7 +41,7 @@ abstract class AbstractEvent implements EventInterface
 
     }
 
-    public function getAggregateId(): UuidInterface
+    public function getAggregateId(): mixed
     {
         return $this->aggregateId;
     }

@@ -7,7 +7,7 @@ namespace Zinc\Core\Domain\Value;
 use Symfony\Component\Uid\UuidV4;
 use Zinc\Core\Support\String\AsString;
 
-class Uuid extends AbstractValue implements ValueInterface
+class Uuid extends AbstractValue implements ValueInterface, UuidInterface
 {
     public function __construct(private string $value) {}
 
