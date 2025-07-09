@@ -39,7 +39,7 @@ class EventStoreDecorator implements CommandHandlerInterface
                     'aggregate_type' => $event->getAggregateType(),
                     'playhead'       => '1',
                     'event_type'     => $event::class,
-                    'payload'        => json_encode($event->toArray()),
+                    'payload'        => json_encode(serialize($event)),
                     'metadata'       => '[]',
                 ]);
 
@@ -53,14 +53,6 @@ class EventStoreDecorator implements CommandHandlerInterface
                     'created_at'     => date('Y-m-d H:i:s'),
                     'attempts'       => '0',
                 ]);
-            }
-
-
-            Logger::info('Saving events to Event Store');
-            self::$x++;
-            if (self::$x < 2) {
-                Logger::error('Events failed to save: Conflict');
-                throw new \Exception('Failed');
             }
             Logger::info('Events saved');
         });

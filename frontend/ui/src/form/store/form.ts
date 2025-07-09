@@ -114,9 +114,7 @@ export const useFormStore = defineStore('form', {
      * @param form
      */
     clearAllErrors(form: string) {
-      console.log('OLOLO');
       Object.entries(this.errors[form]).forEach((entry: any) => {
-        console.log(entry);
         this.clearFieldError(form, entry[0]);
       })
     },

@@ -5,7 +5,9 @@
   "type": "module",
   "main": "src/index.ts",
   "types": "src/index.ts",
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -22,6 +24,7 @@
     "@primeuix/themes": "^1.1.2",
     "pinia": "^3.0.1",
     "primevue": "^4.3.5",
+    "uuid": "^11.1.0",
     "vue": "^3.5.13",
     "yup": "^1.6.1"
   },

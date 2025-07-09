@@ -1,0 +1,18 @@
+Denysov\UserService\Application\Command\User\RegisterUserCommand:
+  properties:
+    id:
+      - NotBlank: ~
+      - Uuid: ~
+    email:
+      - NotBlank: ~
+      - Email: ~
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 2
+          max: 255
+    password:
+      - NotBlank: ~
+      - Length:
+          min: 8
+          max: 255 

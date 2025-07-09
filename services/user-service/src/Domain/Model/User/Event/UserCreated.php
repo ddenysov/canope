@@ -9,9 +9,9 @@ use Denysov\UserService\Domain\Model\User\Value\UserId;
 use Denysov\UserService\Domain\Model\User\Value\UserName;
 use Denysov\UserService\Domain\Model\User\Value\UserPassword;
 use Zinc\Core\Domain\Event\AbstractEvent;
+use Zinc\Core\Domain\Event\EventId;
 use Zinc\Core\Domain\Event\EventInterface;
 use Zinc\Core\Domain\Value\UuidInterface;
-use Zinc\Core\Event\EventId;
 
 class UserCreated extends AbstractEvent implements EventInterface
 {

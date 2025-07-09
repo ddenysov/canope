@@ -25,6 +25,8 @@ use Zinc\Core\Query\QueryBusInterface;
 use Zinc\Core\Query\QueryHandlerInterface;
 use Zinc\Core\Validator\CommandValidatorInterface;
 use Zinc\Core\Validator\Symfony\CommandValidator;
+use Zinc\Core\Security\Password\PasswordHasher;
+use Zinc\Core\Security\Password\Bridge\Md5\Md5PasswordHasher;
 
 class SymfonyCoreBundle extends AbstractBundle
 {
@@ -67,6 +69,9 @@ class SymfonyCoreBundle extends AbstractBundle
         )->autowire()->public();
         $container->services()->set(
             CommandValidatorInterface::class, CommandValidator::class
+        )->autowire()->public();
+        $container->services()->set(
+            PasswordHasher::class, Md5PasswordHasher::class
         )->autowire()->public();
 
         $container->services()->alias('Psr\Log\LoggerInterface', 'monolog.logger')->public();

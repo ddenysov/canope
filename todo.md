@@ -1,0 +1,2 @@
+- mess with ValueObject interfaces
+  - Make all mixed in base class and interfaces

@@ -16,9 +16,9 @@ class Uuid extends AbstractValue implements ValueInterface, UuidInterface
         return new static(UuidV4::v4()->toString());
     }
 
-    public static function fromString(string $uuid): self
+    public static function fromString(string $uuid): static
     {
-        return new self($uuid);
+        return new static($uuid);
     }
 
     public function toString(): string

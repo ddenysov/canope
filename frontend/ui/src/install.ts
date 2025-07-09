@@ -4,6 +4,7 @@ import {
   UiButton,
   UiTextField,
   UiSubmitButton,
+  UiIdentity,
   UiFlex
 } from "./index.ts";
 
@@ -16,6 +17,7 @@ export function install(app: any) {
   });
   app.component('UiButton', UiButton);
   app.component('UiTextField', UiTextField);
-  app.component('UiTextField', UiSubmitButton);
+  app.component('UiSubmitButton', UiSubmitButton);
+  app.component('UiIdentity', UiIdentity);
   app.component('UiFlex', UiFlex);
 }

@@ -8,9 +8,9 @@ use Zinc\Core\Domain\Value\UuidInterface;
 use Zinc\Core\Support\Array\AsArray;
 
 interface EventInterface extends AsArray {
-    public function getAggregateId(): UuidInterface;
+    public function getAggregateId(): mixed;
 
     public function getAggregateType(): string;
 
-    public function getId(): UuidInterface;
+    public function getId(): EventId;
 }

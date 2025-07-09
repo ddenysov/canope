@@ -13,7 +13,10 @@ abstract class AbstractCommand implements CommandInterface
             if (is_null($attribute)) {
                 continue;
             }
-            $this->$name = $attribute;
+            // Проверяем, существует ли свойство в классе, прежде чем присваивать
+            if (property_exists($this, $name)) {
+                $this->$name = $attribute;
+            }
         }
     }
 

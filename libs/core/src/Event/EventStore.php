@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Zinc\Core\Event;
 
 use Zinc\Core\DataStore\Criteria;
-use Zinc\Core\DataStore\DataStore;
+use Zinc\Core\DataStore\DataStoreInterface;
 use Zinc\Core\DataStore\QueryOptions;
 use Zinc\Core\Domain\Event\EventStream;
 use Zinc\Core\Domain\Value\Uuid;
 
-class EventStore
+readonly class EventStore
 {
     public function __construct(
-        private DataStore $dataStore,
+        private DataStoreInterface $dataStore,
     ) {}
 
     public function append(EventStream $stream): void

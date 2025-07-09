@@ -5,10 +5,10 @@ namespace Denysov\UserService\Domain\Model\Ping\Event;
 
 use Denysov\UserService\Domain\Model\Ping\Ping;
 use Zinc\Core\Domain\Event\AbstractEvent;
+use Zinc\Core\Domain\Event\EventId;
 use Zinc\Core\Domain\Event\EventInterface;
 use Zinc\Core\Domain\Value\StringValue;
 use Zinc\Core\Domain\Value\UuidInterface;
-use Zinc\Core\Event\EventId;
 
 class PingCreated extends AbstractEvent implements EventInterface
 {

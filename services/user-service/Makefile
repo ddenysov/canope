@@ -15,6 +15,10 @@ ssh:
 migrate:
 	@$(DC) $(APP) vendor/bin/doctrine-migrations migrations:migrate
 
+generate-migration:
+	@$(DC) $(APP) vendor/bin/doctrine-migrations migrations:generate
+
+
 install:
 	@$(DC) $(APP) composer install
 

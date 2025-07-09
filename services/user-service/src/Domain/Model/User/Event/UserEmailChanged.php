@@ -3,25 +3,45 @@ declare(strict_types=1);
 
 namespace Denysov\UserService\Domain\Model\User\Event;
 
-use Zinc\Core\Domain\Value\StringValue;
-use Zinc\Core\Domain\Value\Uuid;
-use Zinc\Core\Event\EventId;
-use Zinc\Core\Event\EventInterface;
+use Denysov\UserService\Domain\Model\User\Value\UserEmail;
+use Denysov\UserService\Domain\Model\User\Value\UserId;
+use Zinc\Core\Domain\Event\EventInterface;
+use Zinc\Core\Domain\Value\UuidInterface;
 
 class UserEmailChanged implements EventInterface
 {
-    private EventId $id;
-    private Uuid $aggregateId;
-    private StringValue $newEmail;
+    public function __construct(
+        private readonly UuidInterface $id,
+        private readonly UserId $aggregateId,
+        private readonly UserEmail $newEmail
+    ) {}
 
-    public function __construct(EventId $id, Uuid $aggregateId, StringValue $newEmail)
+    public function getId(): UuidInterface
     {
-        $this->id = $id;
-        $this->aggregateId = $aggregateId;
-        $this->newEmail = $newEmail;
+        return $this->id;
     }
 
-    public function getId(): EventId { return $this->id; }
-    public function getAggregateId(): Uuid { return $this->aggregateId; }
-    public function getNewEmail(): StringValue { return $this->newEmail; }
+    public function getAggregateId(): UuidInterface
+    {
+        return $this->aggregateId;
+    }
+
+    public function getAggregateType(): string
+    {
+        return 'user';
+    }
+
+    public function getNewEmail(): UserEmail
+    {
+        return $this->newEmail;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id'           => $this->id->toString(),
+            'aggregate_id' => $this->aggregateId->toString(),
+            'new_email'    => $this->newEmail->toString(),
+        ];
+    }
 } 

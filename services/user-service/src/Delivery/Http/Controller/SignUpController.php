@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Denysov\UserService\Delivery\Http\Controller;
 
 use Denysov\UserService\Application\Command\Ping\PingCommand;
+use Denysov\UserService\Application\Command\User\RegisterUserCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Zinc\Core\Domain\Value\Uuid;
@@ -18,6 +19,6 @@ class SignUpController extends AbstractCommandController
 {
     #[\Override] protected function getCommand(): string
     {
-        return PingCommand::class;
+        return RegisterUserCommand::class;
     }
 }

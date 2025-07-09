@@ -11,7 +11,7 @@ use Denysov\UserService\Domain\Model\User\Value\UserName;
 use Denysov\UserService\Domain\Model\User\Value\UserPassword;
 use Zinc\Core\Domain\Aggregate\AbstractAggregateRoot;
 use Zinc\Core\Domain\Aggregate\AggregateRootInterface;
-use Zinc\Core\Event\EventId;
+use Zinc\Core\Domain\Event\EventId;
 
 class User extends AbstractAggregateRoot implements AggregateRootInterface
 {
@@ -62,12 +62,6 @@ class User extends AbstractAggregateRoot implements AggregateRootInterface
     public function onUserEmailChanged(UserEmailChanged $event): void
     {
         $this->email = $event->getNewEmail();
-    }
-
-    // Геттеры для read-модели или тестов (по необходимости)
-    public function getId(): UserId
-    {
-        return $this->id;
     }
 
     public function getEmail(): UserEmail

@@ -3,7 +3,7 @@
 // Register page logic
 // -----------------------------
 import {ref, computed} from 'vue'
-import {UiTextField, UiSubmitButton, UiFlex} from "@local/ui";
+import {UiTextField, UiSubmitButton, UiFlex, UiIdentity} from "@local/ui";
 </script>
 
 <style scoped>
@@ -125,7 +125,8 @@ import {UiTextField, UiSubmitButton, UiFlex} from "@local/ui";
     <div class="form-wrapper">
       <h2 class="form-title">Create your account</h2>
       <ui-flex gap="4" grow="1" direction="column">
-        <UiTextField form="sign_up" name="full_name" label="Імя" />
+        <UiIdentity form="sign_up" name="id" />
+        <UiTextField form="sign_up" name="name" label="Імя" />
         <UiTextField
           form="sign_up"
           name="email"
