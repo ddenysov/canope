@@ -20,5 +20,6 @@
     "scripts": {
         "cs:diff": "php-cs-fixer fix --dry-run -v --diff",
         "cs:fix": "php-cs-fixer fix -v"
-    }
+    },
+    "bin": ["bin/worker.php", "bin/outbox.php"]
 }

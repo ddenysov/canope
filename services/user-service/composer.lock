@@ -1803,7 +1803,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "a4e95a1dff354cc652e644c89c782ffd5fbbd84f"
+                "reference": "81f1ff427b0e3f337c925959b03b36f50ee4cec1"
             },
             "require": {
                 "psr/log": "^3.0",
@@ -1815,6 +1815,10 @@
                 "phpunit/phpunit": "^12.1",
                 "spiral/code-style": "^2.2"
             },
+            "bin": [
+                "bin/worker.php",
+                "bin/outbox.php"
+            ],
             "type": "library",
             "autoload": {
                 "psr-4": {
