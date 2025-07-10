@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zinc\Core\Messaging\Symfony\RoadRunner;
 
+use DateTimeImmutable;
 use Spiral\Goridge\RPC\RPC;
 use Spiral\RoadRunner\Jobs\Jobs;
 use Symfony\Component\Messenger\Envelope;
@@ -11,6 +12,7 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 use Symfony\Component\Uid\Uuid;
 use Zinc\Core\Logging\Logger;
 use Zinc\Core\Messaging\Symfony\Serializer\CloudEventSerializer;
+use Zinc\Core\Support\Serializer\SimpleSerializer;
 
 class RoadRunnerTransport implements TransportInterface
 {
@@ -47,12 +49,20 @@ class RoadRunnerTransport implements TransportInterface
         $uuid = (string) Uuid::v4();
         Logger::info('SEND', [
             'envelope' => $envelope->all(),
-            'message' => $envelope->getMessage(),
-            'type' => get_class($envelope->getMessage()),
+            'message'  => $envelope->getMessage(),
+            'type'     => get_class($envelope->getMessage()),
         ]);
         $queue = $this->jobs->connect('demo-queue');
 
-        $payload = $this->serializer->encode($envelope);
+        $message      = $envelope->getMessage();
+        $messageClass = $message::class;
+
+        $payload = [
+            'id'   => \Ramsey\Uuid\Uuid::uuid4()->toString(),
+            'type' => $messageClass,
+            'data' => SimpleSerializer::toJson($message),
+            'time' => (new DateTimeImmutable()),
+        ];
 
         $task = $queue->create(
             get_class($envelope->getMessage()),

@@ -17,9 +17,11 @@ use Symfony\Component\Messenger\Stamp\AckStamp;
 use Symfony\Component\Messenger\Stamp\ConsumedByWorkerStamp;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use Throwable;
+use Zinc\Core\Domain\Event\EventInterface;
 use Zinc\Core\Kernel\Kernel;
 use Zinc\Core\Kernel\KernelConfig;
 use Zinc\Core\Logging\Logger;
+use Zinc\Core\Support\Serializer\SimpleSerializer;
 
 class JobsWorker
 {
@@ -54,12 +56,15 @@ class JobsWorker
 
         while ($task = $consumer->waitTask()) {
             try {
-                $payload = JsonDeserializer::create()->deserializeStructured($task->getPayload());
+                $payload = json_decode($task->getPayload(), true, 512, JSON_THROW_ON_ERROR);
+
                 Logger::debug('TASK RECEIVED', [
                     'id'      => $task->getId(),
                     'payload' => $payload,
                 ]);
-                $object    = unserialize($payload->getData());
+
+                $object = SimpleSerializer::fromJson($payload['data'], $payload['type']);
+
                 $envelope = new Envelope($object);
                 $symfonyBus = $this->kernel->getContainer()->get('messenger.default_bus');
 

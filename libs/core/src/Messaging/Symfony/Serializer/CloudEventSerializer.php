@@ -12,6 +12,7 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as MessengerSerializer;
+use Zinc\Core\Support\Serializer\SimpleSerializer;
 
 final class CloudEventSerializer implements MessengerSerializer
 {
@@ -28,12 +29,11 @@ final class CloudEventSerializer implements MessengerSerializer
         $message      = $envelope->getMessage();
         $messageClass = $message::class;
 
-
         $event = new CloudEvent(
             id: Uuid::uuid4()->toString(),
             source: 'TBD',
             type: $messageClass,
-            data: serialize($message),
+            data: SimpleSerializer::toJson($message),
             time: (new DateTimeImmutable()),
             extensions: []
         );

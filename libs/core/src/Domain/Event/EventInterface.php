@@ -13,4 +13,6 @@ interface EventInterface extends AsArray {
     public function getAggregateType(): string;
 
     public function getId(): EventId;
+
+    public static function fromArray(array $data): static;
 }

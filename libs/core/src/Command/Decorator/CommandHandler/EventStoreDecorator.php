@@ -12,6 +12,7 @@ use Zinc\Core\Domain\Event\EventInterface;
 use Zinc\Core\Domain\Event\EventStream;
 use Zinc\Core\Domain\Value\Uuid;
 use Zinc\Core\Logging\Logger;
+use Zinc\Core\Support\Serializer\SimpleSerializer;
 
 class EventStoreDecorator implements CommandHandlerInterface
 {
@@ -39,7 +40,7 @@ class EventStoreDecorator implements CommandHandlerInterface
                     'aggregate_type' => $event->getAggregateType(),
                     'playhead'       => '1',
                     'event_type'     => $event::class,
-                    'payload'        => json_encode(serialize($event)),
+                    'payload'        => SimpleSerializer::toJson($event),
                     'metadata'       => '[]',
                 ]);
 
@@ -48,7 +49,7 @@ class EventStoreDecorator implements CommandHandlerInterface
                     'aggregate_id'   => $event->getAggregateId()->toString(),
                     'aggregate_type' => $event->getAggregateType(),
                     'message_type'   => $event::class,
-                    'payload'        => json_encode($event->toArray()),
+                    'payload'        => SimpleSerializer::toJson($event),
                     'metadata'       => '[]',
                     'created_at'     => date('Y-m-d H:i:s'),
                     'attempts'       => '0',
