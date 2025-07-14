@@ -17,8 +17,10 @@
   "dependencies": {
     "@module-federation/vite": "^1.5.0",
     "@primeuix/themes": "^1.1.2",
+    "@tailwindcss/vite": "^4.1.11",
     "pinia": "^3.0.1",
     "primevue": "^4.3.5",
+    "tailwindcss": "^4.1.11",
     "vue": "^3.5.13"
   },
   "devDependencies": {

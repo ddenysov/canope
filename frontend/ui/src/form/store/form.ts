@@ -122,9 +122,10 @@ export const useFormStore = defineStore('form', {
     async validate(form: string) {
       const yupSchema = useCreateYupSchema(this.validation[form]);
       this.clearAllErrors(form);
-
+    console.log('ok');
       try {
-        await yupSchema.validate(this.getValues(form), {abortEarly: false});
+        const res = await yupSchema.validate(this.getValues(form), {abortEarly: false});
+        console.log(res);
       } catch (e: any) {
         e.inner.reverse().forEach((e: ValidationError) => {
           this.setFieldError(form, e.path ?? '', e.message);
@@ -147,11 +148,27 @@ export const useFormStore = defineStore('form', {
         const values = this.getValues(form);
         this.setLoading(form, true);
 
+        console.log('POST');
         const res = await client.post(action, values);
+        console.log('BACKEND RES');
+        const json = await res.json();
+        console.log(json);
+
+        if (!res.ok) {
+          console.log('NOT OK');
+          Object.entries(json.errors).forEach((e: any) => {
+            console.log('EEEE');
+            console.log(e);
+            this.setFieldError(form, e[0], e[1][0]);
+          });
+        }
+
         this.setLoading(form, false);
 
         return new Promise(fn => {});
       } catch (e: any) {
+        console.log('BACKEND ERRORS');
+        console.log(e);
         Object.values(e.data.errors).forEach((e: any) => {
           this.setFieldError(form, e.key ?? '', e.message);
         });

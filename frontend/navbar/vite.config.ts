@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { federation } from '@module-federation/vite';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import tailwindcss from '@tailwindcss/vite'
 
 
 // https://vite.dev/config/
@@ -16,6 +17,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    tailwindcss(),
     federation({
       name: 'navbar',
       filename: 'remoteEntry.js',
@@ -25,6 +27,9 @@ export default defineConfig({
       },
       shared: {
         vue: {
+          singleton: true,
+        },
+        tailwindcss: {
           singleton: true,
         },
       },
@@ -44,6 +49,7 @@ export default defineConfig({
         format: 'esm',
       },
     },
+    cssCodeSplit: false
   },
   define: { __VUE_PROD_DEVTOOLS__: true }
 })

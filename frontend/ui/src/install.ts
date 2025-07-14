@@ -4,6 +4,7 @@ import {
   UiButton,
   UiTextField,
   UiSubmitButton,
+  UiForm,
   UiIdentity,
   UiFlex
 } from "./index.ts";
@@ -15,6 +16,7 @@ export function install(app: any) {
       preset: Aura
     }
   });
+  app.component('UiForm', UiForm);
   app.component('UiButton', UiButton);
   app.component('UiTextField', UiTextField);
   app.component('UiSubmitButton', UiSubmitButton);

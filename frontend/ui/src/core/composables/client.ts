@@ -7,7 +7,7 @@ export function useClient () {
 
   return {
     get (path: string): string {
-      return staticServices[serviceName];
+      return 'ok';
     },
 
     /**
@@ -15,8 +15,8 @@ export function useClient () {
      * @param path
      * @param data
      */
-    post (path: string, data: any) {
-      return api.post(
+    async post (path: string, data: any) {
+      return await api.post(
         serviceLocator.url(path),
         data,
       )

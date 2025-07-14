@@ -1,37 +1,38 @@
 <script setup lang="ts">
-import {defineProps, ref, watch} from 'vue'
+import {computed, defineProps, inject, ref, watch} from 'vue'
 import {useFormStore} from "../store/form.ts";
-import * as crypto from "crypto";
 import { v4 as uuidv4 } from 'uuid';
 
+const injectedForm = inject<string>('formName', '');
 const store = useFormStore();
+const formName = computed<string>(() => props.form || injectedForm);
 
 export interface Props {
   original?: string,
   disabled?: boolean,
-  form: string,
+  form?: string,
   validation?: {},
 }
 
 const props = defineProps<Props>();
 store.$patch({
   values: {
-    [props.form]: {
+    [formName.value]: {
       id: uuidv4(),
     },
   },
   validation: {
-    [props.form]: {
+    [formName.value]: {
       id: props.validation,
     },
   },
   errors: {
-    [props.form]: {
+    [formName.value]: {
       id: '',
     },
   },
   loading: {
-    [props.form]: false,
+    [formName.value]: false,
   },
 });
 watch(
@@ -39,7 +40,7 @@ watch(
   (newValue: any, oldValue: any) => {
     store.$patch({
       values: {
-        [props.form]: {
+        [formName.value]: {
           id: newValue,
         },
       },
@@ -50,7 +51,7 @@ watch(
 setInterval(() => {
   store.$patch({
     values: {
-      [props.form]: {
+      [formName.value]: {
         id: uuidv4(),
       },
     },
@@ -62,6 +63,6 @@ setInterval(() => {
 <template>
   <input
     type="hidden"
-    v-model="store.values[form].id"
+    v-model="store.values[formName].id"
   />
 </template>

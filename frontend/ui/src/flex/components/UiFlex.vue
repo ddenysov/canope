@@ -10,7 +10,7 @@ const props = defineProps<UiFlexProps>();
 
 const computedClass = computed(() => {
   return [
-    useClass<Bit>('flex-grow', props.grow),
+    useClass<Bit>('grow', props.grow),
     useClass<Bit>('flex-shrink', props.shrink),
     useClass<AlignItems>('align-items', props.alignItems),
     useClass<JustifyContent>('justify-content', props.justifyContent),

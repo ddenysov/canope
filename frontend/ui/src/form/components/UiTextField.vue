@@ -1,41 +1,43 @@
 <script setup lang="ts">
-import {defineProps, ref, watch} from 'vue'
+import {defineProps, ref, watch, inject, computed} from 'vue'
 import {useFormStore} from "../store/form.ts";
 import InputText from 'primevue/inputtext';
 import FieldError from './Common/FieldError.vue';
 
 const store = useFormStore();
-
-const value = ref('asd');
+const injectedForm = inject<string>('formName', '');
 
 export interface Props {
   original?: string,
   disabled?: boolean,
   name: string,
   label: string,
-  form: string,
+  form?: string,
   validation?: {},
 }
 
 const props = defineProps<Props>();
+
+const formName = computed<string>(() => props.form || injectedForm);
+
 store.$patch({
   values: {
-    [props.form]: {
+    [formName.value]: {
       [props.name]: props.original,
     },
   },
   validation: {
-    [props.form]: {
+    [formName.value]: {
       [props.name]: props.validation,
     },
   },
   errors: {
-    [props.form]: {
+    [formName.value]: {
       [props.name]: '',
     },
   },
   loading: {
-    [props.form]: false,
+    [formName.value]: false,
   },
 });
 watch(
@@ -44,7 +46,7 @@ watch(
     console.log(`Count changed from ${oldValue} to ${newValue}`);
     store.$patch({
       values: {
-        [props.form]: {
+        [formName.value]: {
           [props.name]: newValue,
         },
       },
@@ -53,7 +55,7 @@ watch(
 );
 store.$patch({
   values: {
-    [props.form]: {
+    [formName.value]: {
       [props.name]: props.original,
     },
   },
@@ -61,11 +63,14 @@ store.$patch({
 </script>
 
 <template>
-  <label class="p-error" :for="name">{{ label }}</label>
-  <InputText
-    type="text"
-    v-model="store.values[form][name]"
-    :disabled="store.isLoading(form) || disabled"
-  />
-  <field-error :form="form" :name="name" />
+  <div>
+    <label class="p-error text-green-400" :for="name">{{ label }}</label>
+    <InputText
+      type="text"
+      class="w-full"
+      v-model="store.values[formName][name]"
+      :disabled="store.isLoading(formName) || disabled"
+    />
+    <field-error :form="formName" :name="name" />
+  </div>
 </template>

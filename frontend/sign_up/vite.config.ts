@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { federation } from '@module-federation/vite';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import tailwindcss from '@tailwindcss/vite'
 
 
 // https://vite.dev/config/
@@ -16,6 +17,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    tailwindcss(),
     federation({
       name: 'sign_up',
       filename: 'remoteEntry.js',

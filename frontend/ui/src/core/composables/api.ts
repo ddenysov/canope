@@ -1,7 +1,7 @@
 import {useAuth} from "./auth";
 import {ref} from "vue";
 
-function replaceUndefined(obj) {
+function replaceUndefined(obj: any) {
   return Object.fromEntries(
     Object.entries(obj).map(([key, value]) =>
       [key, value === undefined ? '' : value]
@@ -19,22 +19,6 @@ export function useApi() {
 
   return {
     /**
-     * Get
-     * @param resource
-     */
-    async get(resource: string) {
-      const res: any = await $fetch(
-        resource,
-        {
-          method: 'GET',
-          headers,
-        },
-      );
-
-      return res;
-    },
-
-    /**
      * Make post request
      * @param resource
      * @param data
@@ -44,13 +28,11 @@ export function useApi() {
       const error = ref<string | null>(null);
 
       try {
-        const res = await fetch(resource, {
+        return  await fetch(resource, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(replaceUndefined(data)),
         })
-        if (!res.ok) throw new Error(res.statusText)
-        result.value = await res.json()
       } catch (e: any) {
         error.value = e.message
       }

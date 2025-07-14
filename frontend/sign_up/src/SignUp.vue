@@ -3,7 +3,7 @@
 // Register page logic
 // -----------------------------
 import {ref, computed} from 'vue'
-import {UiTextField, UiSubmitButton, UiFlex, UiIdentity} from "@local/ui";
+import {UiTextField, UiSubmitButton, UiFlex, UiIdentity, UiForm} from "@local/ui";
 </script>
 
 <style scoped>
@@ -47,7 +47,7 @@ import {UiTextField, UiSubmitButton, UiFlex, UiIdentity} from "@local/ui";
   flex-direction: column;
   justify-content: center;
   padding: 4rem 3rem;
-  max-width: 480px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
@@ -57,56 +57,12 @@ import {UiTextField, UiSubmitButton, UiFlex, UiIdentity} from "@local/ui";
   text-align: center;
 }
 
-.register-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.field input {
-  padding: 0.75rem 1rem;
-  border: 1px solid #cfcfcf;
-  border-radius: 6px;
-  font-size: 1rem;
-}
-
-.field input:focus {
-  outline: none;
-  border-color: #2b6cb0;
-  box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.3);
-}
-
-.login-hint {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  text-align: center;
-}
 
 .login-hint a {
   color: #2b6cb0;
   text-decoration: none;
 }
 
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .register-page {
-    grid-template-columns: 1fr;
-  }
-
-  .hero {
-    display: none;
-  }
-
-  .form-wrapper {
-    padding: 3rem 1.5rem;
-  }
-}
 </style>
 
 <template>
@@ -124,24 +80,36 @@ import {UiTextField, UiSubmitButton, UiFlex, UiIdentity} from "@local/ui";
     <!-- Form side -->
     <div class="form-wrapper">
       <h2 class="form-title">Create your account</h2>
-      <ui-flex gap="4" grow="1" direction="column">
-        <UiIdentity form="sign_up" name="id" />
-        <UiTextField form="sign_up" name="name" label="Імя" />
+      <UiForm name="sign_up">
+        <UiIdentity
+          name="id"
+        />
         <UiTextField
-          form="sign_up"
+          name="name"
+          label="Імя"
+        />
+        <UiTextField
           name="email"
           label="Електронна пошта"
           :validation1="{ required: true, email: true }"
         />
-
-        <UiTextField form="sign_up" name="password" label="Пароль" />
-        <UiTextField form="sign_up" name="password_confirm" label="Підтвердження паролю" />
-        <UiSubmitButton form="sign_up" label="Реєстрація" action="users.sign_up" />
+        <UiTextField
+          name="password"
+          label="Пароль"
+        />
+        <UiTextField
+          name="password_confirm"
+          label="Підтвердження паролю"
+        />
+        <UiSubmitButton
+          label="Реєстрація"
+          action="users.sign_up"
+        />
         <p class="login-hint">
           Already have an account?
           <a href="/login">Sign in</a>
         </p>
-      </ui-flex>
+      </UiForm>
     </div>
   </section>
 </template>

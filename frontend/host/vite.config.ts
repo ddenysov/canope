@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import { federation } from '@module-federation/vite';
 import copy from 'rollup-plugin-copy';
 import del from 'rollup-plugin-delete'
+import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,6 +19,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    tailwindcss(),
     federation({
       name: 'host',
       manifest: true,
@@ -42,6 +44,9 @@ export default defineConfig({
       exposes: {},
       shared: {
         vue: {
+          singleton: true,
+        },
+        tailwindcss: {
           singleton: true,
         },
         'vue-router': { singleton: true },

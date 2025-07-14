@@ -1,2 +1,0 @@
-- need to create serializer to event/command class, create interface serializable
-- make unified serialization / deserealization, create class
