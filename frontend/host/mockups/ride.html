@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Ride Detail</title>
+    <!-- Tailwind CDN для быстрого теста -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Mapbox GL JS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.js"></script>
+</head>
+<body class="h-full bg-gray-950 text-gray-100">
+<section class="w-full h-full flex flex-col lg:flex-row">
+    <!-- Main column: Map + Gallery -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Map -->
+        <div class="relative grow">
+            <div id="ride-map" class="absolute inset-0"></div>
+        </div>
+
+        <!-- Photo gallery (horizontal scroll) -->
+        <div class="bg-gray-900 p-4 overflow-x-auto whitespace-nowrap space-x-4">
+            <img src="https://source.unsplash.com/random/400x280?bike,1" alt="ride photo 1" class="inline-block w-60 h-40 object-cover rounded-lg" />
+            <img src="https://source.unsplash.com/random/400x280?bike,2" alt="ride photo 2" class="inline-block w-60 h-40 object-cover rounded-lg" />
+            <img src="https://source.unsplash.com/random/400x280?bike,3" alt="ride photo 3" class="inline-block w-60 h-40 object-cover rounded-lg" />
+            <img src="https://source.unsplash.com/random/400x280?bike,4" alt="ride photo 4" class="inline-block w-60 h-40 object-cover rounded-lg" />
+        </div>
+    </div>
+
+    <!-- Side panel -->
+    <aside class="w-full lg:w-96 bg-gray-900 flex flex-col">
+        <!-- Header -->
+        <header class="p-6 border-b border-gray-800">
+            <h1 class="text-2xl font-semibold mb-2">Sunrise Gravel Loop</h1>
+            <p class="text-sm text-gray-400">75 km · 750 m climb · avg 26 km/h</p>
+        </header>
+
+        <!-- Scrollable body -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- Description -->
+            <section>
+                <h2 class="text-lg font-medium mb-3">Description</h2>
+                <p class="text-sm leading-relaxed text-gray-300">
+                    Early morning loop that mixes fast asphalt with smooth gravel along the river. We will keep a steady endurance pace,
+                    regroup at key turns and grab coffee at kilometre 30. Perfect for riders with at least 200 km weekly volume.
+                </p>
+            </section>
+
+            <!-- Details -->
+            <section>
+                <h2 class="text-lg font-medium mb-3">Details</h2>
+                <ul class="text-sm space-y-1 leading-relaxed">
+                    <li><span class="font-medium">When:</span> Sat 19 Jul 07:00</li>
+                    <li><span class="font-medium">Pace:</span> 26-28 km/h</li>
+                    <li><span class="font-medium">Surface:</span> 70% asphalt · 30% gravel</li>
+                    <li><span class="font-medium">Group size:</span> max 12</li>
+                </ul>
+            </section>
+
+            <!-- Participants -->
+            <section>
+                <h2 class="text-lg font-medium mb-3">
+                    Participants <span class="text-gray-400">(7/12)</span>
+                </h2>
+                <div class="flex -space-x-3">
+                    <img src="https://i.pravatar.cc/40?u=1" class="w-10 h-10 rounded-full border-2 border-gray-900" alt="Alex" />
+                    <img src="https://i.pravatar.cc/40?u=2" class="w-10 h-10 rounded-full border-2 border-gray-900" alt="Julia" />
+                    <img src="https://i.pravatar.cc/40?u=3" class="w-10 h-10 rounded-full border-2 border-gray-900" alt="Lee" />
+                    <img src="https://i.pravatar.cc/40?u=4" class="w-10 h-10 rounded-full border-2 border-gray-900" alt="Sam" />
+                </div>
+            </section>
+
+            <!-- Chat -->
+            <section class="border-t border-gray-800 pt-4">
+                <h2 class="text-lg font-medium mb-3">Chat</h2>
+                <div id="ride-chat" class="h-48 bg-gray-800 rounded-md p-3 space-y-2 text-sm overflow-y-auto">
+                    <p><span class="font-semibold">Alex:</span> Всем привет, едем без остановок?</p>
+                    <p><span class="font-semibold">Julia:</span> Можно кофе на 30 км?</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Join button -->
+        <div class="p-6 border-t border-gray-800">
+            <button
+                    class="w-full bg-lime-500 hover:bg-lime-600 text-gray-900 font-semibold py-3 rounded-lg transition">
+                Принять участие
+            </button>
+        </div>
+    </aside>
+</section>
+
+<script>
+  /* Mapbox init */
+  mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN';
+  const map = new mapboxgl.Map({
+    container: 'ride-map',
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: [30.52, 50.45], // Киев пример
+    zoom: 10
+  });
+
+  /* Example fake track */
+  map.on('load', () => {
+    map.addSource('route', {
+      type: 'geojson',
+      data: 'your-gpx-converted-to-geojson.json'
+    });
+    map.addLayer({
+      id: 'route-line',
+      type: 'line',
+      source: 'route',
+      layout: { 'line-join': 'round', 'line-cap': 'round' },
+      paint: { 'line-width': 4, 'line-opacity': 0.9 }
+    });
+  });
+</script>
+</body>
+</html>

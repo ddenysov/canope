@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои поездки | VeloRide</title>
+
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Подключение библиотеки иконок (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Подключение шрифта Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .tab-button.active {
+            border-color: #2563eb; /* blue-600 */
+            color: #2563eb; /* blue-600 */
+            background-color: #eff6ff; /* blue-50 */
+        }
+        .ride-card-past {
+            opacity: 0.75;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+<!-- ========== HEADER ========== -->
+<header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-4">
+            <a href="#" class="text-2xl font-extrabold text-blue-600">VeloRide</a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Найти покатушку</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Создать свою</a>
+                <a href="#" class="font-semibold text-blue-600 border-b-2 border-blue-600 pb-1">Мои поездки</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Профиль</a>
+            </nav>
+            <button class="md:hidden text-gray-600">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="container mx-auto px-4 py-8">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight">Мои поездки</h1>
+            <p class="mt-2 text-lg text-gray-600">Здесь собраны все покатушки, которые вы создали или к которым присоединились.</p>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                <button id="tab-upcoming" class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-bold text-lg">
+                    Предстоящие
+                </button>
+                <button id="tab-past" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-bold text-lg">
+                    Прошедшие
+                </button>
+            </nav>
+        </div>
+
+        <!-- Rides List -->
+        <div>
+            <!-- Upcoming Rides Section -->
+            <div id="content-upcoming" class="space-y-6">
+                <!-- Upcoming Ride Card 1 (Created by user) -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row transition-shadow hover:shadow-xl">
+                    <div class="md:w-1/4">
+                        <img src="https://placehold.co/400x300/34D399/ffffff?text=Лес" alt="Превью маршрута" class="w-full h-40 md:h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <span class="text-sm font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">Вы организатор</span>
+                                <span class="text-sm font-semibold text-gray-600">20 июля, 10:00</span>
+                            </div>
+                            <h2 class="text-2xl font-bold my-2">Бодрый прохват по лесу</h2>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i data-lucide="users" class="w-4 h-4 mr-2"></i>
+                                <span>8 / 15 участников</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200 flex flex-col sm:flex-row gap-3">
+                            <button class="w-full sm:w-auto flex-1 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition flex items-center justify-center"><i data-lucide="edit-3" class="w-4 h-4 mr-2"></i>Редактировать</button>
+                            <button class="w-full sm:w-auto flex-1 bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition">Посмотреть</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Ride Card 2 (User is a participant) -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row transition-shadow hover:shadow-xl">
+                    <div class="md:w-1/4">
+                        <img src="https://placehold.co/400x300/60A5FA/ffffff?text=Шоссе" alt="Превью маршрута" class="w-full h-40 md:h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <span class="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">Вы участник</span>
+                                <span class="text-sm font-semibold text-gray-600">21 июля, 08:00</span>
+                            </div>
+                            <h2 class="text-2xl font-bold my-2">Шоссейная "Сотка"</h2>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i data-lucide="user-check" class="w-4 h-4 mr-2"></i>
+                                <span>Организатор: Клуб "Ракета"</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200 flex flex-col sm:flex-row gap-3">
+                            <button class="w-full sm:w-auto flex-1 bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition flex items-center justify-center"><i data-lucide="log-out" class="w-4 h-4 mr-2"></i>Отменить участие</button>
+                            <button class="w-full sm:w-auto flex-1 bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition">Посмотреть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Past Rides Section -->
+            <div id="content-past" class="hidden space-y-6">
+                <!-- Past Ride Card 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row ride-card-past">
+                    <div class="md:w-1/4">
+                        <img src="https://placehold.co/400x300/9CA3AF/ffffff?text=Озеро" alt="Превью маршрута" class="w-full h-40 md:h-full object-cover filter grayscale">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <span class="text-sm font-bold text-gray-600 bg-gray-200 px-3 py-1 rounded-full">Завершено</span>
+                                <span class="text-sm font-semibold text-gray-500">12 июля, 11:30</span>
+                            </div>
+                            <h2 class="text-2xl font-bold my-2 text-gray-600">Матрасный круг у озера</h2>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i data-lucide="user-check" class="w-4 h-4 mr-2"></i>
+                                <span>Организатор: Ольга В.</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200 flex flex-col sm:flex-row gap-3">
+                            <button class="w-full sm:w-auto flex-1 bg-gray-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 transition flex items-center justify-center"><i data-lucide="message-square" class="w-4 h-4 mr-2"></i>Оставить отзыв</button>
+                            <button class="w-full sm:w-auto flex-1 bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition">Посмотреть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-white border-t mt-12">
+    <div class="container mx-auto px-4 py-6 text-center text-gray-500">
+        <p>&copy; 2025 VeloRide. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+  // Инициализация иконок Lucide
+  lucide.createIcons();
+
+  // Логика для переключения вкладок
+  const tabUpcomingBtn = document.getElementById('tab-upcoming');
+  const tabPastBtn = document.getElementById('tab-past');
+  const contentUpcoming = document.getElementById('content-upcoming');
+  const contentPast = document.getElementById('content-past');
+
+  tabUpcomingBtn.addEventListener('click', () => {
+    tabUpcomingBtn.classList.add('active');
+    tabPastBtn.classList.remove('active');
+    contentUpcoming.classList.remove('hidden');
+    contentPast.classList.add('hidden');
+  });
+
+  tabPastBtn.addEventListener('click', () => {
+    tabPastBtn.classList.add('active');
+    tabUpcomingBtn.classList.remove('active');
+    contentPast.classList.remove('hidden');
+    contentUpcoming.classList.add('hidden');
+  });
+</script>
+</body>
+</html>

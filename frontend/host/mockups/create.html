@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать покатушку | VeloRide</title>
+
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Подключение библиотеки иконок (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Подключение шрифта Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f8f9fa;
+        }
+        /* Стиль для кастомных радио-кнопок */
+        .radio-btn-group input[type="radio"] {
+            display: none;
+        }
+        .radio-btn-group label {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .radio-btn-group input[type="radio"]:checked + label {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+            border-color: #2563eb; /* blue-600 */
+        }
+        .file-upload-area {
+            border-style: dashed;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+<!-- ========== HEADER ========== -->
+<header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-4">
+            <a href="#" class="text-2xl font-extrabold text-blue-600">VeloRide</a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Найти покатушку</a>
+                <a href="#" class="font-semibold text-blue-600 border-b-2 border-blue-600 pb-1">Создать свою</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Мои поездки</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Профиль</a>
+            </nav>
+            <button class="md:hidden text-gray-600">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight">Создание новой покатушки</h1>
+            <p class="mt-2 text-lg text-gray-600">Поделитесь своим планом и найдите компанию!</p>
+        </div>
+
+        <form action="#" method="POST" class="space-y-8">
+            <!-- Main Info Section -->
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-6">Основная информация</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label for="ride-title" class="block text-lg font-semibold mb-2">Название покатушки</label>
+                        <input type="text" id="ride-title" name="ride-title" class="w-full text-lg p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Например, Вечерний прохват по набережной">
+                    </div>
+                    <div>
+                        <label for="ride-description" class="block text-lg font-semibold mb-2">Подробное описание</label>
+                        <textarea id="ride-description" name="ride-description" rows="8" class="w-full text-lg p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Расскажите о маршруте, темпе, требованиях к участникам и других важных деталях..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parameters Section -->
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-6">Параметры поездки</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <!-- Date -->
+                    <div>
+                        <label for="ride-date" class="block font-semibold mb-2">Дата</label>
+                        <input type="date" id="ride-date" name="ride-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <!-- Time -->
+                    <div>
+                        <label for="ride-time" class="block font-semibold mb-2">Время старта</label>
+                        <input type="time" id="ride-time" name="ride-time" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <!-- Distance -->
+                    <div>
+                        <label for="ride-distance" class="block font-semibold mb-2">Дистанция, км</label>
+                        <input type="number" id="ride-distance" name="ride-distance" min="1" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="55">
+                    </div>
+                    <!-- Max Participants -->
+                    <div>
+                        <label for="ride-participants" class="block font-semibold mb-2">Макс. участников</label>
+                        <input type="number" id="ride-participants" name="ride-participants" min="2" max="100" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="15">
+                    </div>
+                    <!-- Bike Type -->
+                    <div>
+                        <label for="bike-type" class="font-semibold block mb-2">Тип велосипеда</label>
+                        <select id="bike-type" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option>МТБ</option>
+                            <option>Грэвел</option>
+                            <option>Шоссе</option>
+                            <option>Любой</option>
+                        </select>
+                    </div>
+                    <!-- Surface Type -->
+                    <div>
+                        <label for="surface-type" class="font-semibold block mb-2">Тип покрытия</label>
+                        <select id="surface-type" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option>Асфальт</option>
+                            <option>Грунты</option>
+                            <option>Больше асфальта</option>
+                            <option>Больше грунтов</option>
+                        </select>
+                    </div>
+                    <!-- Pace -->
+                    <div class="md:col-span-2">
+                        <label class="font-semibold block mb-2">Темп</label>
+                        <div class="radio-btn-group grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                            <input type="radio" id="pace-chill" name="pace" value="chill"><label for="pace-chill" class="py-3 px-3 border border-gray-300 rounded-md">Матрасный</label>
+                            <input type="radio" id="pace-brisk" name="pace" value="brisk" checked><label for="pace-brisk" class="py-3 px-3 border border-gray-300 rounded-md">Бодрый</label>
+                            <input type="radio" id="pace-intense" name="pace" value="intense"><label for="pace-intense" class="py-3 px-3 border border-gray-300 rounded-md">Интенсивный</label>
+                            <input type="radio" id="pace-sport" name="pace" value="sport"><label for="pace-sport" class="py-3 px-3 border border-gray-300 rounded-md">Спортивный</label>
+                        </div>
+                    </div>
+                    <!-- Skill Level -->
+                    <div class="md:col-span-2">
+                        <label class="font-semibold block mb-2">Уровень подготовки</label>
+                        <div class="radio-btn-group grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                            <input type="radio" id="level-beginner" name="level" value="beginner"><label for="level-beginner" class="py-3 px-3 border border-gray-300 rounded-md">Новичок</label>
+                            <input type="radio" id="level-medium" name="level" value="medium" checked><label for="level-medium" class="py-3 px-3 border border-gray-300 rounded-md">Любитель</label>
+                            <input type="radio" id="level-pro" name="level" value="pro"><label for="level-pro" class="py-3 px-3 border border-gray-300 rounded-md">Опытный</label>
+                            <input type="radio" id="level-any" name="level" value="any"><label for="level-any" class="py-3 px-3 border border-gray-300 rounded-md">Любой</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image/Map Upload Section -->
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-6">Изображение или карта маршрута</h2>
+                <div class="file-upload-area w-full p-10 border-2 border-gray-300 rounded-md text-center cursor-pointer hover:bg-gray-50 hover:border-blue-500 transition">
+                    <i data-lucide="upload-cloud" class="w-16 h-16 mx-auto text-gray-400"></i>
+                    <p class="mt-2 font-semibold text-blue-600">Нажмите, чтобы загрузить файл</p>
+                    <p class="text-sm text-gray-500 mt-1">PNG, JPG, GIF до 10MB или ссылка на трек (Strava, Komoot)</p>
+                    <input type="file" class="hidden">
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row items-center justify-end gap-4 pt-4">
+                <button type="button" class="w-full sm:w-auto px-8 py-3 font-bold text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition">Отмена</button>
+                <button type="submit" class="w-full sm:w-auto px-8 py-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md">Создать покатушку</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-white border-t mt-12">
+    <div class="container mx-auto px-4 py-6 text-center text-gray-500">
+        <p>&copy; 2025 VeloRide. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+  // Инициализация иконок Lucide
+  lucide.createIcons();
+</script>
+</body>
+</html>

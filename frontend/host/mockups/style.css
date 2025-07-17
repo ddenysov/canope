@@ -1,0 +1,340 @@
+/* ========== ОБЩИЕ СТИЛИ И ПЕРЕМЕННЫЕ ========== */
+:root {
+  --primary-color: #007bff;
+  --primary-hover-color: #0056b3;
+  --secondary-color: #6c757d;
+  --background-color: #f8f9fa;
+  --surface-color: #ffffff;
+  --text-color: #343a40;
+  --text-muted-color: #6c757d;
+  --border-color: #dee2e6;
+  --success-color: #28a745;
+  --font-family: 'Roboto', sans-serif;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ========== ШАПКА И ПОДВАЛ ========== */
+.site-header, .site-footer {
+  background-color: var(--surface-color);
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.site-footer {
+  border-top: 1px solid var(--border-color);
+  border-bottom: none;
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: var(--text-muted-color);
+}
+.site-header .container, .site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+.main-nav .nav-link {
+  margin-left: 25px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.main-nav .nav-link.active, .main-nav .nav-link:hover {
+  color: var(--primary-color);
+}
+.social-links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: var(--text-muted-color);
+}
+.social-links a:hover {
+  color: var(--primary-color);
+}
+
+
+/* ========== ОСНОВНАЯ РАСКЛАДКА ========== */
+.main-content {
+  padding: 40px 0;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+}
+
+/* ========== ФИЛЬТРЫ ========== */
+.filters {
+  background-color: var(--surface-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  align-self: start; /* чтобы фильтры не растягивались по высоте */
+}
+.filters h3 {
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+.filter-group {
+  margin-bottom: 20px;
+}
+.filter-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 0.95em;
+}
+.filter-group input[type="search"],
+.filter-group input[type="date"],
+.filter-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1em;
+}
+.filter-group input[type="range"] {
+  width: 100%;
+}
+.date-quick-select {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.radio-group input[type="radio"] {
+  display: none;
+}
+.radio-group label {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 400;
+}
+.radio-group input[type="radio"]:checked + label {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+.filter-actions {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+/* ========== КНОПКИ ========== */
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover-color);
+}
+.btn-primary:disabled {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.btn-secondary {
+  background-color: #e9ecef;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+.btn-secondary:hover {
+  background-color: #d8dde2;
+}
+.btn-icon {
+  padding: 8px 10px;
+}
+.btn-link {
+  background: none;
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* ========== СПИСОК ПОКАТУШЕК И КАРТОЧКИ ========== */
+.ride-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.ride-card {
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s;
+  position: relative;
+}
+.ride-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.ride-card-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.ride-card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.ride-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+.ride-card-header h2 {
+  font-size: 1.5em;
+  margin: 0;
+  line-height: 1.2;
+}
+.ride-author {
+  color: var(--text-muted-color);
+  font-size: 0.9em;
+}
+.ride-weather {
+  flex-shrink: 0;
+  text-align: right;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.ride-weather div {
+  font-size: 1.1em;
+}
+.ride-description {
+  margin: 0;
+  color: var(--text-color);
+}
+.ride-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95em;
+  color: var(--text-muted-color);
+  font-weight: 500;
+}
+.ride-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+/* СТИЛИ ДЛЯ ПРОШЕДШЕЙ ПОКАТУШКИ */
+.ride-card.past-ride {
+  opacity: 0.65;
+}
+.ride-card.past-ride:hover {
+  opacity: 0.8;
+}
+.ride-card.past-ride .ride-card-content {
+  background-color: #f7f7f7;
+}
+.ride-card-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 700;
+  z-index: 1;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 992px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .filters {
+    /* На планшетах можно скрыть фильтры под кнопку */
+  }
+}
+
+@media (max-width: 768px) {
+  .site-header .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .main-nav .nav-link {
+    margin-left: 0;
+  }
+  .ride-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .ride-weather {
+    text-align: left;
+    display: flex;
+    gap: 15px;
+  }
+  .ride-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

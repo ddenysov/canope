@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Покатушки для велосипедистов</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+<!-- Header -->
+<header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold">ВелоПокатушки</h1>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="#" class="hover:underline">Главная</a></li>
+                <li><a href="#" class="hover:underline">Мои покатушки</a></li>
+                <li><a href="#" class="hover:underline">Создать покатушку</a></li>
+                <li><a href="#" class="hover:underline">Профиль</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto p-6">
+    <!-- Search and Filters -->
+    <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold mb-4">Найти покатушку</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Date Filters -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Дата</label>
+                <select class="mt-1 block w-full p-2 border rounded-md">
+                    <option>Любая дата</option>
+                    <option>Сегодня</option>
+                    <option>Ближайшие выходные</option>
+                    <option>Выбрать дату</option>
+                </select>
+            </div>
+            <!-- Bike Type -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Тип велосипеда</label>
+                <select class="mt-1 block w-full p-2 border rounded-md">
+                    <option>Все типы</option>
+                    <option>MTB</option>
+                    <option>Гревел</option>
+                    <option>Шоссе</option>
+                </select>
+            </div>
+            <!-- Surface Type -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Тип покрытия</label>
+                <select class="mt-1 block w-full p-2 border rounded-md">
+                    <option>Все типы</option>
+                    <option>Асфальт</option>
+                    <option>Грунт</option>
+                    <option>Смешанное</option>
+                    <option>Больше грунта</option>
+                    <option>Больше асфальта</option>
+                </select>
+            </div>
+            <!-- Distance -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Дистанция (км)</label>
+                <input type="range" min="0" max="200" value="50" class="w-full" oninput="this.nextElementSibling.value = this.value">
+                <output>50</output>
+            </div>
+            <!-- Pace -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Темп</label>
+                <select class="mt-1 block w-full p-2 border rounded-md">
+                    <option>Все темпы</option>
+                    <option>Матрасный (спокойный)</option>
+                    <option>Бодрый (средний)</option>
+                    <option>Интенсивный (быстрый)</option>
+                </select>
+            </div>
+            <!-- Skill Level -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Уровень подготовки</label>
+                <select class="mt-1 block w-full p-2 border rounded-md">
+                    <option>Все уровни</option>
+                    <option>Новичок</option>
+                    <option>Средний</option>
+                    <option>Продвинутый</option>
+                </select>
+            </div>
+        </div>
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Найти</button>
+    </section>
+
+    <!-- Ride List -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Ride Card 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md relative">
+            <div class="absolute top-2 right-2 text-sm text-gray-500">Прошла</div>
+            <img src="https://via.placeholder.com/300x150" alt="Route Preview" class="w-full h-40 object-cover rounded-md mb-4">
+            <h3 class="text-lg font-semibold">Вечерняя покатушка по парку</h3>
+            <p class="text-sm text-gray-600">Автор: Иван Велогонщик</p>
+            <p class="text-sm text-gray-600">Дата: 15 июля 2025</p>
+            <p class="text-sm text-gray-600">Погода: ☀️ 25°C, ветер 5 м/с, ЮЗ</p>
+            <p class="text-sm text-gray-600">Тип велосипеда: Гревел</p>
+            <p class="text-sm text-gray-600">Покрытие: Смешанное</p>
+            <p class="text-sm text-gray-600">Дистанция: 30 км</p>
+            <p class="text-sm text-gray-600">Темп: Бодрый</p>
+            <p class="text-sm text-gray-600">Уровень: Средний</p>
+            <p class="text-sm text-gray-600">Участники: 8/10</p>
+            <p class="text-sm text-gray-700 mt-2">Описание: Живописный маршрут через лесопарк с остановкой у озера. Подходит для тех, кто хочет активно провести вечер.</p>
+            <div class="mt-4 flex space-x-4">
+                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Детали</a>
+                <button class="text-blue-600 hover:underline">Сохранить</button>
+            </div>
+        </div>
+        <!-- Ride Card 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <img src="https://via.placeholder.com/300x150" alt="Route Preview" class="w-full h-40 object-cover rounded-md mb-4">
+            <h3 class="text-lg font-semibold">Утренняя шоссейная покатушка</h3>
+            <p class="text-sm text-gray-600">Автор: Анна Спринтер</p>
+            <p class="text-sm text-gray-600">Дата: 19 июля 2025</p>
+            <p class="text-sm text-gray-600">Погода: ⛅ 22°C, ветер 3 м/с, С</p>
+            <p class="text-sm text-gray-600">Тип велосипеда: Шоссе</p>
+            <p class="text-sm text-gray-600">Покрытие: Асфальт</p>
+            <p class="text-sm text-gray-600">Дистанция: 60 км</p>
+            <p class="text-sm text-gray-600">Темп: Интенсивный</p>
+            <p class="text-sm text-gray-600">Уровень: Продвинутый</p>
+            <p class="text-sm text-gray-600">Участники: 5/15</p>
+            <p class="text-sm text-gray-700 mt-2">Описание: Быстрая покатушка по шоссе с минимальными остановками. Готовьтесь к высокому темпу!</p>
+            <div class="mt-4 flex space-x-4">
+                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Детали</a>
+                <button class="text-blue-600 hover:underline">Сохранить</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-blue-600 text-white p-4 mt-8">
+    <div class="container mx-auto text-center">
+        <p>&copy; 2025 ВелоПокатушки. Все права защищены.</p>
+        <div class="mt-2">
+            <a href="#" class="text-white hover:underline mx-2">О нас</a>
+            <a href="#" class="text-white hover:underline mx-2">Контакты</a>
+            <a href="#" class="text-white hover:underline mx-2">Политика конфиденциальности</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeloRide | Найти покатушку</title>
+
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Подключение библиотеки иконок (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Подключение шрифта Manrope для чистого и современного вида -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Дополнительные стили и кастомизация Tailwind */
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .is-past {
+            opacity: 0.7;
+        }
+        .is-past .badge-completed {
+            display: inline-flex;
+        }
+        .is-past .actions button {
+            cursor: not-allowed;
+            background-color: #d1d5db; /* gray-300 */
+        }
+        .is-past .actions button:hover {
+            background-color: #d1d5db;
+        }
+        .is-past .ride-card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: grayscale(80%);
+        }
+        /* Стили для кастомных радио-кнопок */
+        .radio-btn-group input[type="radio"] {
+            display: none;
+        }
+        .radio-btn-group label {
+            transition: all 0.2s ease-in-out;
+        }
+        .radio-btn-group input[type="radio"]:checked + label {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+            border-color: #2563eb; /* blue-600 */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+<!-- ========== HEADER ========== -->
+<header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-4">
+            <a href="#" class="text-2xl font-extrabold text-blue-600">VeloRide</a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#" class="font-semibold text-blue-600 border-b-2 border-blue-600 pb-1">Найти покатушку</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Создать свою</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Мои поездки</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Профиль</a>
+            </nav>
+            <button class="md:hidden text-gray-600">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="container mx-auto px-4 py-8">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+
+        <!-- ========== FILTERS (LEFT COLUMN) ========== -->
+        <aside class="lg:col-span-3 mb-8 lg:mb-0">
+            <div class="bg-white p-6 rounded-xl shadow-lg sticky top-24">
+                <h3 class="text-xl font-bold mb-6 flex items-center"><i data-lucide="filter" class="w-5 h-5 mr-2"></i>Фильтры</h3>
+
+                <!-- Date Filter -->
+                <div class="mb-6">
+                    <label class="font-semibold block mb-2">Дата</label>
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <button class="w-full text-sm font-semibold py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded-md transition">Сегодня</button>
+                        <button class="w-full text-sm font-semibold py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded-md transition">Выходные</button>
+                    </div>
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- Bike Type Filter -->
+                <div class="mb-6">
+                    <label for="bike-type" class="font-semibold block mb-2">Тип велосипеда</label>
+                    <select id="bike-type" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>Любой</option>
+                        <option>МТБ</option>
+                        <option>Грэвел</option>
+                        <option>Шоссе</option>
+                    </select>
+                </div>
+
+                <!-- Surface Type Filter -->
+                <div class="mb-6">
+                    <label for="surface-type" class="font-semibold block mb-2">Тип покрытия</label>
+                    <select id="surface-type" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>Любое</option>
+                        <option>Асфальт</option>
+                        <option>Грунты</option>
+                        <option>Больше асфальта</option>
+                        <option>Больше грунтов</option>
+                    </select>
+                </div>
+
+                <!-- Distance Filter -->
+                <div class="mb-6">
+                    <label for="distance" class="font-semibold block mb-2">Дистанция: <span id="distance-value" class="font-bold text-blue-600">до 120 км</span></label>
+                    <input type="range" id="distance" min="10" max="300" value="120" step="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <!-- Pace Filter -->
+                <div class="mb-6">
+                    <label class="font-semibold block mb-2">Темп</label>
+                    <div class="radio-btn-group grid grid-cols-2 gap-2 text-sm text-center">
+                        <input type="radio" id="pace-any" name="pace" value="any" checked><label for="pace-any" class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md">Любой</label>
+                        <input type="radio" id="pace-chill" name="pace" value="chill"><label for="pace-chill" class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md">Матрасный</label>
+                        <input type="radio" id="pace-brisk" name="pace" value="brisk"><label for="pace-brisk" class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md">Бодрый</label>
+                        <input type="radio" id="pace-intense" name="pace" value="intense"><label for="pace-intense" class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md">Интенсивный</label>
+                    </div>
+                </div>
+
+                <!-- Skill Level Filter -->
+                <div class="mb-6">
+                    <label class="font-semibold block mb-2">Уровень</label>
+                    <div class="radio-btn-group grid grid-cols-2 gap-2 text-sm text-center">
+                        <input type="radio" id="level-any" name="level" value="any" checked><label for="level-any" class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md">Любой</label>
+                        <input type="radio" id="level-beginner" name="level" value="beginner"><label for="level-beginner" class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md">Новичок</label>
+                        <input type="radio" id="level-medium" name="level" value="medium"><label for="level-medium" class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md">Любитель</label>
+                        <input type="radio" id="level-pro" name="level" value="pro"><label for="level-pro" class="cursor-pointer py-2 px-3 border border-gray-300 rounded-md">Опытный</label>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="mt-8">
+                    <button class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-md">Применить</button>
+                    <button class="w-full mt-2 text-gray-600 font-semibold py-2 rounded-lg hover:bg-gray-100 transition">Сбросить</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========== RIDE LIST (RIGHT COLUMN) ========== -->
+        <section class="lg:col-span-9">
+            <div class="space-y-6">
+
+                <!-- RIDE CARD EXAMPLE 1: Future MTB Ride -->
+                <article class="ride-card bg-white rounded-xl shadow-lg overflow-hidden transition-shadow hover:shadow-2xl flex flex-col md:flex-row" data-date="2025-07-20T10:00:00">
+                    <div class="md:w-1/3 relative ride-card-image">
+                        <img src="https://placehold.co/400x300/34D399/ffffff?text=Лесные+тропы" alt="Превью маршрута по лесным тропам" class="w-full h-48 md:h-full object-cover">
+                        <div class="badge-completed hidden absolute top-4 left-4 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-full items-center"><i data-lucide="check-circle" class="w-4 h-4 mr-1"></i>Завершено</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h2 class="text-2xl font-extrabold leading-tight">Бодрый прохват по лесу</h2>
+                                <div class="flex-shrink-0 ml-4 text-right">
+                                    <div class="font-bold text-lg flex items-center"><i data-lucide="sun" class="w-5 h-5 mr-2 text-yellow-500"></i>24°C</div>
+                                    <div class="text-sm text-gray-500 flex items-center justify-end"><i data-lucide="wind" class="w-4 h-4 mr-1"></i>5 м/с СЗ</div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">Автор: <span class="font-semibold text-gray-700">Андрей П.</span></p>
+                            <p class="text-gray-600 mb-5">Едем в хорошем темпе по живописным синглтрекам. Будут небольшие торчки и скоростные спуски. Обязательно наличие шлема.</p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600 py-4 border-t border-gray-200">
+                                <span class="flex items-center font-medium"><i data-lucide="calendar" class="w-4 h-4 mr-1.5 text-blue-500"></i>20 июля, 10:00</span>
+                                <span class="flex items-center font-medium"><i data-lucide="bike" class="w-4 h-4 mr-1.5 text-green-500"></i>МТБ</span>
+                                <span class="flex items-center font-medium"><i data-lucide="trees" class="w-4 h-4 mr-1.5 text-emerald-500"></i>Больше грунтов</span>
+                                <span class="flex items-center font-medium"><i data-lucide="milestone" class="w-4 h-4 mr-1.5 text-purple-500"></i>55 км</span>
+                                <span class="flex items-center font-medium"><i data-lucide="zap" class="w-4 h-4 mr-1.5 text-red-500"></i>Интенсивный</span>
+                                <span class="flex items-center font-medium"><i data-lucide="users" class="w-4 h-4 mr-1.5 text-orange-500"></i>8 / 15</span>
+                            </div>
+                            <div class="flex items-center justify-between mt-2 actions">
+                                <button class="w-full md:w-auto bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition shadow-md">Детали</button>
+                                <button class="p-3 rounded-full hover:bg-gray-100 text-gray-500 hover:text-red-500 transition" title="Сохранить">
+                                    <i data-lucide="bookmark" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- RIDE CARD EXAMPLE 2: Past Ride -->
+                <article class="ride-card bg-white rounded-xl shadow-lg overflow-hidden transition-shadow hover:shadow-2xl flex flex-col md:flex-row" data-date="2025-07-12T11:30:00">
+                    <div class="md:w-1/3 relative ride-card-image">
+                        <img src="https://placehold.co/400x300/9CA3AF/ffffff?text=Озеро" alt="Превью маршрута вокруг озера" class="w-full h-48 md:h-full object-cover">
+                        <div class="badge-completed hidden absolute top-4 left-4 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-full items-center"><i data-lucide="check-circle" class="w-4 h-4 mr-1"></i>Завершено</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h2 class="text-2xl font-extrabold leading-tight">Матрасный круг у озера</h2>
+                                <div class="flex-shrink-0 ml-4 text-right">
+                                    <div class="font-bold text-lg flex items-center"><i data-lucide="cloudy" class="w-5 h-5 mr-2 text-gray-500"></i>21°C</div>
+                                    <div class="text-sm text-gray-500 flex items-center justify-end"><i data-lucide="wind" class="w-4 h-4 mr-1"></i>2 м/с Ю</div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">Автор: <span class="font-semibold text-gray-700">Ольга В.</span></p>
+                            <p class="text-gray-600 mb-5">Неспешная поездка для всех. По пути остановимся на пикник. Идеально для новичков и семейного отдыха.</p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600 py-4 border-t border-gray-200">
+                                <span class="flex items-center font-medium"><i data-lucide="calendar" class="w-4 h-4 mr-1.5 text-blue-500"></i>12 июля, 11:30</span>
+                                <span class="flex items-center font-medium"><i data-lucide="bike" class="w-4 h-4 mr-1.5 text-green-500"></i>Любой</span>
+                                <span class="flex items-center font-medium"><i data-lucide="blend" class="w-4 h-4 mr-1.5 text-yellow-600"></i>Смешанное</span>
+                                <span class="flex items-center font-medium"><i data-lucide="milestone" class="w-4 h-4 mr-1.5 text-purple-500"></i>30 км</span>
+                                <span class="flex items-center font-medium"><i data-lucide="turtle" class="w-4 h-4 mr-1.5 text-teal-500"></i>Матрасный</span>
+                                <span class="flex items-center font-medium"><i data-lucide="users" class="w-4 h-4 mr-1.5 text-orange-500"></i>12 / 20</span>
+                            </div>
+                            <div class="flex items-center justify-between mt-2 actions">
+                                <button class="w-full md:w-auto bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition shadow-md">Детали</button>
+                                <button class="p-3 rounded-full text-gray-500" title="Сохранить">
+                                    <i data-lucide="bookmark" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- RIDE CARD EXAMPLE 3: Future Road Ride -->
+                <article class="ride-card bg-white rounded-xl shadow-lg overflow-hidden transition-shadow hover:shadow-2xl flex flex-col md:flex-row" data-date="2025-07-21T08:00:00">
+                    <div class="md:w-1/3 relative ride-card-image">
+                        <img src="https://placehold.co/400x300/60A5FA/ffffff?text=Шоссе" alt="Превью шоссейного маршрута" class="w-full h-48 md:h-full object-cover">
+                        <div class="badge-completed hidden absolute top-4 left-4 bg-gray-700 text-white text-xs font-bold px-3 py-1 rounded-full items-center"><i data-lucide="check-circle" class="w-4 h-4 mr-1"></i>Завершено</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h2 class="text-2xl font-extrabold leading-tight">Шоссейная "Сотка"</h2>
+                                <div class="flex-shrink-0 ml-4 text-right">
+                                    <div class="font-bold text-lg flex items-center"><i data-lucide="sun-cloud" class="w-5 h-5 mr-2 text-orange-400"></i>26°C</div>
+                                    <div class="text-sm text-gray-500 flex items-center justify-end"><i data-lucide="wind" class="w-4 h-4 mr-1"></i>8 м/с З</div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">Автор: <span class="font-semibold text-gray-700">Клуб "Ракета"</span></p>
+                            <p class="text-gray-600 mb-5">Классическая шоссейная сотка по хорошему асфальту. Едем группами по уровню. Средняя в основной группе 30-32 км/ч.</p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600 py-4 border-t border-gray-200">
+                                <span class="flex items-center font-medium"><i data-lucide="calendar" class="w-4 h-4 mr-1.5 text-blue-500"></i>21 июля, 08:00</span>
+                                <span class="flex items-center font-medium"><i data-lucide="bike" class="w-4 h-4 mr-1.5 text-green-500"></i>Шоссе</span>
+                                <span class="flex items-center font-medium"><i data-lucide="road" class="w-4 h-4 mr-1.5 text-gray-500"></i>Асфальт</span>
+                                <span class="flex items-center font-medium"><i data-lucide="milestone" class="w-4 h-4 mr-1.5 text-purple-500"></i>100 км</span>
+                                <span class="flex items-center font-medium"><i data-lucide="rocket" class="w-4 h-4 mr-1.5 text-pink-500"></i>Спортивный</span>
+                                <span class="flex items-center font-medium"><i data-lucide="users" class="w-4 h-4 mr-1.5 text-orange-500"></i>25 / 40</span>
+                            </div>
+                            <div class="flex items-center justify-between mt-2 actions">
+                                <button class="w-full md:w-auto bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition shadow-md">Детали</button>
+                                <button class="p-3 rounded-full hover:bg-gray-100 text-gray-500 hover:text-red-500 transition" title="Сохранить">
+                                    <i data-lucide="bookmark" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-white border-t mt-12">
+    <div class="container mx-auto px-4 py-6 text-center text-gray-500">
+        <p>&copy; 2025 VeloRide. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+  // Инициализация иконок Lucide
+  lucide.createIcons();
+
+  // Логика для слайдера дистанции
+  const distanceSlider = document.getElementById('distance');
+  const distanceValue = document.getElementById('distance-value');
+  distanceSlider.addEventListener('input', (event) => {
+    distanceValue.textContent = `до ${event.target.value} км`;
+  });
+
+  // Логика для определения прошедших покатушек
+  document.addEventListener('DOMContentLoaded', () => {
+    const now = new Date();
+    const rideCards = document.querySelectorAll('.ride-card');
+
+    rideCards.forEach(card => {
+      const rideDateStr = card.dataset.date;
+      if (rideDateStr) {
+        const rideDate = new Date(rideDateStr);
+        if (rideDate < now) {
+          card.classList.add('is-past');
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>

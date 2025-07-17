@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Покатушки | Найди свою компанию</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script> </head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="logo">VeloRide</div>
+        <nav class="main-nav">
+            <a href="#" class="nav-link active">Найти покатушку</a>
+            <a href="#" class="nav-link">Создать свою</a>
+            <a href="#" class="nav-link">Мои поездки</a>
+            <a href="#" class="nav-link">Профиль</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="container layout">
+        <aside class="filters">
+            <h3><i class="fas fa-filter"></i> Фильтры</h3>
+
+            <div class="filter-group">
+                <label for="search">Поиск по названию</label>
+                <input type="search" id="search" placeholder="Например, 'Лесные тропы'">
+            </div>
+
+            <div class="filter-group">
+                <label>Дата поездки</label>
+                <div class="date-quick-select">
+                    <button class="btn btn-secondary">Сегодня</button>
+                    <button class="btn btn-secondary">На выходных</button>
+                </div>
+                <input type="date" id="date-from">
+            </div>
+
+            <div class="filter-group">
+                <label for="bike-type">Тип велосипеда</label>
+                <select id="bike-type">
+                    <option value="any">Любой</option>
+                    <option value="mtb">MTB</option>
+                    <option value="gravel">Гревел</option>
+                    <option value="road">Шоссе</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="surface-type">Тип покрытия</label>
+                <select id="surface-type">
+                    <option value="any">Любое</option>
+                    <option value="asphalt">Асфальт</option>
+                    <option value="dirt">Грунты</option>
+                    <option value="mixed-asphalt">Смешанное (больше асфальта)</option>
+                    <option value="mixed-dirt">Смешанное (больше грунтов)</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="distance">Дистанция: <span id="distance-value">до 150 км</span></label>
+                <input type="range" id="distance" min="10" max="300" value="150" step="10">
+            </div>
+
+            <div class="filter-group">
+                <label>Темп</label>
+                <div class="radio-group">
+                    <input type="radio" id="pace-any" name="pace" value="any" checked><label for="pace-any">Любой</label>
+                    <input type="radio" id="pace-chill" name="pace" value="chill"><label for="pace-chill">Матрасный</label>
+                    <input type="radio" id="pace-brisk" name="pace" value="brisk"><label for="pace-brisk">Бодрый</label>
+                    <input type="radio" id="pace-intense" name="pace" value="intense"><label for="pace-intense">Интенсивный</label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Уровень подготовки</label>
+                <div class="radio-group">
+                    <input type="radio" id="level-any" name="level" value="any" checked><label for="level-any">Любой</label>
+                    <input type="radio" id="level-beginner" name="level" value="beginner"><label for="level-beginner">Новичок</label>
+                    <input type="radio" id="level-medium" name="level" value="medium"><label for="level-medium">Средний</label>
+                    <input type="radio" id="level-pro" name="level" value="pro"><label for="level-pro">Опытный</label>
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn btn-primary">Применить</button>
+                <button class="btn btn-link">Сбросить</button>
+            </div>
+
+        </aside>
+
+        <section class="ride-list">
+
+            <article class="ride-card">
+                <div class="ride-card-image">
+                    <img src="https://via.placeholder.com/800x400/cccccc/ffffff?text=Превью+маршрута" alt="Карта маршрута">
+                </div>
+                <div class="ride-card-content">
+                    <header class="ride-card-header">
+                        <div>
+                            <h2>Бодрый прохват по лесным тропам</h2>
+                            <div class="ride-author">Автор: <strong>Андрей П.</strong></div>
+                        </div>
+                        <div class="ride-weather">
+                            <div>☀️ 24°C</div>
+                            <div>💨 5 м/с СЗ</div>
+                        </div>
+                    </header>
+
+                    <p class="ride-description">Едем в хорошем темпе по живописным синглтрекам. Будут небольшие торчки и скоростные спуски. Обязательно наличие шлема и исправного велосипеда.</p>
+
+                    <div class="ride-meta">
+                        <span class="meta-item">🗓️ 20 июля 2025, 10:00</span>
+                        <span class="meta-item">🚲 MTB</span>
+                        <span class="meta-item">🌲 Больше грунтов</span>
+                        <span class="meta-item">📏 55 км</span>
+                        <span class="meta-item">🔥 Интенсивный</span>
+                        <span class="meta-item">👥 8 / 15</span>
+                    </div>
+
+                    <footer class="ride-card-actions">
+                        <button class="btn btn-primary">Детали</button>
+                        <button class="btn btn-secondary btn-icon" title="Сохранить">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </footer>
+                </div>
+            </article>
+
+            <article class="ride-card past-ride">
+                <div class="ride-card-badge">Завершено</div>
+                <div class="ride-card-image">
+                    <img src="https://via.placeholder.com/800x400/cccccc/ffffff?text=Превью+маршрута" alt="Карта маршрута">
+                </div>
+                <div class="ride-card-content">
+                    <header class="ride-card-header">
+                        <div>
+                            <h2>Матрасный круг вокруг озера</h2>
+                            <div class="ride-author">Автор: <strong>Ольга В.</strong></div>
+                        </div>
+                        <div class="ride-weather">
+                            <div>⛅️ 21°C</div>
+                            <div>💨 2 м/с Ю</div>
+                        </div>
+                    </header>
+
+                    <p class="ride-description">Неспешная поездка для всех желающих. По пути остановимся на пикник. Идеально для новичков и семейного отдыха. Темп по самому медленному.</p>
+
+                    <div class="ride-meta">
+                        <span class="meta-item">🗓️ 12 июля 2025, 11:30</span>
+                        <span class="meta-item">🚲 Любой</span>
+                        <span class="meta-item">🏞️ Смешанное</span>
+                        <span class="meta-item">📏 30 км</span>
+                        <span class="meta-item">🐢 Матрасный</span>
+                        <span class="meta-item">👥 12 / 20</span>
+                    </div>
+
+                    <footer class="ride-card-actions">
+                        <button class="btn btn-primary" disabled>Детали</button>
+                        <button class="btn btn-secondary btn-icon" title="Сохранить" disabled>
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </footer>
+                </div>
+            </article>
+
+            <article class="ride-card">
+                <div class="ride-card-image">
+                    <img src="https://via.placeholder.com/800x400/cccccc/ffffff?text=Превью+маршрута" alt="Карта маршрута">
+                </div>
+                <div class="ride-card-content">
+                    <header class="ride-card-header">
+                        <div>
+                            <h2>Шоссейная тренировка "Сотка"</h2>
+                            <div class="ride-author">Автор: <strong>Клуб "Ракета"</strong></div>
+                        </div>
+                        <div class="ride-weather">
+                            <div>🌤️ 26°C</div>
+                            <div>💨 8 м/с З</div>
+                        </div>
+                    </header>
+
+                    <p class="ride-description">Классическая шоссейная сотка по хорошему асфальту. Едем группами по уровню подготовки. Средняя скорость в основной группе 30-32 км/ч.</p>
+
+                    <div class="ride-meta">
+                        <span class="meta-item">🗓️ 21 июля 2025, 08:00</span>
+                        <span class="meta-item">🚲 Шоссе</span>
+                        <span class="meta-item">🛣️ Асфальт</span>
+                        <span class="meta-item">📏 100 км</span>
+                        <span class="meta-item">🚀 Спортивный</span>
+                        <span class="meta-item">👥 25 / 40</span>
+                    </div>
+
+                    <footer class="ride-card-actions">
+                        <button class="btn btn-primary">Детали</button>
+                        <button class="btn btn-secondary btn-icon" title="Сохранить">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </footer>
+                </div>
+            </article>
+
+        </section>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; 2025 VeloRide. Все права защищены.</p>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Telegram</a>
+            <a href="#">Facebook</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://kit.fontawesome.com/c3d2a3d6d2.js" crossorigin="anonymous"></script>
+</body>
+</html>

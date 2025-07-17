@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль | VeloRide</title>
+
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Подключение библиотеки иконок (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Подключение шрифта Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+<!-- ========== HEADER ========== -->
+<header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-4">
+            <a href="#" class="text-2xl font-extrabold text-blue-600">VeloRide</a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Найти покатушку</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Создать свою</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Мои поездки</a>
+                <a href="#" class="font-semibold text-blue-600 border-b-2 border-blue-600 pb-1">Профиль</a>
+            </nav>
+            <button class="md:hidden text-gray-600">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="container mx-auto px-4 py-8">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+
+        <!-- ========== LEFT COLUMN (Profile Card) ========== -->
+        <aside class="lg:col-span-4 mb-8 lg:mb-0">
+            <div class="bg-white p-6 rounded-xl shadow-lg text-center sticky top-24">
+                <img src="https://placehold.co/128x128/A78BFA/FFFFFF?text=Я" alt="Аватар пользователя" class="w-32 h-32 rounded-full mx-auto mb-4 ring-4 ring-blue-200">
+                <h1 class="text-3xl font-extrabold">Алексей Иванов</h1>
+                <p class="text-gray-500 mt-1">"Катаю в любую погоду!"</p>
+
+                <div class="text-left mt-6 pt-6 border-t border-gray-200 space-y-3">
+                    <div class="flex items-center text-gray-700">
+                        <i data-lucide="map-pin" class="w-5 h-5 mr-3 text-gray-400"></i>
+                        <span>Киев, Украина</span>
+                    </div>
+                    <div class="flex items-center text-gray-700">
+                        <i data-lucide="calendar-check" class="w-5 h-5 mr-3 text-gray-400"></i>
+                        <span>В VeloRide с мая 2024</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-center mt-6 pt-6 border-t border-gray-200">
+                    <div>
+                        <p class="text-2xl font-bold">1280<span class="text-base font-medium text-gray-500"> км</span></p>
+                        <p class="text-sm text-gray-500">Накатано</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold">24</p>
+                        <p class="text-sm text-gray-500">Поездок</p>
+                    </div>
+                </div>
+
+                <button class="w-full mt-6 bg-blue-100 text-blue-700 font-bold py-3 rounded-lg hover:bg-blue-200 transition flex items-center justify-center">
+                    <i data-lucide="settings" class="w-5 h-5 mr-2"></i>
+                    Редактировать профиль
+                </button>
+            </div>
+        </aside>
+
+        <!-- ========== RIGHT COLUMN (Main Profile Content) ========== -->
+        <div class="lg:col-span-8">
+            <!-- My Bikes Section -->
+            <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                <h2 class="text-2xl font-bold mb-4">Мои велосипеды</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Bike Card 1 -->
+                    <div class="border border-gray-200 rounded-lg p-4 flex items-center space-x-4">
+                        <img src="https://placehold.co/80x80/34D399/FFFFFF?text=MTB" alt="Велосипед" class="w-20 h-20 rounded-md object-cover">
+                        <div>
+                            <h3 class="font-bold text-lg">Trek Marlin 7</h3>
+                            <p class="text-sm text-gray-500 bg-green-100 text-green-700 px-2 py-0.5 rounded-full inline-block">МТБ</p>
+                        </div>
+                    </div>
+                    <!-- Bike Card 2 -->
+                    <div class="border border-gray-200 rounded-lg p-4 flex items-center space-x-4">
+                        <img src="https://placehold.co/80x80/FBBF24/FFFFFF?text=Gravel" alt="Велосипед" class="w-20 h-20 rounded-md object-cover">
+                        <div>
+                            <h3 class="font-bold text-lg">Canyon Grizl</h3>
+                            <p class="text-sm text-gray-500 bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full inline-block">Грэвел</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="mt-4 text-sm font-semibold text-blue-600 hover:text-blue-800 flex items-center">
+                    <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
+                    Добавить велосипед
+                </button>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-6">Активность</h2>
+                <div class="flow-root">
+                    <ul role="list" class="-mb-8">
+                        <!-- Activity Item 1 -->
+                        <li>
+                            <div class="relative pb-8">
+                                <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                            <span class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
+                                                <i data-lucide="check" class="h-5 w-5 text-white"></i>
+                                            </span>
+                                    </div>
+                                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Принял участие в <a href="#" class="font-medium text-gray-900">Матрасный круг у озера</a></p>
+                                        </div>
+                                        <div class="whitespace-nowrap text-right text-sm text-gray-500">
+                                            <time datetime="2025-07-12">12 июля</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Activity Item 2 -->
+                        <li>
+                            <div class="relative pb-8">
+                                <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                            <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                                                <i data-lucide="message-square" class="h-5 w-5 text-white"></i>
+                                            </span>
+                                    </div>
+                                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Оставил комментарий в <a href="#" class="font-medium text-gray-900">Бодрый прохват по лесу</a></p>
+                                        </div>
+                                        <div class="whitespace-nowrap text-right text-sm text-gray-500">
+                                            <time datetime="2025-07-10">10 июля</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Activity Item 3 -->
+                        <li>
+                            <div class="relative pb-8">
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                            <span class="h-8 w-8 rounded-full bg-yellow-500 flex items-center justify-center ring-8 ring-white">
+                                                <i data-lucide="star" class="h-5 w-5 text-white"></i>
+                                            </span>
+                                    </div>
+                                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Оставил отзыв для <a href="#" class="font-medium text-gray-900">Поездка на рассвете</a></p>
+                                        </div>
+                                        <div class="whitespace-nowrap text-right text-sm text-gray-500">
+                                            <time datetime="2025-07-05">5 июля</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-white border-t mt-12">
+    <div class="container mx-auto px-4 py-6 text-center text-gray-500">
+        <p>&copy; 2025 VeloRide. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+  // Инициализация иконок Lucide
+  lucide.createIcons();
+</script>
+</body>
+</html>

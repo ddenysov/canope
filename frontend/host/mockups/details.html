@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали покатушки | VeloRide</title>
+
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Подключение библиотеки иконок (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Подключение шрифта Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f8f9fa;
+        }
+        /* Стиль для "липкого" блока сбоку */
+        .sticky-sidebar {
+            position: sticky;
+            top: 88px; /* Высота хедера + отступ */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+<!-- ========== HEADER ========== -->
+<header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-4">
+            <a href="#" class="text-2xl font-extrabold text-blue-600">VeloRide</a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Найти покатушку</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Создать свою</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Мои поездки</a>
+                <a href="#" class="font-semibold text-gray-600 hover:text-blue-600 transition">Профиль</a>
+            </nav>
+            <button class="md:hidden text-gray-600">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="container mx-auto px-4 py-8">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+
+        <!-- ========== LEFT COLUMN (Main Ride Info) ========== -->
+        <div class="lg:col-span-8">
+            <!-- Ride Header -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <p class="text-sm text-blue-600 font-semibold mb-2">МТБ покатушка ・ 20 июля 2025</p>
+                <h1 class="text-4xl font-extrabold tracking-tight mb-3">Бодрый прохват по лесу</h1>
+                <div class="flex items-center">
+                    <img src="https://placehold.co/40x40/E2E8F0/4A5568?text=A" alt="Аватар автора" class="w-10 h-10 rounded-full mr-3">
+                    <div>
+                        <p class="font-semibold">Андрей П.</p>
+                        <p class="text-sm text-gray-500">Организатор</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ride Map/Image -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+                <img src="https://placehold.co/800x450/34D399/FFFFFF?text=Карта+маршрута" alt="Карта маршрута" class="w-full h-auto object-cover">
+            </div>
+
+            <!-- Ride Description -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold mb-4">Описание</h2>
+                <div class="prose max-w-none text-gray-700">
+                    <p>Всем привет! Приглашаю на бодрую, но не гоночную покатушку по красивым лесным тропам в окрестностях.</p>
+                    <p><strong>План такой:</strong> встречаемся у входа в парк, небольшой брифинг и стартуем. Маршрут кольцевой, около 55 км с суммарным набором высоты примерно 600 метров. Будут и техничные синглтреки, и скоростные спуски, и пара-тройка торчков, где придется поработать.</p>
+                    <p><strong>Требования к участникам:</strong></p>
+                    <ul>
+                        <li>Уверенное катание по пересеченной местности.</li>
+                        <li>Исправный горный велосипед.</li>
+                        <li>Наличие шлема (обязательно!), ремкомплекта и запасной камеры.</li>
+                        <li>Вода и перекус по желанию.</li>
+                    </ul>
+                    <p>Темп держим бодрый, но без фанатизма, группа ждет на развилках. Это не гонка, а возможность хорошо провести время и получить удовольствие от катания. После финиша можно будет посидеть в местном кафе.</p>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold mb-6">Обсуждение (3)</h2>
+                <div class="space-y-6">
+                    <!-- Comment 1 -->
+                    <div class="flex items-start space-x-4">
+                        <img src="https://placehold.co/40x40/FBBF24/4A5568?text=Е" alt="Аватар" class="w-10 h-10 rounded-full">
+                        <div class="flex-1">
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <p class="font-semibold">Елена</p>
+                                <p class="text-gray-700">Отличный маршрут! А сильно грязно сейчас на тропах после дождей?</p>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">1 день назад</p>
+                        </div>
+                    </div>
+                    <!-- Comment 2 (Author's reply) -->
+                    <div class="flex items-start space-x-4 ml-8">
+                        <img src="https://placehold.co/40x40/E2E8F0/4A5568?text=A" alt="Аватар" class="w-10 h-10 rounded-full">
+                        <div class="flex-1">
+                            <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                                <p class="font-semibold">Андрей П. <span class="text-xs text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full ml-1">Организатор</span></p>
+                                <p class="text-gray-700">Елена, уже подсохло, должно быть нормально. Самые сырые участки можно объехать.</p>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">1 день назад</p>
+                        </div>
+                    </div>
+                    <!-- Comment 3 -->
+                    <div class="flex items-start space-x-4">
+                        <img src="https://placehold.co/40x40/34D399/4A5568?text=М" alt="Аватар" class="w-10 h-10 rounded-full">
+                        <div class="flex-1">
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <p class="font-semibold">Михаил</p>
+                                <p class="text-gray-700">Буду!</p>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">5 часов назад</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Comment Form -->
+                <div class="mt-8 flex items-start space-x-4">
+                    <img src="https://placehold.co/40x40/A78BFA/FFFFFF?text=Я" alt="Ваш аватар" class="w-10 h-10 rounded-full">
+                    <div class="flex-1">
+                        <textarea class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="3" placeholder="Написать комментарий..."></textarea>
+                        <button class="mt-2 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition shadow-sm">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== RIGHT COLUMN (Sticky Sidebar) ========== -->
+        <aside class="lg:col-span-4">
+            <div class="sticky-sidebar space-y-6">
+                <!-- Actions & Info Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <button class="w-full bg-blue-600 text-white text-lg font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-md flex items-center justify-center"><i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i>Я поеду!</button>
+                    <button class="w-full mt-2 bg-gray-200 text-gray-800 font-bold py-3 rounded-lg hover:bg-gray-300 transition flex items-center justify-center"><i data-lucide="bookmark" class="w-5 h-5 mr-2"></i>Сохранить</button>
+
+                    <ul class="mt-6 space-y-3 text-gray-700">
+                        <li class="flex items-center"><i data-lucide="milestone" class="w-5 h-5 mr-3 text-purple-500"></i><div><span class="font-bold">55 км</span><br><span class="text-sm text-gray-500">Дистанция</span></div></li>
+                        <li class="flex items-center"><i data-lucide="zap" class="w-5 h-5 mr-3 text-red-500"></i><div><span class="font-bold">Интенсивный</span><br><span class="text-sm text-gray-500">Темп</span></div></li>
+                        <li class="flex items-center"><i data-lucide="bar-chart-3" class="w-5 h-5 mr-3 text-indigo-500"></i><div><span class="font-bold">Опытный</span><br><span class="text-sm text-gray-500">Уровень</span></div></li>
+                        <li class="flex items-center"><i data-lucide="trees" class="w-5 h-5 mr-3 text-emerald-500"></i><div><span class="font-bold">Больше грунтов</span><br><span class="text-sm text-gray-500">Покрытие</span></div></li>
+                    </ul>
+                </div>
+
+                <!-- Participants Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Участники (8 / 15)</h3>
+                    <div class="flex flex-wrap -space-x-2">
+                        <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://placehold.co/40x40/E2E8F0/4A5568?text=A" alt="Андрей П.">
+                        <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://placehold.co/40x40/FBBF24/4A5568?text=Е" alt="Елена">
+                        <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://placehold.co/40x40/34D399/4A5568?text=М" alt="Михаил">
+                        <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://placehold.co/40x40/F87171/FFFFFF?text=О" alt="Ольга">
+                        <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://placehold.co/40x40/60A5FA/FFFFFF?text=Д" alt="Дмитрий">
+                        <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://placehold.co/40x40/C084FC/FFFFFF?text=С" alt="Сергей">
+                        <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://placehold.co/40x40/A78BFA/FFFFFF?text=Я" alt="Вы">
+                        <a href="#" class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600">+1</a>
+                    </div>
+                </div>
+
+                <!-- Weather Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Погода в день поездки</h3>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i data-lucide="sun" class="w-12 h-12 mr-4 text-yellow-500"></i>
+                            <div>
+                                <p class="text-3xl font-bold">24°C</p>
+                                <p class="text-gray-500">Ясно</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold flex items-center justify-end"><i data-lucide="wind" class="w-4 h-4 mr-1.5 text-gray-500"></i>5 м/с СЗ</p>
+                            <p class="font-semibold flex items-center justify-end"><i data-lucide="sunrise" class="w-4 h-4 mr-1.5 text-gray-500"></i>05:15</p>
+                            <p class="font-semibold flex items-center justify-end"><i data-lucide="sunset" class="w-4 h-4 mr-1.5 text-gray-500"></i>21:05</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-white border-t mt-12">
+    <div class="container mx-auto px-4 py-6 text-center text-gray-500">
+        <p>&copy; 2025 VeloRide. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+  // Инициализация иконок Lucide
+  lucide.createIcons();
+</script>
+</body>
+</html>

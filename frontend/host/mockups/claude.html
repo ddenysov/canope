@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeloMeet - Найди свою покатушку</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: "🚴";
+            font-size: 32px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 0;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+        }
+
+        /* Search and Filters */
+        .search-filters {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .quick-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .quick-filter {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .quick-filter:hover, .quick-filter.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-group select, .filter-group input {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-group select:focus, .filter-group input:focus {
+            border-color: #667eea;
+        }
+
+        /* Rides Grid */
+        .rides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .ride-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .ride-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .ride-card.past {
+            opacity: 0.7;
+        }
+
+        .ride-card.past::before {
+            content: "ЗАВЕРШЕНА";
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .ride-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ride-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .ride-content {
+            padding: 25px;
+        }
+
+        .ride-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .ride-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .ride-participants {
+            background: #f8f9fa;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .ride-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .ride-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .ride-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .detail-item .icon {
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .weather-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .weather-icon {
+            font-size: 32px;
+        }
+
+        .weather-details {
+            flex: 1;
+        }
+
+        .weather-temp {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .weather-wind {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .ride-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .author-level {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .ride-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .footer-section a {
+            color: #666;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rides-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ride-details {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <a href="#" class="logo">VeloMeet</a>
+            <nav>
+                <ul>
+                    <li><a href="#">Покатушки</a></li>
+                    <li><a href="#">Создать</a></li>
+                    <li><a href="#">Карты</a></li>
+                    <li><a href="#">Сообщество</a></li>
+                    <li><a href="#">Профиль</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="hero">
+            <h1>Найди свою покатушку</h1>
+            <p>Присоединяйся к велосипедистам в твоем городе и исследуй новые маршруты вместе</p>
+        </div>
+
+        <div class="search-filters">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Поиск по названию, описанию или автору...">
+                <button class="search-btn">Найти</button>
+            </div>
+
+            <div class="quick-filters">
+                <div class="quick-filter active" data-filter="today">Сегодня</div>
+                <div class="quick-filter" data-filter="weekend">Выходные</div>
+                <div class="quick-filter" data-filter="mtb">МТБ</div>
+                <div class="quick-filter" data-filter="road">Шоссе</div>
+                <div class="quick-filter" data-filter="gravel">Гравел</div>
+            </div>
+
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Дата</label>
+                    <input type="date" value="2025-07-17">
+                </div>
+                <div class="filter-group">
+                    <label>Тип велосипеда</label>
+                    <select>
+                        <option>Все типы</option>
+                        <option>МТБ</option>
+                        <option>Шоссе</option>
+                        <option>Гравел</option>
+                        <option>Городской</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Покрытие</label>
+                    <select>
+                        <option>Любое</option>
+                        <option>Асфальт</option>
+                        <option>Грунт</option>
+                        <option>Смешанное</option>
+                        <option>Больше асфальта</option>
+                        <option>Больше грунта</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Дистанция (км)</label>
+                    <select>
+                        <option>Любая</option>
+                        <option>До 25</option>
+                        <option>25-50</option>
+                        <option>50-100</option>
+                        <option>100+</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Темп</label>
+                    <select>
+                        <option>Любой</option>
+                        <option>Релаксовый</option>
+                        <option>Неспешный</option>
+                        <option>Бодрый</option>
+                        <option>Активный</option>
+                        <option>Интенсивный</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Уровень подготовки</label>
+                    <select>
+                        <option>Любой</option>
+                        <option>Новичок</option>
+                        <option>Любитель</option>
+                        <option>Продвинутый</option>
+                        <option>Профи</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="rides-grid">
+            <div class="ride-card">
+                <div class="ride-image">🗺️</div>
+                <div class="ride-content">
+                    <div class="ride-header">
+                        <div class="ride-date">Сегодня, 18:00</div>
+                        <div class="ride-participants">👥 8/12</div>
+                    </div>
+                    <div class="ride-title">Вечерняя покатушка по Днепру</div>
+                    <div class="ride-description">
+                        Легкая прогулка вдоль набережной Днепра. Подойдет для всех уровней подготовки. Красивые виды и хорошая компания гарантированы!
+                    </div>
+
+                    <div class="weather-info">
+                        <div class="weather-icon">☀️</div>
+                        <div class="weather-details">
+                            <div class="weather-temp">+24°C</div>
+                            <div class="weather-wind">Ветер: 5 км/ч ←</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-details">
+                        <div class="detail-item">
+                            <div class="icon">🚴</div>
+                            <span>Гравел</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">📏</div>
+                            <span>35 км</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">🛣️</div>
+                            <span>Смешанное</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">⚡</div>
+                            <span>Бодрый</span>
+                        </div>
+                    </div>
+
+                    <div class="ride-author">
+                        <div class="author-avatar">АК</div>
+                        <div class="author-info">
+                            <div class="author-name">Андрей Козлов</div>
+                            <div class="author-level">Организатор • Продвинутый</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-actions">
+                        <button class="btn-primary">Детали</button>
+                        <button class="btn-secondary">💾</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ride-card">
+                <div class="ride-image">🏔️</div>
+                <div class="ride-content">
+                    <div class="ride-header">
+                        <div class="ride-date">Завтра, 9:00</div>
+                        <div class="ride-participants">👥 5/8</div>
+                    </div>
+                    <div class="ride-title">МТБ в Пуща-Водице</div>
+                    <div class="ride-description">
+                        Технический МТБ маршрут по лесным тропам. Требуется хорошая физическая подготовка и навыки езды по пересеченной местности.
+                    </div>
+
+                    <div class="weather-info">
+                        <div class="weather-icon">⛅</div>
+                        <div class="weather-details">
+                            <div class="weather-temp">+22°C</div>
+                            <div class="weather-wind">Ветер: 8 км/ч →</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-details">
+                        <div class="detail-item">
+                            <div class="icon">🚵</div>
+                            <span>МТБ</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">📏</div>
+                            <span>28 км</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">🛣️</div>
+                            <span>Грунт</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">⚡</div>
+                            <span>Активный</span>
+                        </div>
+                    </div>
+
+                    <div class="ride-author">
+                        <div class="author-avatar">МП</div>
+                        <div class="author-info">
+                            <div class="author-name">Максим Петров</div>
+                            <div class="author-level">Организатор • Профи</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-actions">
+                        <button class="btn-primary">Детали</button>
+                        <button class="btn-secondary">💾</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ride-card">
+                <div class="ride-image">🏁</div>
+                <div class="ride-content">
+                    <div class="ride-header">
+                        <div class="ride-date">Сб, 7:00</div>
+                        <div class="ride-participants">👥 12/15</div>
+                    </div>
+                    <div class="ride-title">Шоссейная тренировка</div>
+                    <div class="ride-description">
+                        Интенсивная шоссейная тренировка с элементами интервалов. Для подготовленных велосипедистов. Средняя скорость 35+ км/ч.
+                    </div>
+
+                    <div class="weather-info">
+                        <div class="weather-icon">🌤️</div>
+                        <div class="weather-details">
+                            <div class="weather-temp">+19°C</div>
+                            <div class="weather-wind">Ветер: 12 км/ч ↑</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-details">
+                        <div class="detail-item">
+                            <div class="icon">🚴</div>
+                            <span>Шоссе</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">📏</div>
+                            <span>85 км</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">🛣️</div>
+                            <span>Асфальт</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">⚡</div>
+                            <span>Интенсивный</span>
+                        </div>
+                    </div>
+
+                    <div class="ride-author">
+                        <div class="author-avatar">ОС</div>
+                        <div class="author-info">
+                            <div class="author-name">Ольга Сидорова</div>
+                            <div class="author-level">Тренер • Профи</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-actions">
+                        <button class="btn-primary">Детали</button>
+                        <button class="btn-secondary">💾</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ride-card past">
+                <div class="ride-image">🌅</div>
+                <div class="ride-content">
+                    <div class="ride-header">
+                        <div class="ride-date">Вчера, 6:30</div>
+                        <div class="ride-participants">👥 15/15</div>
+                    </div>
+                    <div class="ride-title">Рассветная покатушка</div>
+                    <div class="ride-description">
+                        Ранняя покатушка на рассвете. Встречали восход солнца на Труханом острове. Незабываемые впечатления!
+                    </div>
+
+                    <div class="weather-info">
+                        <div class="weather-icon">🌅</div>
+                        <div class="weather-details">
+                            <div class="weather-temp">+18°C</div>
+                            <div class="weather-wind">Ветер: 3 км/ч ↓</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-details">
+                        <div class="detail-item">
+                            <div class="icon">🚴</div>
+                            <span>Гравел</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">📏</div>
+                            <span>42 км</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">🛣️</div>
+                            <span>Смешанное</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">⚡</div>
+                            <span>Неспешный</span>
+                        </div>
+                    </div>
+
+                    <div class="ride-author">
+                        <div class="author-avatar">ДВ</div>
+                        <div class="author-info">
+                            <div class="author-name">Дмитрий Волков</div>
+                            <div class="author-level">Организатор • Любитель</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-actions">
+                        <button class="btn-primary">Детали</button>
+                        <button class="btn-secondary">💾</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ride-card">
+                <div class="ride-image">🌳</div>
+                <div class="ride-content">
+                    <div class="ride-header">
+                        <div class="ride-date">Вс, 10:00</div>
+                        <div class="ride-participants">👥 6/10</div>
+                    </div>
+                    <div class="ride-title">Семейная покатушка в парке</div>
+                    <div class="ride-description">
+                        Спокойная семейная покатушка по парковым дорожкам. Приветствуются участники с детьми. Остановки для отдыха и фотосессий.
+                    </div>
+
+                    <div class="weather-info">
+                        <div class="weather-icon">🌞</div>
+                        <div class="weather-details">
+                            <div class="weather-temp">+26°C</div>
+                            <div class="weather-wind">Ветер: 6 км/ч →</div>
+                        </div>
+                    </div>
+
+                    <div class="ride-details">
+                        <div class="detail-item">
+                            <div class="icon">🚴</div>
+                            <span>Городской</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">📏</div>
+                            <span>15 км</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">🛣️</div>
+                            <span>Асфальт</span>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon">⚡</div>
+                            <span>Релаксовый</span

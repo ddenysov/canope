@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang='uk'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Покатушки – Знайди Свою Компанію</title>
+    <style>
+        :root { --primary: #0d6efd; --bg: #f5f7fa; --text: #1e1e1e; --card: #fff; }
+        body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+        header { background: #fff; padding: 0.5rem 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between; }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1rem; }
+        nav a { text-decoration: none; color: var(--text); font-weight: 500; }
+        main { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+        .filter-panel { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .filter-panel label { font-size: 0.875rem; margin-bottom: 0.25rem; display: block; }
+        .filter-panel input[type=date], .filter-panel select, .filter-panel input[type=number] { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
+        .filter-shortcuts { display: flex; gap: 0.5rem; margin-top: 0.25rem; }
+        .filter-shortcuts button { padding: 0.25rem 0.5rem; border: none; background: var(--primary); color: #fff; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+        .ride-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px,1fr)); gap: 1rem; }
+        .ride-card { background: var(--card); border: 1px solid #e4e4e4; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+        .ride-card.past::after { content: 'Прошло'; position: absolute; top: 0; left: 0; background: #e53e3e; color: #fff; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-bottom-right-radius: 8px; }
+        .ride-image { height: 180px; background: #ddd; background-size: cover; background-position: center; }
+        .ride-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+        .ride-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.875rem; color: #555; }
+        .ride-meta div { display: flex; align-items: center; gap: 0.25rem; }
+        .weather { display: flex; gap: 0.5rem; font-size: 0.875rem; }
+        .ride-buttons { display: flex; justify-content: space-between; margin-top: auto; gap: 0.5rem; }
+        .ride-buttons a, .ride-buttons button { flex: 1; padding: 0.5rem; border-radius: 4px; font-weight: 600; text-align: center; text-decoration: none; cursor: pointer; }
+        .ride-buttons a { background: var(--primary); color: #fff; }
+        .ride-buttons button { background: #fff; border: 1px solid var(--primary); color: var(--primary); }
+        footer { margin-top: 3rem; padding: 1rem; background: #fff; text-align: center; font-size: 0.875rem; color: #777; }
+        @media (max-width: 600px) { nav ul { flex-direction: column; align-items: flex-start; } }
+    </style>
+</head>
+<body>
+<header>
+    <div class='logo'><strong>RideMate</strong></div>
+    <nav>
+        <ul>
+            <li><a href='#'>Покатушки</a></li>
+            <li><a href='#'>Создать</a></li>
+            <li><a href='#'>Мой профиль</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Найди покатушку</h1>
+
+    <form class='filter-panel' id='searchForm'>
+        <div>
+            <label for='dateFrom'>Дата от</label>
+            <input type='date' id='dateFrom' name='dateFrom'>
+        </div>
+        <div>
+            <label for='dateTo'>Дата до</label>
+            <input type='date' id='dateTo' name='dateTo'>
+        </div>
+        <div class='filter-shortcuts' style='grid-column: span 2;'>
+            <button type='button' data-shortcut='today'>Сегодня</button>
+            <button type='button' data-shortcut='weekend'>Ближайшие выходные</button>
+        </div>
+
+        <div>
+            <label for='bikeType'>Тип велосипеда</label>
+            <select id='bikeType' name='bikeType'>
+                <option value=''>Любой</option>
+                <option value='road'>Шоссе</option>
+                <option value='gravel'>Гревел</option>
+                <option value='mtb'>МТБ</option>
+            </select>
+        </div>
+        <div>
+            <label for='surface'>Покрытие</label>
+            <select id='surface' name='surface'>
+                <option value=''>Любое</option>
+                <option value='asphalt'>Асфальт</option>
+                <option value='mixed'>Смешанное</option>
+                <option value='gravel-heavy'>Больше грунтов</option>
+                <option value='asphalt-heavy'>Больше асфальта</option>
+            </select>
+        </div>
+        <div>
+            <label for='distance'>Дистанция (км)</label>
+            <input type='number' id='distance' name='distance' min='0'>
+        </div>
+        <div>
+            <label for='pace'>Темп</label>
+            <select id='pace' name='pace'>
+                <option value=''>Любой</option>
+                <option value='easy'>Матрасный</option>
+                <option value='steady'>Бодрый</option>
+                <option value='fast'>Интенсивный</option>
+            </select>
+        </div>
+        <div>
+            <label for='level'>Уровень подготовки</label>
+            <select id='level' name='level'>
+                <option value=''>Любой</option>
+                <option value='novice'>Новичок</option>
+                <option value='intermediate'>Средний</option>
+                <option value='advanced'>Продвинутый</option>
+            </select>
+        </div>
+        <button type='submit' style='grid-column: span 2; background: var(--primary); color: #fff; border: none; border-radius: 4px; padding: 0.75rem; font-size: 1rem; cursor: pointer;'>Найти</button>
+    </form>
+
+    <section class='ride-list' id='rideList'>
+        <!-- Пример карточки -->
+        <article class='ride-card'>
+            <div class='ride-image' style="background-image: url('https://placehold.co/600x400');"></div>
+            <div class='ride-body'>
+                <h2>Киев - Обухов панорама</h2>
+                <div class='ride-meta'>
+                    <div>Дата: 20.07.2025</div>
+                    <div>Дистанция: 80 км</div>
+                    <div>Тип: Шоссе</div>
+                    <div>Покрытие: Асфальт</div>
+                    <div>Темп: Бодрый</div>
+                </div>
+                <div class='weather'>
+                    <span>🌤️ 24 °C</span>
+                    <span>💨 5 м/с ЮЗ</span>
+                </div>
+                <p>Маршрут по живописной трассе вдоль Днепра с остановкой на кофе.</p>
+                <div class='ride-meta'>
+                    <div>Автор: Денис</div>
+                    <div>Участников: 4/10</div>
+                </div>
+                <div class='ride-buttons'>
+                    <a href='ride-detail.html'>Детали</a>
+                    <button aria-label='Сохранить покатушку'>☆ Сохранить</button>
+                </div>
+            </div>
+        </article>
+
+        <article class='ride-card past'>
+            <div class='ride-image' style="background-image: url('https://placehold.co/600x400?text=Past');"></div>
+            <div class='ride-body'>
+                <h2>Бровары лесные тропы</h2>
+                <div class='ride-meta'>
+                    <div>Дата: 05.07.2025</div>
+                    <div>Дистанция: 45 км</div>
+                    <div>Тип: МТБ</div>
+                    <div>Покрытие: Грунты</div>
+                    <div>Темп: Интенсивный</div>
+                </div>
+                <div class='weather'>
+                    <span>⛅ 22 °C</span>
+                    <span>💨 3 м/с С</span>
+                </div>
+                <p>Техничная трасса через сосновый лес и пески.</p>
+                <div class='ride-meta'>
+                    <div>Автор: Олег</div>
+                    <div>Участников: 6/8</div>
+                </div>
+                <div class='ride-buttons'>
+                    <a href='ride-detail.html'>Детали</a>
+                    <button aria-label='Сохранить покатушку'>☆ Сохранить</button>
+                </div>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 RideMate. All rights reserved.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.filter-shortcuts button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const today = new Date();
+      if (btn.dataset.shortcut === 'today') {
+        document.getElementById('dateFrom').value = today.toISOString().split('T')[0];
+        document.getElementById('dateTo').value = today.toISOString().split('T')[0];
+      }
+      if (btn.dataset.shortcut === 'weekend') {
+        const day = today.getDay();
+        const saturdayOffset = (6 - day + 7) % 7;
+        const sundayOffset = (7 - day + 7) % 7;
+        const saturday = new Date(today);
+        saturday.setDate(today.getDate() + saturdayOffset);
+        const sunday = new Date(today);
+        sunday.setDate(today.getDate() + sundayOffset);
+        document.getElementById('dateFrom').value = saturday.toISOString().split('T')[0];
+        document.getElementById('dateTo').value = sunday.toISOString().split('T')[0];
+      }
+    });
+  });
+</script>
+</body>
+</html>

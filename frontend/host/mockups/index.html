@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Explore Rides</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Mapbox GL JS -->
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.css" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.js"></script>
+</head>
+
+<body class="h-full bg-gray-950 text-gray-100">
+<!-- Hero search -->
+<header class="relative h-60 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1508814480153-92fc2d79a5e6?auto=format&fit=crop&w=1400&q=80');">
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <div class="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+        <h1 class="mb-4 text-3xl font-bold lg:text-4xl">Find your next ride</h1>
+
+        <!-- Search bar -->
+        <form id="search-form" class="flex w-full max-w-3xl flex-wrap gap-3">
+            <input type="text" placeholder="Location" class="flex-1 rounded-md bg-gray-800 px-3 py-2 text-sm placeholder-gray-400 focus:outline-none" />
+            <input type="date" class="rounded-md bg-gray-800 px-3 py-2 text-sm focus:outline-none" />
+            <label class="flex items-center gap-2 text-sm">
+                <input type="checkbox" class="h-4 w-4 accent-lime-500" />
+                today only
+            </label>
+            <button type="submit" class="rounded-md bg-lime-500 px-4 py-2 font-semibold text-gray-900 hover:bg-lime-600 transition">Search</button>
+        </form>
+    </div>
+</header>
+
+<!-- Main layout -->
+<main class="flex h-[calc(100%-15rem)] flex-col lg:flex-row">
+    <!-- Filters & list -->
+    <section class="w-full lg:w-96 flex flex-col border-r border-gray-800">
+        <!-- Filters -->
+        <div class="bg-gray-900 p-4 flex flex-wrap gap-2 text-sm">
+            <select id="distance-filter" class="flex-1 rounded bg-gray-800 py-2 px-3 focus:outline-none">
+                <option value="">Any distance</option>
+                <option value="30">0-30 km</option>
+                <option value="60">30-60 km</option>
+                <option value="100">60+ km</option>
+            </select>
+            <select id="speed-filter" class="flex-1 rounded bg-gray-800 py-2 px-3 focus:outline-none">
+                <option value="">Any pace</option>
+                <option value="20">up to 20 km/h</option>
+                <option value="28">20-28 km/h</option>
+                <option value="29">28+ km/h</option>
+            </select>
+            <button id="reset-btn" class="rounded bg-gray-800 py-2 px-3 hover:bg-gray-700">reset</button>
+        </div>
+
+        <!-- Ride cards list -->
+        <div id="cards" class="flex-1 overflow-y-auto divide-y divide-gray-800">
+            <!-- Card template -->
+            <article data-id="1" class="cursor-pointer p-4 hover:bg-gray-800 transition">
+                <h2 class="text-lg font-semibold">Sunrise Gravel Loop</h2>
+                <p class="mt-1 text-sm text-gray-400">Sat 19 Jul·75 km·26 km/h·gravel 30 %</p>
+                <div class="mt-2 flex -space-x-2">
+                    <img src="https://i.pravatar.cc/32?u=1" class="h-8 w-8 rounded-full border-2 border-gray-950" alt="Alex" />
+                    <img src="https://i.pravatar.cc/32?u=2" class="h-8 w-8 rounded-full border-2 border-gray-950" alt="Julia" />
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-800 text-xs">+5</span>
+                </div>
+            </article>
+
+            <!-- Duplicate the card above with other dummy rides or render dynamically -->
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section class="flex-1 relative">
+        <div id="explore-map" class="absolute inset-0"></div>
+    </section>
+</main>
+
+<!-- Scripts -->
+<script>
+  mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN';
+
+  const map = new mapboxgl.Map({
+    container: 'explore-map',
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: [30.52, 50.45],
+    zoom: 9
+  });
+
+  /* Dummy ride data */
+  const rides = [
+    { id: 1, name: 'Sunrise Gravel Loop', coords: [30.52, 50.45], distance: 75, speed: 26 },
+    { id: 2, name: 'City Lights Spin', coords: [30.6, 50.45], distance: 40, speed: 22 },
+    { id: 3, name: 'Century Challenge', coords: [30.3, 50.4], distance: 120, speed: 29 }
+  ];
+
+  /* Markers */
+  const markers = {};
+  rides.forEach(ride => {
+    const el = document.createElement('div');
+    el.className = 'rounded-full bg-lime-500 w-3.5 h-3.5';
+    markers[ride.id] = new mapboxgl.Marker(el).setLngLat(ride.coords).addTo(map);
+  });
+
+  /* Highlight marker on card hover */
+  document.getElementById('cards').addEventListener('mouseover', e => {
+    const article = e.target.closest('article');
+    if (!article) return;
+    const id = article.dataset.id;
+    const marker = markers[id];
+    if (marker) marker.getElement().classList.add('scale-150');
+  });
+  document.getElementById('cards').addEventListener('mouseout', e => {
+    const article = e.target.closest('article');
+    if (!article) return;
+    const id = article.dataset.id;
+    const marker = markers[id];
+    if (marker) marker.getElement().classList.remove('scale-150');
+  });
+
+  /* Simple filters */
+  const cardsContainer = document.getElementById('cards');
+  function applyFilters() {
+    const dist = parseInt(document.getElementById('distance-filter').value || 0, 10);
+    const speed = parseInt(document.getElementById('speed-filter').value || 0, 10);
+
+    Array.from(cardsContainer.children).forEach(card => {
+      const ride = rides.find(r => r.id === parseInt(card.dataset.id, 10));
+      let visible = true;
+      if (dist && ride.distance > dist) visible = false;
+      if (speed && ride.speed < speed) visible = false;
+      card.style.display = visible ? '' : 'none';
+      markers[ride.id].getElement().style.display = visible ? '' : 'none';
+    });
+  }
+  document.getElementById('distance-filter').addEventListener('change', applyFilters);
+  document.getElementById('speed-filter').addEventListener('change', applyFilters);
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    document.getElementById('distance-filter').value = '';
+    document.getElementById('speed-filter').value = '';
+    applyFilters();
+  });
+</script>
+</body>
+</html>
