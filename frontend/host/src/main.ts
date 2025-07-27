@@ -12,6 +12,7 @@ app.use(createPinia())
 app.use(router)
 
 import('ui/install').then(({ install }) => {
+  console.log(install);
   if (install) {
     install(app)
   } else {

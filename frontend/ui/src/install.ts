@@ -9,7 +9,9 @@ import {
   UiFlex
 } from "./index.ts";
 
-export function install(app: any) {
+import './assets/css/tailwind.css';
+
+export async function install(app: any) {
   console.log('UI Components registered');
   app.use(PrimeVue, {
     theme: {

@@ -1,15 +1,15 @@
 <script setup>
-import {defineAsyncComponent} from "vue";
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router'
+import AppNavbar from "@/components/AppNavbar.vue";
+import AppContainer from "@/components/AppContainer.vue";
 
-const WidgetNavbar = defineAsyncComponent(() => import('navbar/WidgetNavbar'))
 </script>
 
 <template>
-  <WidgetNavbar />
-  <RouterView />
-  <UiTextField />
+  <AppNavbar />
+  <AppContainer>
+    <RouterView />
+  </AppContainer>
 </template>
 
 <style scoped>

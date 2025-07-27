@@ -1,13 +1,11 @@
 <script setup lang="ts">
-defineProps<{
-  msg: string
-}>()
+
 </script>
 
 <template>
-  <div class="greetings">
-    Hello world
-  </div>
+  <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <slot />
+  </main>
 </template>
 
 <style scoped>

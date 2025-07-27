@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-    <script>
-      window.global = window;
-      /*
-        This "fix" is needed to avoid the __VUE_HMR_RUNTIME__  error
-        It brings you back to the days of autoreload browser extensions 👨‍🦳
-        TODO: Remove when this issue is fixed https://github.com/storybookjs/storybook/issues/31010
-      */
-      window.__VUE_HMR_RUNTIME__ = {
-        createRecord: () => {},
-        reload: () => {
-          window.location.reload()
-        },
-        rerender: () => {
-          console.log('Rerendering due to HMR update...')
-          window.location.reload()
-        },
-      }
-    </script>
-  </body>
+    <title>Навигационное меню</title>
+    <!-- Подключение Tailwind CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Подключение шрифта Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Применение шрифта Inter ко всему документу */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<!-- Начало навигационного меню -->
+<div id="app"></div>
+<!-- Пример контента страницы для демонстрации -->
+
+<!-- Конец навигационного меню -->
+
+<script type="module" src="/src/main.ts"></script>
+<script>
+  window.global = window;
+  /*
+    This "fix" is needed to avoid the __VUE_HMR_RUNTIME__  error
+    It brings you back to the days of autoreload browser extensions 👨‍🦳
+    TODO: Remove when this issue is fixed https://github.com/storybookjs/storybook/issues/31010
+  */
+  window.__VUE_HMR_RUNTIME__ = {
+    createRecord: () => {
+    },
+    reload: () => {
+      window.location.reload()
+    },
+    rerender: () => {
+      console.log('Rerendering due to HMR update...')
+      window.location.reload()
+    },
+  }
+</script>
+</body>
 </html>

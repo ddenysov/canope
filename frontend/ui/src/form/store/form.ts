@@ -151,10 +151,10 @@ export const useFormStore = defineStore('form', {
         console.log('POST');
         const res = await client.post(action, values);
         console.log('BACKEND RES');
-        const json = await res.json();
+        const json = await res?.json();
         console.log(json);
 
-        if (!res.ok) {
+        if (!res?.ok) {
           console.log('NOT OK');
           Object.entries(json.errors).forEach((e: any) => {
             console.log('EEEE');
