@@ -6,7 +6,7 @@ import AppContainer from "@/components/AppContainer.vue";
 </script>
 
 <template>
-  <AppNavbar />
+  <UiNavbar />
   <AppContainer>
     <RouterView />
   </AppContainer>

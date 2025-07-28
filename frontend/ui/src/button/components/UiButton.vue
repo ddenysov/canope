@@ -7,6 +7,7 @@ const props = defineProps<UiButtonProps>()
 
 <template>
   <Button
+    severity="warn"
     :label="label"
     :disabled="disabled"
   />

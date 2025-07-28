@@ -1,5 +1,6 @@
 <template>
-  ololo
+  <UiButton label="ololo" />
+  <UiButton label="trololo" />
 </template>
 
 <script setup lang="ts">

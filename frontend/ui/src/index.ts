@@ -12,6 +12,11 @@ import UiIdentity from "./form/components/UiIdentity.vue";
 import UiSubmitButton from "./form/components/UiSubmitButton.vue";
 
 /**
+ * Navbar
+ */
+import UiNavbar from "./navbar/UiNavbar.vue";
+
+/**
  * Flexbox
  */
 import UiFlex from "./flex/components/UiFlex.vue";
@@ -24,5 +29,6 @@ export {
   UiIdentity,
   UiSubmitButton,
   UiFlex,
+  UiNavbar,
   install,
 };
