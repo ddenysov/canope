@@ -48,12 +48,10 @@ const props = defineProps<{
 //const router = useRouter();
 
 function navigate(path: string) {
-  router.push(path);
 }
 
 function logout() {
   // TODO: implement real logout logic
-  router.push('/');
 }
 </script>
 

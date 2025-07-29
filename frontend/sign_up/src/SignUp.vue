@@ -75,15 +75,37 @@
       />
     </div>
 
-    <UiButton label="ololo" />
-    <UiTextField
-      name="name"
-      label="Імя"
-    />
+
     <!-- Form side -->
     <div class="form-wrapper">
       <h2 class="form-title">Create your account</h2>
 
+      <UiForm name="sign_up">
+        <UiIdentity
+          name="id"
+        />
+        <UiTextField
+          name="name"
+          label="Імя"
+        />
+        <UiTextField
+          name="email"
+          label="Електронна пошта"
+          :validation="{ required: true, email: true }"
+        />
+        <UiTextField
+          name="password"
+          label="Пароль"
+        />
+        <UiTextField
+          name="password_confirm"
+          label="Підтвердження паролю"
+        />
+        <UiSubmitButton
+          label="Реєстрація"
+          action="users.sign_up"
+        />
+      </UiForm>
     </div>
   </section>
 </template>

@@ -3,20 +3,10 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { federation } from '@module-federation/vite';
-import cssInject from 'vite-plugin-css-injected-by-js'
-import autoprefixer from 'autoprefixer'
-import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
-  css: {
-    postcss: {
-      plugins: [
-        autoprefixer(),
-      ]
-    }
-  },
   server: {
     port: 3001,
   },
@@ -24,19 +14,13 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     federation({
-      name: 'ui',
+      name: 'store',
       filename: 'remoteEntry.js',
       // Modules to expose
       exposes: {
-        './install': './src/install.ts',
+        './store': './src/store.ts',
       },
-      remotes: {
-        store: {
-          type: "module",
-          name: "store",
-          entry: "http://localhost:8100/store/remoteEntry.js",
-        },
-      },
+      remotes: {},
       shared: {
         vue: {
           singleton: true,
@@ -46,13 +30,11 @@ export default defineConfig({
         },
       },
     }),
-    tailwindcss(),
-    cssInject(),
   ],
   build:{
     minify:false,
     target: ["esnext"],
-    outDir: '../static/dist/ui',
+    outDir: '../static/dist/store',
     emptyOutDir: true,
     cssCodeSplit: false,
     rollupOptions: {

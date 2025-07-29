@@ -2,7 +2,9 @@ import * as yup from 'yup'
 import { useStringRules } from './rules'
 const stringRules = useStringRules();
 export const useCreateYupSchema = (schema: any) => {
+
   const yupSchema: any = {};
+  console.log(schema)
   for (const key in schema) {
     const field = schema[key];
 
@@ -22,5 +24,7 @@ export const useCreateYupSchema = (schema: any) => {
     yupSchema[key] = validator;
   }
 
-  return yup.object().shape(yupSchema);
+  console.log(yup);
+
+  //return yup.object().shape(yupSchema);
 }

@@ -28,6 +28,11 @@ export default defineConfig({
           name: "ui",
           entry: "http://localhost:8100/ui/remoteEntry.js",
         },
+        store: {
+          type: "module",
+          name: "store",
+          entry: "http://localhost:8100/store/remoteEntry.js",
+        },
         sign_up: {
           type: "module",
           name: "sign_up",
