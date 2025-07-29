@@ -8,6 +8,7 @@ import {
   UiIdentity,
   UiFlex,
   UiNavbar,
+  UiContainer,
 } from "./index.ts";
 
 import './assets/css/tailwind.css';
@@ -18,7 +19,10 @@ export async function install(app: any) {
   console.log('UI Components registered');
   app.use(PrimeVue, {
     theme: {
-      preset: Aura
+      preset: Aura,
+      options: {
+        darkModeSelector: '.my-app-dark',
+      }
     }
   });
   app.component('UiForm', UiForm);
@@ -28,4 +32,5 @@ export async function install(app: any) {
   app.component('UiIdentity', UiIdentity);
   app.component('UiFlex', UiFlex);
   app.component('UiNavbar', UiNavbar);
+  app.component('UiContainer', UiContainer);
 }

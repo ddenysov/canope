@@ -7,5 +7,6 @@ declare module 'vue' {
     // Замените 'путь/к/вашему/компоненту.vue' на реальный путь в node_modules
     UiNavbar: typeof UiLibrary.UiNavbar,
     UiButton: typeof UiLibrary.UiButton,
+    UiContainer: typeof UiLibrary.UiContainer,
   }
 }

@@ -1,6 +1,5 @@
 <template>
-  <UiButton label="ololo" />
-  <UiButton label="trololo" />
+  <div>Список покатушек</div>
 </template>
 
 <script setup lang="ts">

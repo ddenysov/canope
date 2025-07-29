@@ -1,15 +1,19 @@
 <script setup>
-import { RouterView } from 'vue-router'
-import AppNavbar from "@/components/AppNavbar.vue";
-import AppContainer from "@/components/AppContainer.vue";
-
+import { RouterView, useRouter } from 'vue-router';
+const router = useRouter();
 </script>
 
 <template>
-  <UiNavbar />
-  <AppContainer>
+  <UiNavbar>
+    <template #end>
+      <UiButton :text="true" label="Покатушки" />
+      <UiButton :text="true" label="Увійти" />
+      <UiButton @click="() => { router.push('sign_up') }" label="Реєстрація" />
+    </template>
+  </UiNavbar>
+  <UiContainer>
     <RouterView />
-  </AppContainer>
+  </UiContainer>
 </template>
 
 <style scoped>

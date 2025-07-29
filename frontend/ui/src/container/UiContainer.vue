@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <main class="bg-white max-w-7xl mx-auto py-4 px-4">
     <slot />
   </main>
 </template>
