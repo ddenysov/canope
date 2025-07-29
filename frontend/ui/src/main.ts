@@ -6,6 +6,5 @@ import './assets/css/tailwind.css'
 
 const app = createApp(App)
 
-app.use(createPinia())
 install(app);
 app.mount('#app')

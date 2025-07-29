@@ -1,6 +1,9 @@
 <script setup>
 import { RouterView, useRouter } from 'vue-router';
 const router = useRouter();
+
+import { getActivePinia } from 'pinia'
+console.log('active pinia?', getActivePinia())
 </script>
 
 <template>

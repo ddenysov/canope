@@ -1,5 +1,10 @@
 <template>
   <div>Список покатушек</div>
+
+  <UiTextField
+    name="name"
+    label="Імя"
+  />
 </template>
 
 <script setup lang="ts">

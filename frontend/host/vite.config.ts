@@ -38,6 +38,11 @@ export default defineConfig({
       shared: {
         vue: {
           singleton: true,
+          eager: true
+        },
+        pinia: {
+          singleton: true,
+          eager: true,
         },
         tailwindcss: {
           singleton: true,

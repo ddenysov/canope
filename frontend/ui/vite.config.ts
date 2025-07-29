@@ -35,6 +35,9 @@ export default defineConfig({
         vue: {
           singleton: true,
         },
+        pinia: {
+          singleton: true,
+        },
       },
     }),
     tailwindcss(),

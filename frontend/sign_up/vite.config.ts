@@ -22,11 +22,24 @@ export default defineConfig({
       name: 'sign_up',
       filename: 'remoteEntry.js',
       // Modules to expose
+      remotes: {
+        ui: {
+          type: "module",
+          name: "ui",
+          entry: "http://localhost:8100/ui/remoteEntry.js",
+        },
+      },
       exposes: {
         './SignUp': './src/SignUp.vue',
       },
       shared: {
         vue: {
+          singleton: true,
+        },
+        tailwindcss: {
+          singleton: true,
+        },
+        pinia: {
           singleton: true,
         },
       },
