@@ -1,5 +1,5 @@
 <template>
-  <UiContainer>
+  <UiContainer layout="default">
     <div>Список покатушек</div>
 
     <UiTextField
