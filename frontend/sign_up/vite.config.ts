@@ -31,6 +31,7 @@ export default defineConfig({
       },
       exposes: {
         './SignUp': './src/SignUp.vue',
+        './SignIn': './src/SignIn.vue',
       },
       shared: {
         vue: {

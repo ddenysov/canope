@@ -17,9 +17,17 @@ import UiSubmitButton from "./form/components/UiSubmitButton.vue";
 import UiNavbar from "./navbar/UiNavbar.vue";
 
 /**
- * Container
+ * Layout
  */
-import UiContainer from "./container/components/UiContainer.vue";
+import UiContainer from "./layout/components/UiContainer.vue";
+import UiStack from "./layout/components/UiStack.vue";
+import UiInline from "./layout/components/UiInline.vue";
+import UiFill from "./layout/components/UiFill.vue";
+
+/**
+ * Panel
+ */
+import UiPanel from "./panel/components/UiPanel.vue";
 
 /**
  * Flexbox
@@ -36,5 +44,9 @@ export {
   UiFlex,
   UiNavbar,
   UiContainer,
+  UiPanel,
+  UiStack,
+  UiInline,
+  UiFill,
   install,
 };

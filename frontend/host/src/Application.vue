@@ -13,8 +13,8 @@ console.log('active pinia?', getActivePinia())
     <UiNavbar>
       <template #end>
         <UiButton @click="() => { router.push({ name: 'home' }) }" :text="true" label="Покатушки" />
-        <UiButton :text="true" label="Увійти" />
-        <UiButton @click="() => { router.push('sign_up') }" label="Реєстрація" />
+        <UiButton @click="() => { router.push({ name: 'sign_in' }) }" :text="true" label="Увійти" />
+        <UiButton @click="() => { router.push({ name: 'sign_up' }) }" label="Реєстрація" />
       </template>
     </UiNavbar>
     <RouterView />

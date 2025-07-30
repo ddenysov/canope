@@ -1,11 +1,11 @@
 <script setup>
 import {defineAsyncComponent} from "vue";
 
-const SignUp = defineAsyncComponent(() => import('sign_up/SignUp'))
+const SignIn = defineAsyncComponent(() => import('sign_up/SignIn'))
 </script>
 
 <template>
     <UiFill center="both">
-      <SignUp />
+      <SignIn />
     </UiFill>
 </template>

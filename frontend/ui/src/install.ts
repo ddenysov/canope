@@ -8,7 +8,11 @@ import {
   UiIdentity,
   UiFlex,
   UiNavbar,
+  UiPanel,
+  UiStack,
+  UiInline,
   UiContainer,
+  UiFill,
 } from "./index.ts";
 
 import './assets/css/tailwind.css';
@@ -33,4 +37,8 @@ export async function install(app: any) {
   app.component('UiFlex', UiFlex);
   app.component('UiNavbar', UiNavbar);
   app.component('UiContainer', UiContainer);
+  app.component('UiPanel', UiPanel);
+  app.component('UiStack', UiStack);
+  app.component('UiInline', UiInline);
+  app.component('UiFill', UiFill);
 }
