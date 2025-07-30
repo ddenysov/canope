@@ -19,7 +19,7 @@ import UiNavbar from "./navbar/UiNavbar.vue";
 /**
  * Container
  */
-import UiContainer from "./container/UiContainer.vue";
+import UiContainer from "./container/components/UiContainer.vue";
 
 /**
  * Flexbox

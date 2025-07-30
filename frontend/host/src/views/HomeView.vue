@@ -1,10 +1,12 @@
 <template>
-  <div>Список покатушек</div>
+  <UiContainer>
+    <div>Список покатушек</div>
 
-  <UiTextField
-    name="name"
-    label="Імя"
-  />
+    <UiTextField
+      name="name"
+      label="Імя"
+    />
+  </UiContainer>
 </template>
 
 <script setup lang="ts">

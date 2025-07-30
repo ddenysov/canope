@@ -1,22 +1,24 @@
 <script setup>
-import { RouterView, useRouter } from 'vue-router';
+import {RouterView, useRouter} from 'vue-router';
+
 const router = useRouter();
 
-import { getActivePinia } from 'pinia'
+import {getActivePinia} from 'pinia'
+
 console.log('active pinia?', getActivePinia())
 </script>
 
 <template>
-  <UiNavbar>
-    <template #end>
-      <UiButton :text="true" label="Покатушки" />
-      <UiButton :text="true" label="Увійти" />
-      <UiButton @click="() => { router.push('sign_up') }" label="Реєстрація" />
-    </template>
-  </UiNavbar>
-  <UiContainer>
+  <div class="flex flex-col h-screen">
+    <UiNavbar>
+      <template #end>
+        <UiButton @click="() => { router.push({ name: 'home' }) }" :text="true" label="Покатушки" />
+        <UiButton :text="true" label="Увійти" />
+        <UiButton @click="() => { router.push('sign_up') }" label="Реєстрація" />
+      </template>
+    </UiNavbar>
     <RouterView />
-  </UiContainer>
+  </div>
 </template>
 
 <style scoped>

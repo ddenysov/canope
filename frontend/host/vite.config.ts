@@ -49,9 +49,6 @@ export default defineConfig({
           singleton: true,
           eager: true,
         },
-        tailwindcss: {
-          singleton: true,
-        },
         'vue-router': { singleton: true },
       },
     }),

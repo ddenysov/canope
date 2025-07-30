@@ -29,10 +29,6 @@
 
 <script setup lang="ts">
 import Toolbar from 'primevue/toolbar';
-import Button from 'primevue/button';
-import Avatar from 'primevue/avatar';
-import UiContainer from "@/container/UiContainer.vue";
-//import { useRouter } from 'vue-router';
 
 /**
  * NavigationBar.vue - logged-in and guest versions handled via isAuthenticated prop.
